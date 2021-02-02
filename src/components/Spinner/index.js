@@ -8,7 +8,7 @@ export default function Spinner() {
     <LoadingOutlined
       style={{
         fontSize: 24,
-        color: Colors.black,
+        color: Colors.white,
       }}
       spin
     />
