@@ -7,7 +7,6 @@ export const Container = styled.div`
   flex-direction: column;
   justify-content: start;
   font-family: ${tipography.Roboto};
-  padding: 20px 40px;
   & > h1 {
     margin: 20px 0;
     font-size: 22px;
@@ -16,10 +15,15 @@ export const Container = styled.div`
 
 export const CardsList = styled.ul`
   display: flex;
+  justify-content: space-between;
   & > div {
     margin: 0 20px;
   }
   & :first-child {
     margin-left: 0;
+  }
+
+  & :last-child {
+    margin-right: 0;
   }
 `;
