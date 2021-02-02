@@ -9,7 +9,8 @@ export default function Home() {
     <Container>
       <Header />
       <WelcomeBanner />
-      <CardsSession />
+      <CardsSession title="Meus cursos em andamento" />
+      <CardsSession title="Experimente nossos outros cursos" />
     </Container>
   );
 }

@@ -7,7 +7,7 @@ export const Card = styled.div`
   width: 192px;
   border-radius: 20px;
   overflow: hidden;
-  box-shadow: 0px 0px 5px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.1);
   font-family: ${tipography.Roboto};
 `;
 
