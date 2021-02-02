@@ -7,4 +7,4 @@ export const Container = styled.body`
   align-items: center;
 `;
 
-export const zap = 0;
+export const temp = 0;
