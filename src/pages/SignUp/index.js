@@ -1,32 +1,45 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import InitialBackground from "../../components/InitialBackground";
 import Logo from "../../components/Logo";
 import Forms from "./styles";
 import Input from "../../components/Input";
 import Button from "../../components/Button";
+import SignUpService from "../../services/SignUpService";
 
 export default function SingUp() {
   const [name, setName] = useState();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
-  const [confirmPassword, setConfirmPassword] = useState();
+  const [passwordConfirmation, setPasswordConfirmation] = useState();
   const [disableButton, setDisableButton] = useState(true);
   const [loadingButton, setLoadingButton] = useState(false);
+  const history = useHistory();
 
   useEffect(() => {
-    const correctPassword = password === confirmPassword;
+    const correctPassword = password === passwordConfirmation;
     if (correctPassword && name && email && password) {
       setDisableButton(false);
     } else {
       setDisableButton(true);
     }
-  }, [name, email, password, confirmPassword]);
+  }, [name, email, password, passwordConfirmation]);
 
   function createUser(e) {
     e.preventDefault();
 
+    setDisableButton(true);
     setLoadingButton(true);
+
+    const body = { name, email, password, passwordConfirmation };
+    const data = SignUpService.signUp(body);
+    if (data.sucess) {
+      history.push("/");
+    } else {
+      setDisableButton(false);
+      setLoadingButton(false);
+      alert("Erro ao criar conta.");
+    }
   }
 
   return (
@@ -54,8 +67,8 @@ export default function SingUp() {
         <Input
           type="password"
           placeHolder="repetir senha"
-          value={confirmPassword}
-          onChange={(e) => setConfirmPassword(e.target.value)}
+          value={passwordConfirmation}
+          onChange={(e) => setPasswordConfirmation(e.target.value)}
         />
         <Button
           disabled={disableButton}
