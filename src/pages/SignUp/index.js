@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 import React, { useState, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import InitialBackground from "../../components/InitialBackground";
@@ -17,29 +18,39 @@ export default function SignUp() {
   const history = useHistory();
 
   useEffect(() => {
-    const correctPassword = password === passwordConfirmation;
-    if (correctPassword && name && email && password) {
+    if (name && email && password && passwordConfirmation) {
       setDisableButton(false);
     } else {
       setDisableButton(true);
     }
   }, [name, email, password, passwordConfirmation]);
 
-  function createUser(e) {
+  async function createUser(e) {
     e.preventDefault();
+
+    if (password !== passwordConfirmation) {
+      alert("Senhas não batem, verifique o valor digitado.");
+      return;
+    }
 
     setDisableButton(true);
     setLoadingButton(true);
 
     const body = { name, email, password, passwordConfirmation };
-    const data = SignUpService.signUp(body);
-    if (data.sucess) {
+    const data = await SignUpService.signUp(body);
+    console.log(data);
+    if (data.success) {
+      alert("Usuário registrado com sucesso!");
       history.push("/");
+    } else if (data.response.status === 422) {
+      alert("Dados inválidos.");
+    } else if (data.response.status === 409) {
+      alert("E-mail já cadastrado.");
     } else {
-      setDisableButton(false);
-      setLoadingButton(false);
-      alert("Erro ao criar conta.");
+      alert("Erro no servidor, por favor tente novamente mais tarde.");
     }
+    setDisableButton(false);
+    setLoadingButton(false);
   }
 
   return (
