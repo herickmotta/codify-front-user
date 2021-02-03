@@ -8,6 +8,8 @@ import SignUp from "./pages/SignUp";
 import SignIn from "./pages/SignIn";
 import Home from "./pages/Home";
 import Course from "./pages/Course";
+import UserProfile from "./pages/UserProfile";
+import Courses from "./pages/Courses";
 
 const App = () => (
   <UserProvider>
@@ -18,6 +20,8 @@ const App = () => (
         <Route exact path="/" component={SignIn} />
         <Route exact path="/signUp" component={SignUp} />
         <Route exact path="/home" component={Home} />
+        <Route exact path="/courses" component={Courses} />
+        <Route exact path="/profile" component={UserProfile} />
         <Route exact path="/courses/:id" component={Course} />
       </Switch>
     </Router>
