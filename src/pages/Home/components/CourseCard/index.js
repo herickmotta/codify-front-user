@@ -1,16 +1,16 @@
 import React from "react";
 import { Card, ImageBox, DescriptionBox } from "./styles";
 
-export default function CourseCard() {
+export default function CourseCard({ name, description, photo }) {
   return (
     <Card>
       <ImageBox>
-        <img src="/images/courseimg.png" alt="" />
+        <img src={photo} alt="" />
       </ImageBox>
 
       <DescriptionBox>
-        <h1>JavaScript do zero!</h1>
-        <p> Aprenda JavaScript do zero ao avançado, com muita prática!</p>
+        <h1>{name}</h1>
+        <p> {description} </p>
       </DescriptionBox>
     </Card>
   );

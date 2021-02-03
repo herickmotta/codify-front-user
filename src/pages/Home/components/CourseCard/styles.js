@@ -14,8 +14,12 @@ export const Card = styled.div`
 export const ImageBox = styled.div`
   height: 50%;
   width: 100%;
+  object-fit: fill;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   img {
-    max-width: 100%;
+    max-width: 120%;
     max-height: 100%;
   }
 `;

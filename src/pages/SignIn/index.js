@@ -1,30 +1,28 @@
-/* eslint-disable no-alert */
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Link, useHistory } from "react-router-dom";
+import UserContext from "../../contexts/UserContext";
 import InitialBackground from "../../components/InitialBackground";
 import Logo from "../../components/Logo";
 import FormsContainer from "../../components/FormsContainer";
 import Input from "../../components/Input";
 import Button from "../../components/Button";
-import SignUpService from "../../services/SignUpService";
+import SignInService from "../../services/SignInService";
 
-export default function SignUp() {
-  const [name, setName] = useState();
+export default function SignIn() {
+  const { setUser } = useContext(UserContext);
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
-  const [passwordConfirmation, setPasswordConfirmation] = useState();
   const [disableButton, setDisableButton] = useState(true);
   const [loadingButton, setLoadingButton] = useState(false);
   const history = useHistory();
 
   useEffect(() => {
-    const correctPassword = password === passwordConfirmation;
-    if (correctPassword && name && email && password) {
+    if (email && password) {
       setDisableButton(false);
     } else {
       setDisableButton(true);
     }
-  }, [name, email, password, passwordConfirmation]);
+  }, [email, password]);
 
   function createUser(e) {
     e.preventDefault();
@@ -32,14 +30,15 @@ export default function SignUp() {
     setDisableButton(true);
     setLoadingButton(true);
 
-    const body = { name, email, password, passwordConfirmation };
-    const data = SignUpService.signUp(body);
+    const body = { email, password };
+    const data = SignInService.signIn(body);
     if (data.sucess) {
-      history.push("/");
+      setUser(data.sucess);
+      history.push("/home");
     } else {
       setDisableButton(false);
       setLoadingButton(false);
-      alert("Erro ao criar conta.");
+      alert("Erro ao logar.");
     }
   }
 
@@ -47,12 +46,6 @@ export default function SignUp() {
     <InitialBackground>
       <Logo />
       <FormsContainer onSubmit={createUser}>
-        <Input
-          type="text"
-          placeHolder="nome completo"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
         <Input
           type="email"
           placeHolder="e-mail"
@@ -65,18 +58,12 @@ export default function SignUp() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <Input
-          type="password"
-          placeHolder="repetir senha"
-          value={passwordConfirmation}
-          onChange={(e) => setPasswordConfirmation(e.target.value)}
-        />
         <Button
           disabled={disableButton}
           loading={loadingButton}
-          text="cadastrar"
+          text="entrar"
         />
-        <Link to="/">Ja tem conta? Faca login</Link>
+        <Link to="/signup">Primeira vez? Crie uma conta!</Link>
         <Link to="/recoverPassword">Esqueceu sua senha?</Link>
       </FormsContainer>
     </InitialBackground>
