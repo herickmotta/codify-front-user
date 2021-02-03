@@ -1,15 +1,15 @@
 import styled from "styled-components";
 import colors from "../../../../config/colors";
-import tipography from "../../../../config/typography";
+import typography from "../../../../config/typography";
 
 export const Snippet = styled.div`
   height: 120px;
-  width: 100%;
+  width: 656px;
   border-radius: 20px;
   overflow: hidden;
   display: flex;
   box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.1);
-  font-family: ${tipography.Roboto};
+  font-family: ${typography.Roboto};
 `;
 
 export const ImageBox = styled.div`
@@ -42,4 +42,16 @@ export const DescriptionBox = styled.div`
   }
 `;
 
-export const ButtonBox = styled.div``;
+export const ButtonBox = styled.div`
+  width: 25%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding-right: 10px;
+  font-weight: bold;
+  button {
+    margin: 0;
+    padding: 10px;
+    font-size: 14px;
+  }
+`;

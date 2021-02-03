@@ -1,4 +1,5 @@
 import React from "react";
+import Button from "../../../../components/Button";
 import { Snippet, ImageBox, DescriptionBox, ButtonBox } from "./styles";
 
 export default function CourseSnippet() {
@@ -14,7 +15,9 @@ export default function CourseSnippet() {
         <div>Ver mais</div>
       </DescriptionBox>
 
-      <ButtonBox />
+      <ButtonBox>
+        <Button text="Continuar curso >>" />
+      </ButtonBox>
     </Snippet>
   );
 }

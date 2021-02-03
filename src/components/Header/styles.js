@@ -27,6 +27,7 @@ export const LogoBox = styled.div`
 `;
 
 export const Nav = styled.nav`
+  font-size: 22px;
   font-family: ${Tipografy.Roboto};
   display: flex;
   align-items: center;
