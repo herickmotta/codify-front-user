@@ -6,6 +6,8 @@ import GlobalStyle from "./assets/global/GlobalStyle";
 import { UserProvider } from "./contexts/UserContext";
 import SignUp from "./pages/SignUp";
 import SignIn from "./pages/SignIn";
+import Home from "./pages/Home";
+import Course from "./pages/Course";
 
 const App = () => (
   <UserProvider>
@@ -15,6 +17,8 @@ const App = () => (
       <Switch>
         <Route exact path="/" component={SignIn} />
         <Route exact path="/signUp" component={SignUp} />
+        <Route exact path="/home" component={Home} />
+        <Route exact path="/courses/:id" component={Course} />
       </Switch>
     </Router>
   </UserProvider>
