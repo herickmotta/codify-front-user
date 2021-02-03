@@ -2,7 +2,7 @@ import styled from "styled-components";
 import Tipografy from "../../config/typography";
 
 export const Container = styled.div`
-  width: 100vw;
+  width: 100%;
   height: 80px;
   display: flex;
   justify-content: space-between;
@@ -27,6 +27,7 @@ export const LogoBox = styled.div`
 `;
 
 export const Nav = styled.nav`
+  font-size: 22px;
   font-family: ${Tipografy.Roboto};
   display: flex;
   align-items: center;
