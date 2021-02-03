@@ -20,6 +20,7 @@ export const CointainerCourseText = styled.div`
   align-items: center;
   padding-top: 20px;
   padding-bottom: 80px;
+  position: relative;
 
   & > h1 {
     margin: 20px 0;
@@ -41,6 +42,8 @@ export const ContainerUserProgress = styled.div`
   border-radius: 5px;
   padding-top: 15px;
   padding-bottom: 15px;
+  position: absolute;
+  bottom: -50%;
 
   button {
     width: 120px;
