@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link, useHistory } from "react-router-dom";
+import UserContext from "../../contexts/UserContext";
 import { Container, LogoBox, Nav, AvatarBox, LeftBox } from "./styles";
 
 export default function Header() {
+  const { user } = useContext(UserContext);
   const history = useHistory();
-
   return (
     <Container>
       <LeftBox>
@@ -20,7 +21,7 @@ export default function Header() {
       </LeftBox>
 
       <AvatarBox>
-        <img src="https://avatars.githubusercontent.com/u/4390631" alt="" />
+        <img src={user.photo} alt="" />
       </AvatarBox>
     </Container>
   );
