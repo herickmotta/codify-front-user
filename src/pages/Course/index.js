@@ -10,6 +10,7 @@ import UserContext from "../../contexts/UserContext";
 import Header from "../../components/Header";
 import Button from "../../components/Button";
 import mockedCourses from "../../mock/mockedCourses";
+import CoursesService from "../../services/CoursesService";
 
 import {
   Container,
@@ -25,8 +26,19 @@ export default function Course() {
   const { user } = useContext(UserContext);
   const { id } = useParams();
 
+  function setData(courseData) {
+    setCourseName(courseData.name);
+    setCourseDescription(courseData.description);
+    setUserProgress(0);
+  }
+
   useEffect(() => {
-    // axios.get(`http://localhost:4000/api/v1/courses/${id}`);
+    // const data = await CoursesService.getById(id, user.token);
+    // if (data.success) {
+    //   setData(data.success);
+    // } else {
+    //   alert("Erro ao carregar o curso");
+    // }
     const courses = mockedCourses();
     const course = courses[id - 1];
     setCourseName(course.name);
@@ -54,7 +66,6 @@ export default function Course() {
                 now={userProgress}
                 label={`${userProgress}%`}
                 min={15}
-                max={100}
                 variant="success"
                 animated
               />
