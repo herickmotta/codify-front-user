@@ -5,7 +5,7 @@ import UserContext from "../../contexts/UserContext";
 import SignIn from "../SignIn";
 import { Container } from "./styles";
 
-export default function Course() {
+export default function Courses() {
   const history = useHistory();
   const { user } = useContext(UserContext);
   if (!user) {

@@ -1,8 +1,8 @@
 import styled from "styled-components";
-import colors from "../../config/colors";
-import typography from "../../config/typography";
+import colors from "../config/colors";
+import typography from "../config/typography";
 
-const Forms = styled.form`
+const FormsContainer = styled.form`
   width: 30%;
   border-radius: 10px;
   background-color: ${colors.white};
@@ -21,4 +21,4 @@ const Forms = styled.form`
   }
 `;
 
-export default Forms;
+export default FormsContainer;

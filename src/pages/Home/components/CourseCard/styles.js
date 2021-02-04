@@ -7,6 +7,9 @@ export const Card = styled.div`
   width: 192px;
   border-radius: 20px;
   overflow: hidden;
+  display: flex;
+  flex-wrap: wrap;
+  cursor: pointer;
   box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.1);
   font-family: ${tipography.Roboto};
 `;
@@ -14,9 +17,14 @@ export const Card = styled.div`
 export const ImageBox = styled.div`
   height: 50%;
   width: 100%;
+  object-fit: fill;
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
   img {
-    max-width: 100%;
-    max-height: 100%;
+    width: auto;
+    height: 100%;
   }
 `;
 
