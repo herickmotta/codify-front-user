@@ -1,16 +1,23 @@
 /* eslint-disable no-alert */
 import React, { useState, useEffect, useContext } from "react";
+import { useHistory } from "react-router-dom";
 import Header from "../../components/Header";
 import UserContext from "../../contexts/UserContext";
 import CoursesService from "../../services/CoursesService";
+import SignIn from "../SignIn";
 import CardsSection from "./components/CardsSection";
 import SnippetSection from "./components/SnippetSection";
 import WelcomeBanner from "./components/WelcomeBanner";
 import { Container, MainContent } from "./styles";
 
 export default function Home() {
+  const history = useHistory();
   const { user } = useContext(UserContext);
   const [courses, setCourses] = useState([{}]);
+  if (!user) {
+    history.push("/");
+    return <SignIn />;
+  }
   useEffect(async () => {
     const data = await CoursesService.getAll(user.token);
     if (data.success) {

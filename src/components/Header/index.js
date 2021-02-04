@@ -1,10 +1,8 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Link, useHistory } from "react-router-dom";
-import UserContext from "../../contexts/UserContext";
 import { Container, LogoBox, Nav, AvatarBox, LeftBox } from "./styles";
 
 export default function Header() {
-  const { user } = useContext(UserContext);
   const history = useHistory();
   return (
     <Container>
