@@ -1,13 +1,25 @@
-import React from "react";
+/* eslint-disable no-alert */
+import React, { useState, useEffect } from "react";
 import Header from "../../components/Header";
 import mockedCourses from "../../mock/mockedCourses";
+import CoursesService from "../../services/CoursesService";
 import CardsSession from "./components/CardsSession";
 import CourseSnippet from "./components/CourseSnippet";
 import WelcomeBanner from "./components/WelcomeBanner";
 import { Container, MainContent } from "./styles";
 
 export default function Home() {
-  const courses = mockedCourses();
+  const [courses, setCourses] = useState([{}]);
+
+  useEffect(() => {
+    const data = CoursesService.getAll();
+    if (data.sucess) {
+      setCourses(data.sucess);
+    } else {
+      alert("Erro ao carregar cursos");
+    }
+  }, []);
+
   return (
     <Container>
       <Header />
