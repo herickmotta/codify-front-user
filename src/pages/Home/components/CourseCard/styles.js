@@ -9,6 +9,7 @@ export const Card = styled.div`
   overflow: hidden;
   display: flex;
   flex-wrap: wrap;
+  cursor: pointer;
   box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.1);
   font-family: ${tipography.Roboto};
 `;
