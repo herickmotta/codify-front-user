@@ -13,7 +13,8 @@ import { Container, MainContent } from "./styles";
 export default function Home() {
   const history = useHistory();
   const { user } = useContext(UserContext);
-  const [courses, setCourses] = useState([{}]);
+  const [courses, setCourses] = useState([]);
+
   if (!user) {
     history.push("/");
     return <SignIn />;
@@ -33,16 +34,19 @@ export default function Home() {
       <WelcomeBanner />
       <MainContent>
         {courses.length > 0 && (
-          <SnippetSection
-            title="Continue seu curso atual"
-            course={courses[0]}
-          />
+          <>
+            <SnippetSection
+              title="Continue seu curso atual"
+              course={courses[0]}
+            />
+
+            <CardsSection title="Meus cursos em andamento" courses={courses} />
+            <CardsSection
+              title="Experimente nossos outros cursos"
+              courses={courses}
+            />
+          </>
         )}
-        <CardsSection title="Meus cursos em andamento" courses={courses} />
-        <CardsSection
-          title="Experimente nossos outros cursos"
-          courses={courses}
-        />
       </MainContent>
     </Container>
   );
