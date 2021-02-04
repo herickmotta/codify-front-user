@@ -3,8 +3,8 @@ import React, { useState, useEffect, useContext } from "react";
 import Header from "../../components/Header";
 import UserContext from "../../contexts/UserContext";
 import CoursesService from "../../services/CoursesService";
-import CardsSession from "./components/CardsSession";
-import CourseSnippet from "./components/CourseSnippet";
+import CardsSection from "./components/CardsSection";
+import SnippetSection from "./components/SnippetSection";
 import WelcomeBanner from "./components/WelcomeBanner";
 import { Container, MainContent } from "./styles";
 
@@ -25,9 +25,14 @@ export default function Home() {
       <Header />
       <WelcomeBanner />
       <MainContent>
-        {courses.length > 0 && <CourseSnippet course={courses[0]} />}
-        <CardsSession title="Meus cursos em andamento" courses={courses} />
-        <CardsSession
+        {courses.length > 0 && (
+          <SnippetSection
+            title="Continue seu curso atual"
+            course={courses[0]}
+          />
+        )}
+        <CardsSection title="Meus cursos em andamento" courses={courses} />
+        <CardsSection
           title="Experimente nossos outros cursos"
           courses={courses}
         />

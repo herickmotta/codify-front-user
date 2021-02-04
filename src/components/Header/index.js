@@ -21,7 +21,10 @@ export default function Header() {
       </LeftBox>
 
       <AvatarBox>
-        <img src={user.photo} alt="" />
+        <img
+          src="https://i1.wp.com/terracoeconomico.com.br/wp-content/uploads/2019/01/default-user-image.png?ssl=1"
+          alt=""
+        />
       </AvatarBox>
     </Container>
   );

@@ -3,7 +3,7 @@ import colors from "../../../../config/colors";
 import typography from "../../../../config/typography";
 
 export const Snippet = styled.div`
-  height: 120px;
+  height: 160px;
   width: 656px;
   border-radius: 20px;
   overflow: hidden;
@@ -16,14 +16,14 @@ export const Snippet = styled.div`
 export const ImageBox = styled.div`
   height: 100%;
   width: 30%;
-  object-fit: cover;
   overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
   img {
-    max-width: 110%;
-    max-height: 100%;
+    object-fit: contain;
+    width: auto;
+    height: 100%;
   }
 `;
 
@@ -40,7 +40,7 @@ export const DescriptionBox = styled.div`
   p {
     color: ${colors.gray};
   }
-  div {
+  a {
     color: ${colors.gray};
     font-weight: bold;
     font-size: 14px;
