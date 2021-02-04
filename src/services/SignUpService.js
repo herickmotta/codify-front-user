@@ -1,10 +1,10 @@
 /* eslint-disable class-methods-use-this */
 import api from "../config/api";
 
-class SignInService {
-  async signIn(userData) {
+class SignUpService {
+  async signUp(userData) {
     try {
-      const { data } = await api.post(`/users/signin`, userData);
+      const { data } = await api.post(`/users/signup`, userData);
       if (data) {
         return { success: data };
       }
@@ -15,4 +15,4 @@ class SignInService {
   }
 }
 
-export default new SignInService();
+export default new SignUpService();

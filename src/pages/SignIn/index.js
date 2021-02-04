@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 import React, { useState, useEffect, useContext } from "react";
 import { Link, useHistory } from "react-router-dom";
 import UserContext from "../../contexts/UserContext";
@@ -24,22 +25,27 @@ export default function SignIn() {
     }
   }, [email, password]);
 
-  function createUser(e) {
+  async function createUser(e) {
     e.preventDefault();
 
     setDisableButton(true);
     setLoadingButton(true);
 
     const body = { email, password };
-    const data = SignInService.signIn(body);
-    if (data.sucess) {
-      setUser(data.sucess);
+    const data = await SignInService.signIn(body);
+
+    if (data.success) {
+      setUser(data.success);
       history.push("/home");
+    } else if (data.response.status === 422) {
+      alert("Dados inválidos.");
+    } else if (data.response.status === 404) {
+      alert("E-mail ou senha incorretos.");
     } else {
-      setDisableButton(false);
-      setLoadingButton(false);
-      alert("Erro ao logar.");
+      alert("Erro no servidor, por favor tente novamente mais tarde.");
     }
+    setDisableButton(false);
+    setLoadingButton(false);
   }
 
   return (
