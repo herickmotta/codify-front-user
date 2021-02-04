@@ -10,7 +10,6 @@ const Container = styled.input`
   padding: 14px 21px;
   border: 1px solid ${colors.lightGray};
   border-radius: 6px;
-  margin-bottom: 12px;
 `;
 
 export default Container;
