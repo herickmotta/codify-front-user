@@ -17,6 +17,7 @@ export default function SignUp() {
   const [loadingButton, setLoadingButton] = useState(false);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [warning, setWarning] = useState();
+  const [success, setSuccess] = useState(false);
 
   useEffect(() => {
     if (name && email && password && passwordConfirmation) {
@@ -42,6 +43,7 @@ export default function SignUp() {
     const data = await SignUpService.signUp(body);
 
     if (data.success) {
+      setSuccess(true);
       setWarning("Usuário registrado com sucesso!");
     } else if (data.response.status === 422) {
       setWarning("Dados inválidos.");
@@ -96,6 +98,7 @@ export default function SignUp() {
           modalIsOpen={modalIsOpen}
           warning={warning}
           setModalIsOpen={setModalIsOpen}
+          success={success}
         />
       )}
     </InitialBackground>

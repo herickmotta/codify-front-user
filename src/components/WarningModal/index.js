@@ -6,13 +6,18 @@ import { customStyles, Icon } from "./styles";
 import Button from "../Button";
 import FormsContainer from "../FormsContainer";
 
-export default function WarningModal({ modalIsOpen, warning, setModalIsOpen }) {
+export default function WarningModal({
+  modalIsOpen,
+  warning,
+  setModalIsOpen,
+  success,
+}) {
   const history = useHistory();
 
   function closeModal(e) {
     e.preventDefault();
     setModalIsOpen(false);
-    if (warning === "Usuário registrado com sucesso!") history.push("/");
+    if (success) history.push("/");
   }
 
   return (
@@ -22,13 +27,7 @@ export default function WarningModal({ modalIsOpen, warning, setModalIsOpen }) {
       onRequestClose={closeModal}
     >
       <FormsContainer onSubmit={closeModal}>
-        <Icon success={warning}>
-          {warning === "Usuário registrado com sucesso!" ? (
-            <GoCheck />
-          ) : (
-            <GoAlert />
-          )}
-        </Icon>
+        <Icon success={success}>{success ? <GoCheck /> : <GoAlert />}</Icon>
         <p>{warning}</p>
         <Button type="submit" loading={false} text="OK" disabled={false} />
       </FormsContainer>

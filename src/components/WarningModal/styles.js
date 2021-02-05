@@ -17,8 +17,5 @@ export const customStyles = {
 
 export const Icon = styled.div`
   font-size: 40px;
-  color: ${(props) =>
-    props.success === "Usuário registrado com sucesso!"
-      ? Colors.green
-      : Colors.red};
+  color: ${(props) => (props.success ? Colors.green : Colors.red)};
 `;
