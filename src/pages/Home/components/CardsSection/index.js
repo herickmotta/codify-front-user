@@ -2,7 +2,7 @@ import React from "react";
 import CourseCard from "../CourseCard";
 import { Container, CardsList } from "./styles";
 
-export default function CardsSession({ title, courses }) {
+export default function CardsSection({ title, courses }) {
   return (
     <Container>
       <h1>{title}</h1>

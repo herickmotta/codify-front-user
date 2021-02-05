@@ -1,9 +1,10 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import Button from "../../../../components/Button";
 import { Snippet, ImageBox, DescriptionBox, ButtonBox } from "./styles";
 
 export default function CourseSnippet({ course }) {
-  const { name, description, photo } = course;
+  const { id, name, description, photo } = course;
   return (
     <Snippet>
       <ImageBox>
@@ -13,7 +14,7 @@ export default function CourseSnippet({ course }) {
       <DescriptionBox>
         <h1>{name}</h1>
         <p> {description}</p>
-        <div>Ver mais</div>
+        <Link to={`/courses/${id}`}>Ver mais</Link>
       </DescriptionBox>
 
       <ButtonBox>

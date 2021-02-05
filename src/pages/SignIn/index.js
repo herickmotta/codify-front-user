@@ -7,6 +7,7 @@ import FormsContainer from "../../components/FormsContainer";
 import Input from "../../components/Input";
 import Button from "../../components/Button";
 import SignInService from "../../services/SignInService";
+import WarningModal from "../../components/WarningModal";
 
 export default function SignIn() {
   const { setUser } = useContext(UserContext);
@@ -14,6 +15,8 @@ export default function SignIn() {
   const [password, setPassword] = useState();
   const [disableButton, setDisableButton] = useState(true);
   const [loadingButton, setLoadingButton] = useState(false);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [warning, setWarning] = useState();
   const history = useHistory();
 
   useEffect(() => {
@@ -24,22 +27,30 @@ export default function SignIn() {
     }
   }, [email, password]);
 
-  function createUser(e) {
+  async function createUser(e) {
     e.preventDefault();
 
     setDisableButton(true);
     setLoadingButton(true);
 
     const body = { email, password };
-    const data = SignInService.signIn(body);
-    if (data.sucess) {
-      setUser(data.sucess);
+    const data = await SignInService.signIn(body);
+
+    if (data.success) {
+      setUser(data.success);
       history.push("/home");
+    } else if (data.response.status === 422) {
+      setWarning("Dados inválidos.");
+    } else if (data.response.status === 401) {
+      setWarning("E-mail ou senha incorretos.");
+    } else if (data.response.status === 409) {
+      setWarning("E-mail já cadastrado.");
     } else {
-      setDisableButton(false);
-      setLoadingButton(false);
-      alert("Erro ao logar.");
+      setWarning("Erro no servidor, por favor tente novamente mais tarde.");
     }
+    setModalIsOpen(true);
+    setDisableButton(false);
+    setLoadingButton(false);
   }
 
   return (
@@ -66,6 +77,13 @@ export default function SignIn() {
         <Link to="/signup">Primeira vez? Crie uma conta!</Link>
         <Link to="/recoverPassword">Esqueceu sua senha?</Link>
       </FormsContainer>
+      {modalIsOpen && (
+        <WarningModal
+          modalIsOpen={modalIsOpen}
+          warning={warning}
+          setModalIsOpen={setModalIsOpen}
+        />
+      )}
     </InitialBackground>
   );
 }

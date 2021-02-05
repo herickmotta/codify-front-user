@@ -16,3 +16,7 @@ export const SubTitle = styled.h2`
   font-size: 34px;
   line-height: 41px;
 `;
+
+export const Container = styled.div`
+  margin-bottom: 60px;
+`;

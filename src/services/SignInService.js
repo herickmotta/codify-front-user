@@ -4,7 +4,7 @@ import api from "../config/api";
 class SignInService {
   async signIn(userData) {
     try {
-      const { data } = await api.post(`/api/v1/users/signin`, userData);
+      const { data } = await api.post(`/users/signin`, userData);
       if (data) {
         return { success: data };
       }

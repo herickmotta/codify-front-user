@@ -4,7 +4,7 @@ import api from "../config/api";
 class SignUpService {
   async signUp(userData) {
     try {
-      const { data } = await api.post(`api/v1/users/signup`, userData);
+      const { data } = await api.post(`/users/signup`, userData);
       if (data) {
         return { success: data };
       }

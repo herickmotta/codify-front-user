@@ -1,10 +1,8 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Link, useHistory } from "react-router-dom";
-import UserContext from "../../contexts/UserContext";
 import { Container, LogoBox, Nav, AvatarBox, LeftBox } from "./styles";
 
 export default function Header() {
-  const { user } = useContext(UserContext);
   const history = useHistory();
   return (
     <Container>
@@ -21,7 +19,10 @@ export default function Header() {
       </LeftBox>
 
       <AvatarBox>
-        <img src={user.photo} alt="" />
+        <img
+          src="https://i1.wp.com/terracoeconomico.com.br/wp-content/uploads/2019/01/default-user-image.png?ssl=1"
+          alt=""
+        />
       </AvatarBox>
     </Container>
   );
