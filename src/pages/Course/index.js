@@ -26,19 +26,7 @@ export default function Course() {
   const { user } = useContext(UserContext);
   const { id } = useParams();
 
-  function setData(courseData) {
-    setCourseName(courseData.name);
-    setCourseDescription(courseData.description);
-    setUserProgress(0);
-  }
-
   useEffect(() => {
-    // const data = await CoursesService.getById(id, user.token);
-    // if (data.success) {
-    //   setData(data.success);
-    // } else {
-    //   alert("Erro ao carregar o curso");
-    // }
     const courses = mockedCourses();
     const course = courses[id - 1];
     setCourseName(course.name);
