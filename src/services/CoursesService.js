@@ -16,9 +16,11 @@ class CoursesService {
     }
   }
 
-  async getById(id) {
+  async getById(id, token) {
     try {
-      const { data } = await api.get(`/courses/${id}`);
+      const { data } = await api.get(`/courses/${id}`, {
+        headers: { Authorization: `JWT ${token}` },
+      });
       if (data) {
         return { success: data };
       }
