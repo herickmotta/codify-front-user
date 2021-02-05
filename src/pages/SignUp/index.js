@@ -1,12 +1,12 @@
-/* eslint-disable no-alert */
 import React, { useState, useEffect } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import InitialBackground from "../../components/InitialBackground";
 import Logo from "../../components/Logo";
 import FormsContainer from "../../components/FormsContainer";
 import Input from "../../components/Input";
 import Button from "../../components/Button";
 import SignUpService from "../../services/SignUpService";
+import WarningModal from "../../components/WarningModal";
 
 export default function SignUp() {
   const [name, setName] = useState();
@@ -15,7 +15,9 @@ export default function SignUp() {
   const [passwordConfirmation, setPasswordConfirmation] = useState();
   const [disableButton, setDisableButton] = useState(true);
   const [loadingButton, setLoadingButton] = useState(false);
-  const history = useHistory();
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [warning, setWarning] = useState();
+  const [success, setSuccess] = useState(false);
 
   useEffect(() => {
     if (name && email && password && passwordConfirmation) {
@@ -29,7 +31,8 @@ export default function SignUp() {
     e.preventDefault();
 
     if (password !== passwordConfirmation) {
-      alert("Senhas não batem, verifique o valor digitado.");
+      setWarning("Senhas não batem, verifique o valor digitado.");
+      setModalIsOpen(true);
       return;
     }
 
@@ -38,17 +41,18 @@ export default function SignUp() {
 
     const body = { name, email, password, passwordConfirmation };
     const data = await SignUpService.signUp(body);
-    console.log(data);
+
     if (data.success) {
-      alert("Usuário registrado com sucesso!");
-      history.push("/");
+      setSuccess(true);
+      setWarning("Usuário registrado com sucesso!");
     } else if (data.response.status === 422) {
-      alert("Dados inválidos.");
+      setWarning("Dados inválidos.");
     } else if (data.response.status === 409) {
-      alert("E-mail já cadastrado.");
+      setWarning("E-mail já cadastrado.");
     } else {
-      alert("Erro no servidor, por favor tente novamente mais tarde.");
+      setWarning("Erro no servidor.");
     }
+    setModalIsOpen(true);
     setDisableButton(false);
     setLoadingButton(false);
   }
@@ -89,6 +93,14 @@ export default function SignUp() {
         <Link to="/">Ja tem conta? Faca login</Link>
         <Link to="/recoverPassword">Esqueceu sua senha?</Link>
       </FormsContainer>
+      {modalIsOpen && (
+        <WarningModal
+          modalIsOpen={modalIsOpen}
+          warning={warning}
+          setModalIsOpen={setModalIsOpen}
+          success={success}
+        />
+      )}
     </InitialBackground>
   );
 }
