@@ -9,6 +9,7 @@
     "axios": "^0.21.0",
     "bootstrap": "^4.6.0",
     "react": "^17.0.1",
+    "react-accessible-accordion": "^3.3.4",
     "react-bootstrap": "^1.4.3",
     "react-dom": "^17.0.1",
     "react-icons": "^4.1.0",

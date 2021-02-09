@@ -1,16 +1,7 @@
 import styled from "styled-components";
-import tipography from "../../config/typography";
+import tipography from "../../../../config/typography";
 
-export const Container = styled.body`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  font-family: ${tipography.Roboto};
-`;
-
-export const CointainerCourseText = styled.div`
+export const Container = styled.div`
   width: 100%;
   height: 200px;
   background-image: linear-gradient(to bottom, #e4d04d, #f2e799);
@@ -77,21 +68,6 @@ export const ContainerImgAndProgress = styled.div`
 
   > div {
     margin-left: 15px;
-  }
-`;
-
-export const ProgressBar = styled.div`
-  height: 20px;
-  margin: 10px;
-  background: #eaeaea;
-  padding: 0px;
-
-  > div {
-    width: 50%;
-    background: #76df92;
-    height: 100%;
-    display: flex;
-    align-items: center;
   }
 `;
 
