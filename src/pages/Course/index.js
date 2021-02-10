@@ -42,11 +42,11 @@ export default function Course() {
     <Container>
       <Header />
       <CourseDetails
-        courseName={courseName}
+        courseName={courseName || "Não foi possível carregar o curso."}
         courseDescription={courseDescription}
         userProgress={userProgress}
       />
-      <AccordionChapters chapters={chapters} />
+      {chapters && <AccordionChapters chapters={chapters} />}
     </Container>
   );
 }
