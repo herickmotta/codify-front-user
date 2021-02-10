@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Link, useHistory } from "react-router-dom";
 import UserContext from "../../contexts/UserContext";
-import InitialBackground from "../../components/InitialBackground";
+import InitialBackground from "../../components/InitialBackground/styles";
 import Logo from "../../components/Logo";
-import FormsContainer from "../../components/FormsContainer";
+import FormsContainer from "../../components/FormsContainer/styles";
 import Input from "../../components/Input";
 import Button from "../../components/Button";
 import SignInService from "../../services/SignInService";

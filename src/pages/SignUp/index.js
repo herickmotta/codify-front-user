@@ -1,9 +1,9 @@
 /* eslint-disable no-alert */
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import InitialBackground from "../../components/InitialBackground";
+import InitialBackground from "../../components/InitialBackground/styles";
 import Logo from "../../components/Logo";
-import FormsContainer from "../../components/FormsContainer";
+import FormsContainer from "../../components/FormsContainer/styles";
 import Input from "../../components/Input";
 import Button from "../../components/Button";
 import SignUpService from "../../services/SignUpService";
