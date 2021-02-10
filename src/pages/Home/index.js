@@ -19,10 +19,11 @@ export default function Home() {
     history.push("/");
     return <SignIn />;
   }
+
   useEffect(async () => {
-    const data = await CoursesService.getAll(user.token);
-    if (data.success) {
-      setCourses(data.success);
+    const data = await CoursesService.getAllCoursesStarted(user.token);
+    if (data) {
+      setCourses(data);
     } else {
       alert("Erro ao carregar cursos");
     }
@@ -33,7 +34,20 @@ export default function Home() {
       <Header />
       <WelcomeBanner />
       <MainContent>
-        {courses.length > 0 && (
+        {courses.length === 0 ? (
+          <>
+            <SnippetSection
+              title="Continue seu curso atual"
+              course={courses[0]}
+            />
+
+            <CardsSection title="Meus cursos em andamento" courses={courses} />
+            <CardsSection
+              title="Experimente nossos outros cursos"
+              courses={courses}
+            />
+          </>
+        ) : (
           <>
             <SnippetSection
               title="Continue seu curso atual"

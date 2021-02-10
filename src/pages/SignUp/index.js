@@ -18,7 +18,6 @@ export default function SignUp() {
   const [loadingButton, setLoadingButton] = useState(false);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [warning, setWarning] = useState();
-  const [success, setSuccess] = useState(false);
 
   useEffect(() => {
     if (name && email && password && passwordConfirmation) {
@@ -33,7 +32,6 @@ export default function SignUp() {
 
     if (password !== passwordConfirmation) {
       setWarning("Senhas não batem, verifique o valor digitado.");
-      setModalIsOpen(true);
       return;
     }
 
@@ -44,16 +42,25 @@ export default function SignUp() {
     const data = await SignUpService.signUp(body);
 
     if (data.success) {
-      setSuccess(true);
       setWarning("Usuário registrado com sucesso!");
-    } else if (data.response.status === 422) {
-      setWarning("Dados inválidos.");
+      setModalIsOpen(true);
     } else if (data.response.status === 409) {
       setWarning("E-mail já cadastrado.");
+    } else if (
+      data.response.data.error ===
+      '"name" length must be at least 3 characters long'
+    ) {
+      setWarning("Nome dever ter no mínimo 3 caracteres");
+    } else if (data.response.data.error === '"email" must be a valid email') {
+      setWarning("E-mail deve ser um e-mail válido");
+    } else if (
+      data.response.data.error ===
+      '"password" length must be at least 8 characters long'
+    ) {
+      setWarning("Senha deve ter no mínimo 8 caracteres");
     } else {
-      setWarning("Erro no servidor.");
+      setWarning("Erro no servidor, tente novamente mais tarde.");
     }
-    setModalIsOpen(true);
     setDisableButton(false);
     setLoadingButton(false);
   }
@@ -86,6 +93,7 @@ export default function SignUp() {
           value={passwordConfirmation}
           onChange={(e) => setPasswordConfirmation(e.target.value)}
         />
+        {!modalIsOpen && warning && <p>{warning}</p>}
         <Button
           disabled={disableButton}
           loading={loadingButton}
@@ -99,7 +107,6 @@ export default function SignUp() {
           modalIsOpen={modalIsOpen}
           warning={warning}
           setModalIsOpen={setModalIsOpen}
-          success={success}
         />
       )}
     </InitialBackground>

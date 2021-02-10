@@ -17,5 +17,5 @@ export const customStyles = {
 
 export const Icon = styled.div`
   font-size: 40px;
-  color: ${(props) => (props.success ? Colors.green : Colors.red)};
+  color: ${Colors.green};
 `;
