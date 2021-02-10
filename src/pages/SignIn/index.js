@@ -7,7 +7,6 @@ import FormsContainer from "../../components/FormsContainer";
 import Input from "../../components/Input";
 import Button from "../../components/Button";
 import SignInService from "../../services/SignInService";
-import WarningModal from "../../components/WarningModal";
 
 export default function SignIn() {
   const { setUser } = useContext(UserContext);
@@ -15,7 +14,6 @@ export default function SignIn() {
   const [password, setPassword] = useState();
   const [disableButton, setDisableButton] = useState(true);
   const [loadingButton, setLoadingButton] = useState(false);
-  const [modalIsOpen, setModalIsOpen] = useState(false);
   const [warning, setWarning] = useState();
   const history = useHistory();
 
@@ -39,16 +37,18 @@ export default function SignIn() {
     if (data.success) {
       setUser(data.success);
       history.push("/home");
-    } else if (data.response.status === 422) {
-      setWarning("Dados inválidos.");
     } else if (data.response.status === 401) {
       setWarning("E-mail ou senha incorretos.");
-    } else if (data.response.status === 409) {
-      setWarning("E-mail já cadastrado.");
+    } else if (data.response.data.error === '"email" must be a valid email') {
+      setWarning("E-mail deve ser um e-mail válido");
+    } else if (
+      data.response.data.error ===
+      '"password" length must be at least 8 characters long'
+    ) {
+      setWarning("Senha deve ter no mínimo 8 caracteres");
     } else {
       setWarning("Erro no servidor, por favor tente novamente mais tarde.");
     }
-    setModalIsOpen(true);
     setDisableButton(false);
     setLoadingButton(false);
   }
@@ -69,6 +69,7 @@ export default function SignIn() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
+        {warning && <p>{warning}</p>}
         <Button
           disabled={disableButton}
           loading={loadingButton}
@@ -77,13 +78,6 @@ export default function SignIn() {
         <Link to="/signup">Primeira vez? Crie uma conta!</Link>
         <Link to="/recoverPassword">Esqueceu sua senha?</Link>
       </FormsContainer>
-      {modalIsOpen && (
-        <WarningModal
-          modalIsOpen={modalIsOpen}
-          warning={warning}
-          setModalIsOpen={setModalIsOpen}
-        />
-      )}
     </InitialBackground>
   );
 }
