@@ -3,7 +3,7 @@ import colors from "../../../../config/colors";
 import tipography from "../../../../config/typography";
 
 const Banner = styled.div`
-  background: ${colors.lightBlue};
+  background: ${colors.blue};
   width: 100%;
   padding: 25px 20px;
   color: ${colors.white};
