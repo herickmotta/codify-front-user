@@ -14,6 +14,7 @@ import {
 } from "react-accessible-accordion";
 import "react-accessible-accordion/dist/fancy-example.css";
 
+import { Link } from "react-router-dom";
 import UserContext from "../../../../contexts/UserContext";
 import { Container } from "./styles";
 import CoursesService from "../../../../services/CoursesService";
@@ -70,7 +71,13 @@ export default function AccordionChapters({ chapters, courseId }) {
                     (topic.progress ? <AiFillCheckCircle /> : <BiCircle />)}
                   <p>{topic.name}</p>
                 </div>
-                <p>Visualizar</p>
+                <Link
+                  to={() =>
+                    `/courses/${courseId}/chapters/${chapter.id}/topics/${topic.id}`
+                  }
+                >
+                  Visualizar
+                </Link>
               </AccordionItemPanel>
             ))}
           </AccordionItem>

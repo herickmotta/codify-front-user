@@ -46,7 +46,7 @@ export const Container = styled.div`
           margin: 10px;
         }
       }
-      > p {
+      > a {
         font-size: 13px;
         margin-right: 8px;
       }

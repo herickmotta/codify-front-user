@@ -13,6 +13,7 @@ import CoursesService from "../../services/CoursesService";
 import { Container } from "./styles";
 
 export default function Course() {
+  const [courseId, setCourseId] = useState();
   const [courseName, setCourseName] = useState();
   const [courseDescription, setCourseDescription] = useState();
   const [chapters, setChapters] = useState();
@@ -28,11 +29,15 @@ export default function Course() {
 
   useEffect(async () => {
     const data = await CoursesService.getById(id, user.token);
-    if (data.success) {
+    const progressData = await CoursesService.getCourseProgress(id, user.token);
+    if (data.success && progressData.success) {
+      setCourseId(data.success.id);
       setCourseName(data.success.name);
       setCourseDescription(data.success.description);
       setChapters(data.success.chapters);
-      setUserProgress(50);
+      setUserProgress(progressData.success.progress);
+    } else if (progressData.response.status === 404) {
+      alert("Ementa do curso incompleta");
     } else {
       alert("Erro no servidor, por favor tente novamente mais tarde.");
     }
@@ -42,6 +47,7 @@ export default function Course() {
     <Container>
       <Header />
       <CourseDetails
+        courseId={courseId}
         courseName={courseName || "Não foi possível carregar o curso."}
         courseDescription={courseDescription}
         userProgress={userProgress}
