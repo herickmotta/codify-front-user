@@ -40,7 +40,7 @@ export default function SignIn() {
     } else if (data.response.status === 401) {
       setWarning("E-mail ou senha incorretos.");
     } else if (data.response.data.error === '"email" must be a valid email') {
-      setWarning("E-mail deve ser um e-mail válido");
+      setWarning("E-mail ou senha incorretos.");
     } else if (
       data.response.data.error ===
       '"password" length must be at least 8 characters long'
