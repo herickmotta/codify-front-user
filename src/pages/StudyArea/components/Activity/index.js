@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { useState, useEffect } from "react";
 import { FormControlLabel, Checkbox } from "@material-ui/core";
 import Exercise from "../Exercise";
@@ -5,19 +6,47 @@ import Button from "../../../../components/Button";
 import ClassVideo from "../ClassVideo";
 import EndLesson from "./style";
 
-export default function Activity({ currentLesson, concludeLesson }) {
-  const [markedDone, setMarkedDone] = useState(currentLesson.done);
-
+export default function Activity({
+  currentLesson,
+  markedDone,
+  setMarkedDone,
+  concludeLesson,
+  next
+}) {
   useEffect(() => {
-    setMarkedDone(currentLesson.done);
-  }, [currentLesson.done]);
+    if (
+      (!markedDone &&
+        (
+          currentLesson.exerciseDones &&
+          currentLesson.exerciseDones.length > 0
+        ) || (
+          currentLesson.theoryDones && 
+          currentLesson.theoryDones.length > 0
+        )
+      )
+    ) {
+      setMarkedDone(true);
+    } else if (
+      (markedDone &&
+        (
+          currentLesson.exerciseDones &&
+          currentLesson.exerciseDones.length === 0
+        ) || (
+          currentLesson.theoryDones && 
+          currentLesson.theoryDones.length === 0
+        )
+      )
+    ) {
+      setMarkedDone(false);
+    }
+  }, [currentLesson]);
 
   return (
     <>
-      {currentLesson.type === "teoria" ? (
-        <ClassVideo link={currentLesson.link} />
+      {currentLesson && currentLesson.youtubeLink ? (
+        <ClassVideo link={currentLesson.youtubeLink} />
       ) : (
-        <Exercise name={currentLesson.name} />
+        <Exercise name={`Exercicio ${currentLesson.id}`} />
       )}
       <EndLesson checked={markedDone}>
         <FormControlLabel
@@ -26,13 +55,13 @@ export default function Activity({ currentLesson, concludeLesson }) {
               checked={markedDone}
               onChange={() => {
                 setMarkedDone(!markedDone);
-                concludeLesson();
+                concludeLesson(currentLesson);
               }}
             />
           }
           label="Marcar como concluido"
         />
-        <Button text="Avancar >>" />
+        <Button text="Avancar >>" onClick={next} />
       </EndLesson>
     </>
   );

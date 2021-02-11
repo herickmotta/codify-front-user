@@ -1,23 +1,13 @@
 /* eslint-disable no-alert */
-/* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import { Container, Content } from "./style";
 import BulletNavigation from "./components/BulletNavigation";
 import Header from "./components/Header";
 import Activity from "./components/Activity";
+import TopicsService from "../../services/TopicsService";
+import LessonsService from "../../services/LessonsService";
 
-const bullets = [
-  {
-    id: 1,
-    type: "teoria",
-    link: "https://www.youtube.com/watch?v=tAGnKpE4NCI&ab_channel=Metallica",
-    done: true,
-  },
-  { id: 2, type: "Exercicio", name: "Exercicio 1", done: true },
-  { id: 3, type: "exercicio", name: "Exercicio 2", done: false },
-  { id: 4, type: "exercicio", name: "Exercicio 3", done: true },
-  { id: 5, type: "exercicio", name: "Exercicio 4", done: false },
-];
 const options = [
   { value: 1, label: "Apresentacao - como usar" },
   { value: 2, label: "Apresentacao - Entrando na plataforma" },
@@ -26,33 +16,83 @@ const options = [
 ];
 
 export default function StudyArea() {
-  const [currentLesson, setCurrentLesson] = useState(bullets[1]);
+  const { id, chapterId, topicId } = useParams();
+  const [topicData, setTopicData] = useState(null);
+  const [currentLesson, setCurrentLesson] = useState(null);
+  const [markedDone, setMarkedDone] = useState(false);
+  const [update, setUpdate] = useState(false);
 
-  function changeLesson(id) {
-    const index = id - 1;
-    setCurrentLesson(bullets[index]);
+  // will come by context
+  const token = 123456789;
+
+  useEffect(async () => {
+    const data = await TopicsService.getById(id, chapterId, topicId, token);
+
+    if (data.success) {
+      setTopicData(data.success);
+      if (!currentLesson) {
+        setCurrentLesson({ data: data.success.exercises[0], index: 0 });
+      }
+    } else {
+      alert("erro");
+    }
+  }, [update]);
+
+  async function concludeLesson(lesson) {
+    const type = lesson.exerciseDones ? "exercise" : "theory";
+    const lessonData = {
+      // will come by context
+      userId: 1,
+      type,
+    };
+
+    let result;
+    if (!markedDone) {
+      result = await LessonsService.markDone(lesson.id, lessonData, token);
+    } else {
+      result = await LessonsService.markOff(lesson.id, lessonData, token);
+    }
+    if (result.success) {
+      setUpdate(!update);
+    } else {
+      alert("erro");
+    }
   }
-
-  function concludeLesson() {
-    alert("send conclud lesson to back");
+  function next() {
+    const nextIndex = currentLesson.index + 1;
+    setCurrentLesson({
+      data: topicData.exercises[nextIndex],
+      index: nextIndex,
+    });
   }
 
   return (
     <Container>
-      <Header list={options} />
+      <Header list={options} courseId={id} />
       <Content>
-        <ul>
-          {bullets.map((b) => (
-            <BulletNavigation
-              key={b.id}
-              bullet={b}
-              changeLesson={changeLesson}
-              current={currentLesson}
-            />
-          ))}
-        </ul>
+        {topicData && currentLesson && (
+          <ul>
+            {topicData.exercises.map((e, i) => (
+              <BulletNavigation
+                key={e.id}
+                index={i}
+                bullet={e}
+                current={currentLesson.data}
+                setCurrentLesson={setCurrentLesson}
+              />
+            ))}
+          </ul>
+        )}
       </Content>
-      <Activity currentLesson={currentLesson} concludeLesson={concludeLesson} />
+      {currentLesson && (
+        <Activity
+          currentLesson={currentLesson.data}
+          markedDone={markedDone}
+          setMarkedDone={setMarkedDone}
+          concludeLesson={concludeLesson}
+          next={next}
+        />
+      )}
     </Container>
   );
 }

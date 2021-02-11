@@ -1,3 +1,4 @@
+/* eslint-disable */
 import styled from "styled-components";
 import Colors from "../../../../config/colors";
 
@@ -5,7 +6,10 @@ const Container = styled.li`
   display: flex;
 
   & > :first-child {
-    color: ${(props) => (props.clicked ? Colors.white : Colors.lightGray)};
+    color: ${(props) => props.completed
+      ? Colors.green
+      : (props.clicked ? Colors.white : Colors.lightGray)
+    };
 
     :hover {
       cursor: pointer;
@@ -13,7 +17,11 @@ const Container = styled.li`
   }
   & > :last-child {
     border-top: 2px solid
-      ${(props) => (props.clicked ? Colors.white : Colors.lightGray)};
+     ${(props) => props.completed
+        ? Colors.green
+        : (props.clicked ? Colors.white : Colors.lightGray)
+      }
+    ;
     width: 100px;
     margin-top: 12.5px;
   }

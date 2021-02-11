@@ -18,8 +18,12 @@ const App = () => (
       <ResetCSS />
       <GlobalStyle />
       <Switch>
-        <Route exact path="/" component={StudyArea} />
-        <Route exact path="/s" component={SignIn} />
+        <Route
+          exact
+          path="/courses/:id/chapters/:chapterId/topics/:topicId"
+          component={StudyArea}
+        />
+        <Route exact path="/" component={SignIn} />
         <Route exact path="/signUp" component={SignUp} />
         <Route exact path="/home" component={Home} />
         <Route exact path="/courses" component={Courses} />
