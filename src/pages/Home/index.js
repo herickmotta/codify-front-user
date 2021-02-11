@@ -13,6 +13,7 @@ import { Container, MainContent } from "./styles";
 export default function Home() {
   const history = useHistory();
   const { user } = useContext(UserContext);
+  const [coursesStarted, setCoursesStarted] = useState([]);
   const [courses, setCourses] = useState([]);
 
   if (!user) {
@@ -20,28 +21,36 @@ export default function Home() {
     return <SignIn />;
   }
 
-  useEffect(async () => {
+  const getAllCoursesStarted = async () => {
     const data = await CoursesService.getAllCoursesStarted(user.token);
+    if (data) {
+      setCoursesStarted(data);
+    } else {
+      alert("Erro ao carregar cursos");
+    }
+  };
+
+  const getAllCoursesNotStarted = async () => {
+    const data = await CoursesService.getAllCoursesNotStarted(user.token);
     if (data) {
       setCourses(data);
     } else {
       alert("Erro ao carregar cursos");
     }
+  };
+
+  useEffect(async () => {
+    getAllCoursesStarted();
+    getAllCoursesNotStarted();
   }, []);
 
   return (
     <Container>
       <Header />
-      <WelcomeBanner />
+      <WelcomeBanner isSomeCourseStarted={coursesStarted.length === 0} />
       <MainContent>
-        {courses.length === 0 ? (
+        {coursesStarted.length === 0 ? (
           <>
-            <SnippetSection
-              title="Continue seu curso atual"
-              course={courses[0]}
-            />
-
-            <CardsSection title="Meus cursos em andamento" courses={courses} />
             <CardsSection
               title="Experimente nossos outros cursos"
               courses={courses}
@@ -51,10 +60,13 @@ export default function Home() {
           <>
             <SnippetSection
               title="Continue seu curso atual"
-              course={courses[0]}
+              course={coursesStarted[0]}
             />
 
-            <CardsSection title="Meus cursos em andamento" courses={courses} />
+            <CardsSection
+              title="Meus cursos em andamento"
+              courses={coursesStarted}
+            />
             <CardsSection
               title="Experimente nossos outros cursos"
               courses={courses}
