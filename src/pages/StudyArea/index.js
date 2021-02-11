@@ -1,32 +1,43 @@
 /* eslint-disable no-alert */
-import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import React, { useState, useEffect, useContext } from "react";
+import { useParams, useHistory, useLocation } from "react-router-dom";
+import TopicsService from "../../services/TopicsService";
+import LessonsService from "../../services/LessonsService";
+import ChaptersService from "../../services/ChaptersService";
+import UserContext from "../../contexts/UserContext";
 import { Container, Content } from "./style";
 import BulletNavigation from "./components/BulletNavigation";
 import Header from "./components/Header";
 import Activity from "./components/Activity";
-import TopicsService from "../../services/TopicsService";
-import LessonsService from "../../services/LessonsService";
-
-const options = [
-  { value: 1, label: "Apresentacao - como usar" },
-  { value: 2, label: "Apresentacao - Entrando na plataforma" },
-  { value: 3, label: "Apresentacao - Fazendo teorias" },
-  { value: 4, label: "Apresentacao - Fazendo exercicios" },
-];
 
 export default function StudyArea() {
+  const { user } = useContext(UserContext);
   const { id, chapterId, topicId } = useParams();
   const [topicData, setTopicData] = useState(null);
   const [currentLesson, setCurrentLesson] = useState(null);
   const [markedDone, setMarkedDone] = useState(false);
   const [update, setUpdate] = useState(false);
-
-  // will come by context
-  const token = 123456789;
+  const [options, setOptions] = useState(null);
+  const history = useHistory();
+  const currentRoute = useLocation().pathname;
 
   useEffect(async () => {
-    const data = await TopicsService.getById(id, chapterId, topicId, token);
+    const data = await ChaptersService.getById(chapterId, topicId, user.token);
+
+    if (data.success) {
+      setOptions(data.success);
+    } else {
+      alert("erro");
+    }
+  }, [chapterId]);
+
+  useEffect(async () => {
+    const data = await TopicsService.getById(
+      id,
+      chapterId,
+      topicId,
+      user.token
+    );
 
     if (data.success) {
       setTopicData(data.success);
@@ -36,21 +47,20 @@ export default function StudyArea() {
     } else {
       alert("erro");
     }
-  }, [update]);
+  }, [update, currentRoute]);
 
   async function concludeLesson(lesson) {
     const type = lesson.exerciseDones ? "exercise" : "theory";
     const lessonData = {
-      // will come by context
-      userId: 1,
+      userId: user.id,
       type,
     };
 
     let result;
     if (!markedDone) {
-      result = await LessonsService.markDone(lesson.id, lessonData, token);
+      result = await LessonsService.markDone(lesson.id, lessonData, user.token);
     } else {
-      result = await LessonsService.markOff(lesson.id, lessonData, token);
+      result = await LessonsService.markOff(lesson.id, lessonData, user.token);
     }
     if (result.success) {
       setUpdate(!update);
@@ -66,9 +76,14 @@ export default function StudyArea() {
     });
   }
 
+  function teste(e) {
+    setCurrentLesson(null);
+    history.push(`/courses/${id}/chapters/${chapterId}/topics/${e.value}`);
+  }
+
   return (
     <Container>
-      <Header list={options} courseId={id} />
+      <Header options={options} teste={teste} courseId={id} />
       <Content>
         {topicData && currentLesson && (
           <ul>
