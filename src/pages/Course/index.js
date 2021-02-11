@@ -46,7 +46,7 @@ export default function Course() {
         courseDescription={courseDescription}
         userProgress={userProgress}
       />
-      {chapters && <AccordionChapters chapters={chapters} />}
+      {chapters && <AccordionChapters chapters={chapters} courseId={id} />}
     </Container>
   );
 }
