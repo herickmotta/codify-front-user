@@ -57,6 +57,37 @@ class CoursesService {
       return error;
     }
   }
+
+  async getCourseProgress(courseId, token) {
+    try {
+      const { data } = await api.get(`/users/courses/${courseId}/progress`, {
+        headers: { Authorization: `JWT ${token}` },
+      });
+      if (data) {
+        return { success: data };
+      }
+      return null;
+    } catch (error) {
+      return error;
+    }
+  }
+
+  async getChaptersProgress(courseId, chapterId, token) {
+    try {
+      const { data } = await api.get(
+        `/users/courses/${courseId}/chapters/${chapterId}/progress`,
+        {
+          headers: { Authorization: `JWT ${token}` },
+        }
+      );
+      if (data) {
+        return { success: data };
+      }
+      return null;
+    } catch (error) {
+      return error;
+    }
+  }
 }
 
 export default new CoursesService();
