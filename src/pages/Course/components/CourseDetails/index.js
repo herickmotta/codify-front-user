@@ -30,9 +30,6 @@ export default function CourseDetails(props) {
     history.push(`/courses/${courseId}/chapters/1/topics/${firstTopic}`);
   }
 
-  function openHomePage() {
-    history.push("/home");
-  }
   return (
     <Container>
       <Link to="/home" className="back-button">
