@@ -7,7 +7,8 @@ import { Container, Icon, Topics } from "./style";
 export default function Header({ options, courseId, teste }) {
   // eslint-disable-next-line no-unused-vars
   const history = useHistory();
-
+  let index;
+  if (options) index = options.index;
   return (
     <Container>
       <Icon onClick={() => history.push(`/courses/${courseId}`)}>
@@ -17,7 +18,7 @@ export default function Header({ options, courseId, teste }) {
         {options && (
           <Select
             options={options.list}
-            defaultValue={options.list[0]}
+            defaultValue={options.list[index]}
             onChange={teste}
           />
         )}
