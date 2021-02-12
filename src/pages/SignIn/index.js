@@ -6,7 +6,7 @@ import Logo from "../../components/Logo";
 import FormsContainer from "../../components/FormsContainer/styles";
 import Input from "../../components/Input";
 import Button from "../../components/Button";
-import SignInService from "../../services/SignInService";
+import UserService from "../../services/UserService";
 
 export default function SignIn() {
   const { setUser } = useContext(UserContext);
@@ -32,7 +32,7 @@ export default function SignIn() {
     setLoadingButton(true);
 
     const body = { email, password };
-    const data = await SignInService.signIn(body);
+    const data = await UserService.signIn(body);
 
     if (data.success) {
       setUser(data.success);
