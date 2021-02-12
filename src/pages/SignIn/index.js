@@ -6,16 +6,20 @@ import Logo from "../../components/Logo";
 import FormsContainer from "../../components/FormsContainer/styles";
 import Input from "../../components/Input";
 import Button from "../../components/Button";
-import SignInService from "../../services/SignInService";
+import UserService from "../../services/UserService";
 
 export default function SignIn() {
-  const { setUser } = useContext(UserContext);
+  const { setUser, user } = useContext(UserContext);
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [disableButton, setDisableButton] = useState(true);
   const [loadingButton, setLoadingButton] = useState(false);
   const [warning, setWarning] = useState();
   const history = useHistory();
+
+  if (user) {
+    history.push("/home");
+  }
 
   useEffect(() => {
     if (email && password) {
@@ -32,7 +36,7 @@ export default function SignIn() {
     setLoadingButton(true);
 
     const body = { email, password };
-    const data = await SignInService.signIn(body);
+    const data = await UserService.signIn(body);
 
     if (data.success) {
       setUser(data.success);

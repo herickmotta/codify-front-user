@@ -40,6 +40,10 @@ export const Nav = styled.nav`
     opacity: 50%;
   }
 `;
+export const LogOutButton = styled.div`
+  width: 100%;
+`;
+
 export const AvatarBox = styled.div`
   height: 100%;
   img {
