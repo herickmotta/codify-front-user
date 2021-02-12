@@ -10,6 +10,7 @@ import Home from "./pages/Home";
 import Course from "./pages/Course";
 import UserProfile from "./pages/UserProfile";
 import Courses from "./pages/Courses";
+import StudyArea from "./pages/StudyArea";
 
 const App = () => (
   <UserProvider>
@@ -17,6 +18,11 @@ const App = () => (
       <ResetCSS />
       <GlobalStyle />
       <Switch>
+        <Route
+          exact
+          path="/courses/:id/chapters/:chapterId/topics/:topicId"
+          component={StudyArea}
+        />
         <Route exact path="/" component={SignIn} />
         <Route exact path="/signUp" component={SignUp} />
         <Route exact path="/home" component={Home} />
