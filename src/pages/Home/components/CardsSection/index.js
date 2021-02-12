@@ -10,6 +10,7 @@ export default function CardsSection({ title, courses }) {
       <CardsList>
         {courses.map((c) => (
           <CourseCard
+            id={c.id}
             name={c.name}
             description={c.description}
             photo={c.photo}
