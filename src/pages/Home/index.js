@@ -80,6 +80,7 @@ export default function Home() {
             <CardsSection
               title="Meus cursos em andamento"
               courses={coursesStarted}
+              coursesStarted
             />
             <CardsSection
               title="Experimente nossos outros cursos"

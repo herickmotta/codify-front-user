@@ -9,7 +9,13 @@ import CoursesService from "../../../../services/CoursesService";
 
 import { Card, ImageBox, DescriptionBox, StudyButton } from "./styles";
 
-export default function CourseCard({ id, name, description, photo }) {
+export default function CourseCard({
+  id,
+  name,
+  description,
+  photo,
+  coursesStarted,
+}) {
   const history = useHistory();
 
   const { user } = useContext(UserContext);
@@ -39,18 +45,20 @@ export default function CourseCard({ id, name, description, photo }) {
       <DescriptionBox>
         <h1>{name}</h1>
         <p> {description} </p>
-        <StudyButton>
-          {loading ? (
-            <Spinner color={Colors.blue} />
-          ) : (
-            <AiFillForward
-              color={Colors.blue}
-              fontSize="3rem"
-              cursor="pointer"
-              onClick={() => goStudyArea()}
-            />
-          )}
-        </StudyButton>
+        {coursesStarted ? (
+          <StudyButton>
+            {loading ? (
+              <Spinner color={Colors.blue} />
+            ) : (
+              <AiFillForward
+                color={Colors.blue}
+                fontSize="3rem"
+                cursor="pointer"
+                onClick={() => goStudyArea()}
+              />
+            )}
+          </StudyButton>
+        ) : null}
       </DescriptionBox>
     </Card>
   );
