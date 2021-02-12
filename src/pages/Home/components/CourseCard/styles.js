@@ -3,7 +3,7 @@ import colors from "../../../../config/colors";
 import tipography from "../../../../config/typography";
 
 export const Card = styled.div`
-  height: 257px;
+  height: 280px;
   width: 192px;
   border-radius: 20px;
   overflow: hidden;
@@ -27,6 +27,8 @@ export const ImageBox = styled.div`
     height: 100%;
   }
 `;
+
+export const StudyButton = styled.div``;
 
 export const DescriptionBox = styled.div`
   height: 50%;
