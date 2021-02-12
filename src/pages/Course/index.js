@@ -18,6 +18,7 @@ export default function Course() {
   const [courseDescription, setCourseDescription] = useState();
   const [chapters, setChapters] = useState();
   const [userProgress, setUserProgress] = useState();
+  const [incompleteCourse, setIncompleteCourse] = useState(false);
   const { user } = useContext(UserContext);
   const { id } = useParams();
   const history = useHistory();
@@ -37,7 +38,7 @@ export default function Course() {
       setChapters(data.success.chapters);
       setUserProgress(progressData.success.progress);
     } else if (progressData.response.status === 404) {
-      alert("Ementa do curso incompleta");
+      setIncompleteCourse(true);
     } else {
       alert("Erro no servidor, por favor tente novamente mais tarde.");
     }
@@ -46,12 +47,18 @@ export default function Course() {
   return (
     <Container>
       <Header />
-      <CourseDetails
-        courseId={courseId}
-        courseName={courseName || "Não foi possível carregar o curso."}
-        courseDescription={courseDescription}
-        userProgress={userProgress}
-      />
+      {chapters && (
+        <CourseDetails
+          courseId={courseId}
+          courseName={
+            courseName || "Curso em desenvolvimento. Disponível em breve!"
+          }
+          courseDescription={courseDescription}
+          userProgress={userProgress}
+          incompleteCourse={incompleteCourse}
+          chapters={chapters}
+        />
+      )}
       {chapters && <AccordionChapters chapters={chapters} courseId={id} />}
     </Container>
   );
