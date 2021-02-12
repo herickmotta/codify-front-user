@@ -2,8 +2,9 @@ import React from "react";
 
 import { ProgressBar } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { RiArrowLeftSLine } from "react-icons/ri";
 
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import Button from "../../../../components/Button";
 
 import {
@@ -29,8 +30,14 @@ export default function CourseDetails(props) {
     history.push(`/courses/${courseId}/chapters/1/topics/${firstTopic}`);
   }
 
+  function openHomePage() {
+    history.push("/home");
+  }
   return (
     <Container>
+      <Link to="/home" className="back-button">
+        <RiArrowLeftSLine />
+      </Link>
       <h1>{courseName}</h1>
       <p>{courseDescription}</p>
       {!incompleteCourse && (

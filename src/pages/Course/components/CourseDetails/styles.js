@@ -15,6 +15,23 @@ export const Container = styled.div`
   position: relative;
   margin-bottom: 100px;
 
+  .back-button {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 2px;
+
+    :hover {
+      cursor: pointer;
+    }
+  }
+
+  svg {
+    font-size: 30px;
+    color: #fff;
+  }
+
   & > h1 {
     margin: 20px 0;
     font-size: 25px;
