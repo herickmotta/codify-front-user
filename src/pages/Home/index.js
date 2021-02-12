@@ -51,10 +51,10 @@ export default function Home() {
     const data = await UserService.logOut(user.token);
     setLoading(false);
     if (data) {
-      setUser(null);
       history.push("/");
+      localStorage.clear();
     } else {
-      alert("Erro ao carregar cursos");
+      setUser(null);
     }
   };
 

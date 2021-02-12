@@ -9,17 +9,13 @@ import Button from "../../components/Button";
 import UserService from "../../services/UserService";
 
 export default function SignIn() {
-  const { setUser, user } = useContext(UserContext);
+  const { setUser } = useContext(UserContext);
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [disableButton, setDisableButton] = useState(true);
   const [loadingButton, setLoadingButton] = useState(false);
   const [warning, setWarning] = useState();
   const history = useHistory();
-
-  if (user) {
-    history.push("/home");
-  }
 
   useEffect(() => {
     if (email && password) {

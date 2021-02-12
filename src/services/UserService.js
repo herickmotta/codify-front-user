@@ -27,18 +27,19 @@ class UserService {
   }
 
   async logOut(userToken) {
-    console.log(userToken);
     try {
-      const { data } = await api.post(`/users/logout`, {
-        headers: { Authorization: `JWT ${userToken}` },
-      });
-      console.log(data);
+      const { data } = await api.post(
+        `/users/logout`,
+        {},
+        {
+          headers: { Authorization: `JWT ${userToken}` },
+        }
+      );
       if (data) {
         return true;
       }
       return null;
     } catch (error) {
-      console.log(error);
       return null;
     }
   }
