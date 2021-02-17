@@ -5,7 +5,7 @@ import tipography from "../../../../config/typography";
 export const Card = styled.div`
   min-width: 200px;
   max-height: 500px;
-  min-height: 200px;
+  min-height: 400px;
   max-width: 23%;
   border-radius: 20px;
   overflow: hidden;
@@ -31,7 +31,17 @@ export const ImageBox = styled.div`
   }
 `;
 
-export const StudyButton = styled.div``;
+export const StudyButton = styled.div`
+  width: 100%;
+  font-weight: bold;
+  button {
+    width: 100%;
+    margin: 0;
+    padding: 10px;
+    font-size: 14px;
+    cursor: pointer;
+  }
+`;
 
 export const DescriptionBox = styled.div`
   height: 50%;
@@ -46,4 +56,7 @@ export const DescriptionBox = styled.div`
     font-size: calc(14px + (20 - 14) * ((100vw - 300px) / (1600 - 300)));
     color: ${colors.gray};
   }
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 `;
