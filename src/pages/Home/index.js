@@ -74,7 +74,7 @@ export default function Home() {
           <>
             <SnippetSection
               title="Continue seu curso atual"
-              course={coursesStarted[0]}
+              course={courses[0]}
             />
 
             <CardsSection

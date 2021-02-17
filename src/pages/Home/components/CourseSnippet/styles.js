@@ -55,6 +55,7 @@ export const ButtonBox = styled.div`
   display: flex;
   align-items: center;
   padding-right: 10px;
+  margin-right: 10px;
   font-weight: bold;
   button {
     margin: 0;
