@@ -11,6 +11,7 @@ export const Snippet = styled.div`
   justify-content: space-between;
   box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.1);
   font-family: ${typography.Roboto};
+  background: ${colors.white};
 `;
 
 export const ImageBox = styled.div`

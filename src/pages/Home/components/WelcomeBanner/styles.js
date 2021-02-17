@@ -9,6 +9,7 @@ const Banner = styled.div`
   color: ${colors.white};
   font-family: ${tipography.Roboto};
   letter-spacing: 1.2px;
+  font-size: calc(14px + (20 - 14) * ((100vw - 300px) / (1600 - 300)));
   span {
     font-weight: bold;
   }
