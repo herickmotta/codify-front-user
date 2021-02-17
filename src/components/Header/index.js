@@ -1,22 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
-import { AiOutlineLogin } from "react-icons/ai";
-
+import { IoIosArrowDown } from "react-icons/io";
 import {
   Container,
   LogoBox,
   Nav,
   AvatarBox,
   LeftBox,
-  LogOutButton,
+  ArrowDropMenu,
 } from "./styles";
-import Spinner from "../Spinner";
-import Colors from "../../config/colors";
 
-export default function Header({ logOut, loading }) {
+import DropDownMenu from "./components/DropDownMenu";
+
+export default function Header({ logOut }) {
   const history = useHistory();
+  const [isMenuDown, setIsMenuDown] = useState(false);
   return (
-    <Container>
+    <Container isMenuDown={isMenuDown}>
       <LeftBox>
         <LogoBox onClick={() => history.push("/home")}>
           <img src="/images/logo-header.png" alt="codify logo" />
@@ -28,20 +28,11 @@ export default function Header({ logOut, loading }) {
           <Link to="/profile"> Perfil </Link>
         </Nav>
       </LeftBox>
-
-      <LogOutButton>
-        {loading ? (
-          <Spinner color={Colors.blue} />
-        ) : (
-          <AiOutlineLogin
-            color={Colors.blue}
-            fontSize="1.5rem"
-            cursor="pointer"
-            onClick={logOut}
-          />
-        )}
-      </LogOutButton>
-      <AvatarBox>
+      <AvatarBox onClick={() => setIsMenuDown(!isMenuDown)}>
+        <ArrowDropMenu isMenuDown={isMenuDown}>
+          <IoIosArrowDown />
+        </ArrowDropMenu>
+        <DropDownMenu isMenuDown={isMenuDown} logOut={logOut} />
         <img
           src="https://i1.wp.com/terracoeconomico.com.br/wp-content/uploads/2019/01/default-user-image.png?ssl=1"
           alt=""
