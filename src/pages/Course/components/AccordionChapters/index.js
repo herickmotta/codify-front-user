@@ -29,6 +29,7 @@ export default function AccordionChapters({ chapters, courseId }) {
       exercisesAmount += topic.exercises.length;
     });
     chapter.exercisesAmount = exercisesAmount;
+    chapter.classesAmount = chapter.topics.length;
   });
 
   async function getProgress(chapter) {
@@ -60,7 +61,13 @@ export default function AccordionChapters({ chapters, courseId }) {
               <AccordionItemButton>
                 <div className="item">
                   <h2>{chapter.name}</h2>
-                  <p>1 Teoria e {chapter.exercisesAmount} Exercícios</p>
+                  <p>
+                    {chapter.classesAmount > 1
+                      ? `${chapter.classesAmount} Aulas`
+                      : `${chapter.classesAmount} Aula`}
+                    &nbsp; • &nbsp;
+                    {chapter.exercisesAmount} Exercícios
+                  </p>
                 </div>
               </AccordionItemButton>
             </AccordionItemHeading>
