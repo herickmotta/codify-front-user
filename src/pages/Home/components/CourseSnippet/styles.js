@@ -11,7 +11,6 @@ export const Snippet = styled.div`
   justify-content: space-between;
   box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.1);
   font-family: ${typography.Roboto};
-  background: ${colors.white};
 `;
 
 export const ImageBox = styled.div`
@@ -55,7 +54,6 @@ export const ButtonBox = styled.div`
   display: flex;
   align-items: center;
   padding-right: 10px;
-  margin-right: 10px;
   font-weight: bold;
   button {
     margin: 0;
