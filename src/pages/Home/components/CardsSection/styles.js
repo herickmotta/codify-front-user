@@ -18,9 +18,17 @@ export const Container = styled.div`
 
 export const CardsList = styled.ul`
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   height: 100%;
   flex-grow: 1;
   flex-wrap: wrap;
   flex-shrink: 0;
+
+  & > div {
+    margin-right: 1.5rem;
+  }
+
+  & > :last-child {
+    margin-right: 0rem;
+  }
 `;

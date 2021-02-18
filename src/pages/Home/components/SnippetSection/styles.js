@@ -8,9 +8,10 @@ export const Container = styled.div`
   justify-content: start;
   margin: 20px 0;
   font-family: ${tipography.Roboto};
+
   & > h1 {
     margin: 20px 0;
-    font-size: 22px;
+    font-size: calc(20px + (32 - 20) * ((100vw - 300px) / (1600 - 300)));
   }
 `;
 
