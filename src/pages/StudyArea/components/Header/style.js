@@ -7,24 +7,23 @@ export const Container = styled.header`
   background-color: ${Colors.black};
   font-size: 25px;
   padding: 15px 9px;
-  text-align: center;
 `;
 
-export const Topics = styled.nav`
+export const Topics = styled.div`
   width: 30%;
-  margin: 0 auto;
+  color: ${Colors.white};
+  display: flex;
+  justify-content: space-evenly;
+  position: absolute;
+  left: 35%;
+  top: 25px;
+  cursor: pointer;
 
-  div {
-    color: ${Colors.white};
-    background-color: ${Colors.black};
-    border: none;
-  }
-  span {
-    display: none;
-  }
   svg {
     width: 30px;
     height: 30px;
+    transition: all 200ms linear;
+    transform: ${(props) => (props.openMenu ? `rotate(180deg)` : `rotate(0)`)};
   }
 `;
 
