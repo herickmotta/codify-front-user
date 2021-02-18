@@ -92,7 +92,7 @@ export default function StudyArea() {
       nextChapterIndex >= chaptersQuantity &&
       nextTopicIndex >= topicsQuantity
     ) {
-      alert("ACABOOOOOOOOOU");
+      alert("Fim do curso");
       return;
     }
     if (nextTopicIndex >= topicsQuantity) {
