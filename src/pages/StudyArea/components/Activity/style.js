@@ -15,7 +15,7 @@ const EndLesson = styled.footer`
     padding: 10px 40px;
   }
   span {
-    color: ${(props) => (props.checked ? Colors.green : Colors.lightGray)};
+    color: ${(props) => (props.checked ? Colors.lightGreen : Colors.lightGray)};
     font-size: 19px;
   }
 `;
