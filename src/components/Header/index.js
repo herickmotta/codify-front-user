@@ -1,8 +1,19 @@
 import React from "react";
 import { Link, useHistory } from "react-router-dom";
-import { Container, LogoBox, Nav, AvatarBox, LeftBox } from "./styles";
+import { AiOutlineLogin } from "react-icons/ai";
 
-export default function Header() {
+import {
+  Container,
+  LogoBox,
+  Nav,
+  AvatarBox,
+  LeftBox,
+  LogOutButton,
+} from "./styles";
+import Spinner from "../Spinner";
+import Colors from "../../config/colors";
+
+export default function Header({ logOut, loading }) {
   const history = useHistory();
   return (
     <Container>
@@ -18,6 +29,18 @@ export default function Header() {
         </Nav>
       </LeftBox>
 
+      <LogOutButton>
+        {loading ? (
+          <Spinner color={Colors.blue} />
+        ) : (
+          <AiOutlineLogin
+            color={Colors.blue}
+            fontSize="1.5rem"
+            cursor="pointer"
+            onClick={logOut}
+          />
+        )}
+      </LogOutButton>
       <AvatarBox>
         <img
           src="https://i1.wp.com/terracoeconomico.com.br/wp-content/uploads/2019/01/default-user-image.png?ssl=1"

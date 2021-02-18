@@ -4,7 +4,7 @@ import Modal from "react-modal";
 import { GoCheck } from "react-icons/go";
 import { customStyles, Icon } from "./styles";
 import Button from "../Button";
-import FormsContainer from "../FormsContainer";
+import FormsContainer from "../FormsContainer/styles";
 
 export default function WarningModal({ modalIsOpen, warning, setModalIsOpen }) {
   const history = useHistory();

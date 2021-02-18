@@ -3,7 +3,8 @@ import colors from "../../config/colors";
 import typography from "../../config/typography";
 
 const Container = styled.button`
-  width: 100%;
+  width: ${(props) => props.width || "100%"};
+  height: ${(props) => props.height || "auto"};
   background-color: ${colors.blue};
   font-family: ${typography.Roboto};
   font-weigth: 700;

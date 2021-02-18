@@ -1,10 +1,13 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+
 import Button from "../../../../components/Button";
 import { Snippet, ImageBox, DescriptionBox, ButtonBox } from "./styles";
 
 export default function CourseSnippet({ course }) {
   const { id, name, description, photo } = course;
+
+  const history = useHistory();
   return (
     <Snippet>
       <ImageBox>
@@ -18,7 +21,10 @@ export default function CourseSnippet({ course }) {
       </DescriptionBox>
 
       <ButtonBox>
-        <Button text="Continuar curso >>" />
+        <Button
+          text="Continuar curso >>"
+          onClick={() => history.push(`/study-area/${"Colocar-id-do-curso"}`)}
+        />
       </ButtonBox>
     </Snippet>
   );
