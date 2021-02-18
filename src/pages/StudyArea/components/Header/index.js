@@ -1,10 +1,20 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { IoIosArrowBack, IoIosArrowDown } from "react-icons/io";
 import { Container, Icon, Topics } from "./style";
 
 export default function Header({ options, courseId }) {
-  // const { currentTopic, list } = options;
+  const [topicName, setTopicName] = useState();
+
+  useEffect(() => {
+    if (options) {
+      const { list, currentChapterIndex, currentTopicIndex } = options;
+      setTopicName(
+        list[currentChapterIndex].chapterData[currentTopicIndex].name
+      );
+    }
+  }, [options]);
+
   const history = useHistory();
   return (
     <Container>
@@ -12,9 +22,9 @@ export default function Header({ options, courseId }) {
         <IoIosArrowBack />
       </Icon>
 
-      {options && (
+      {topicName && (
         <Topics>
-          <h1>{options.currentTopic}</h1>
+          <h1>{topicName}</h1>
           <IoIosArrowDown />
         </Topics>
       )}

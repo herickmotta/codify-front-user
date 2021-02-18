@@ -20,19 +20,19 @@ export default function StudyArea() {
   const [markedDone, setMarkedDone] = useState(false);
   const [update, setUpdate] = useState(false);
   const [options, setOptions] = useState(null);
-  const [openMenu, setOpenMenu] = useState(true);
+  const [openMenu, setOpenMenu] = useState(false);
   const history = useHistory();
   const currentRoute = useLocation().pathname;
-
+  console.log(options);
   useEffect(async () => {
-    const data = await CoursesService.getDataById(id, user.token);
+    const data = await CoursesService.getDataById(id, topicId, user.token);
 
     if (data.success) {
       setOptions(data.success);
     } else {
       alert("erro");
     }
-  }, [openMenu]);
+  }, [openMenu, currentRoute]);
 
   useEffect(async () => {
     const data = await TopicsService.getById(
@@ -71,18 +71,51 @@ export default function StudyArea() {
       alert("erro");
     }
   }
-  function next() {
-    const nextIndex = currentLesson.index + 1;
-    setCurrentLesson({
-      data: topicData.exercises[nextIndex],
-      index: nextIndex,
-    });
-  }
 
   function changeTopic(chapId, topId) {
     if (chapterId != chapId || topicId != topId) {
       setCurrentLesson(null);
       history.push(`/courses/${id}/chapters/${chapId}/topics/${topId}`);
+    }
+  }
+
+  function changeTopicOrChapter() {
+    const { currentTopicIndex, currentChapterIndex, list } = options;
+    const chaptersQuantity = list.length;
+    const topicsQuantity = list[currentChapterIndex].chapterData.length;
+    const nextChapterIndex = currentChapterIndex + 1;
+    const nextTopicIndex = currentTopicIndex + 1;
+    let nextChapterId;
+    let nextTopicId;
+
+    if (
+      nextChapterIndex >= chaptersQuantity &&
+      nextTopicIndex >= topicsQuantity
+    ) {
+      alert("ACABOOOOOOOOOU");
+      return;
+    }
+    if (nextTopicIndex >= topicsQuantity) {
+      nextChapterId = list[nextChapterIndex].id;
+      nextTopicId = list[nextChapterIndex].chapterData[0].id;
+    } else {
+      nextTopicId = list[currentChapterIndex].chapterData[nextTopicIndex].id;
+      nextChapterId = list[currentChapterIndex].id;
+    }
+
+    changeTopic(nextChapterId, nextTopicId);
+  }
+
+  function next() {
+    const nextIndex = currentLesson.index + 1;
+
+    if (nextIndex >= topicData.exercises.length) {
+      changeTopicOrChapter();
+    } else {
+      setCurrentLesson({
+        data: topicData.exercises[nextIndex],
+        index: nextIndex,
+      });
     }
   }
 

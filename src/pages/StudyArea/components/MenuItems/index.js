@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { AiFillCheckCircle } from "react-icons/ai";
 import { BsCircleFill } from "react-icons/bs";
 import Container from "./style";
