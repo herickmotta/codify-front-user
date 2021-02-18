@@ -1,13 +1,13 @@
 /* eslint-disable no-alert */
 import React, { useContext, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { AiFillForward } from "react-icons/ai";
 import Spinner from "../../../../components/Spinner";
 import Colors from "../../../../config/colors";
 import UserContext from "../../../../contexts/UserContext";
 import CoursesService from "../../../../services/CoursesService";
 
 import { Card, ImageBox, DescriptionBox, StudyButton } from "./styles";
+import Button from "../../../../components/Button";
 
 export default function CourseCard({
   id,
@@ -43,22 +43,21 @@ export default function CourseCard({
       </ImageBox>
 
       <DescriptionBox>
-        <h1>{name}</h1>
-        <p> {description} </p>
+        <div>
+          <h1>{name}</h1>
+          <p> {description} </p>
+        </div>
         {coursesStarted ? (
           <StudyButton>
             {loading ? (
               <Spinner color={Colors.blue} />
             ) : (
-              <AiFillForward
-                color={Colors.blue}
-                fontSize="3rem"
-                cursor="pointer"
-                onClick={() => goStudyArea()}
-              />
+              <Button text="Continuar curso >>" onClick={() => goStudyArea()} />
             )}
           </StudyButton>
-        ) : null}
+        ) : (
+          <StudyButton />
+        )}
       </DescriptionBox>
     </Card>
   );
