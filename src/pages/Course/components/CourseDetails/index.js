@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 
 import { ProgressBar } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -12,6 +12,8 @@ import {
   ContainerUserProgress,
   ContainerImgAndProgress,
 } from "./styles";
+import CoursesService from "../../../../services/CoursesService";
+import UserContext from "../../../../contexts/UserContext";
 
 export default function CourseDetails(props) {
   const {
@@ -21,13 +23,27 @@ export default function CourseDetails(props) {
     userProgress,
     incompleteCourse,
     chapters,
+    isCourseStarted,
   } = props;
+  const { user } = useContext(UserContext);
   const history = useHistory();
 
-  const firstTopic = chapters[0].topics[0].id;
+  const firstChapterId = chapters[0].id;
+  const firstTopicId = chapters[0].topics[0].id;
 
-  function openStudyPage() {
-    history.push(`/courses/${courseId}/chapters/1/topics/${firstTopic}`);
+  async function openStudyPage() {
+    if (!isCourseStarted) {
+      const data = await CoursesService.startCourse(courseId, user.token);
+      if (data) {
+        history.push(
+          `/courses/${courseId}/chapters/${firstChapterId}/topics/${firstTopicId}`
+        );
+      } else {
+        alert("Erro no servidor, por favor tente novamente mais tarde.");
+      }
+    } else {
+      alert("Faltando implementação de continuar o curso");
+    }
   }
 
   return (
@@ -62,7 +78,7 @@ export default function CourseDetails(props) {
             </div>
           </ContainerImgAndProgress>
           <Button
-            text={userProgress ? "Continuar curso >>" : "Iniciar curso >>"}
+            text={isCourseStarted ? "Continuar curso >>" : "Iniciar curso >>"}
             onClick={() => openStudyPage()}
           />
         </ContainerUserProgress>

@@ -49,13 +49,11 @@ class CoursesService {
       const { data } = await api.get(`/courses/${id}`, {
         headers: { Authorization: `JWT ${token}` },
       });
-      console.log(data);
       if (data) {
-        return { success: data };
+        return data;
       }
       return null;
     } catch (error) {
-      console.log(error);
       return error;
     }
   }
@@ -84,6 +82,24 @@ class CoursesService {
       );
       if (data) {
         return { success: data };
+      }
+      return null;
+    } catch (error) {
+      return error;
+    }
+  }
+
+  async startCourse(courseId, token) {
+    try {
+      const { data } = await api.post(
+        `/courses/start`,
+        { courseId },
+        {
+          headers: { Authorization: `JWT ${token}` },
+        }
+      );
+      if (data) {
+        return data;
       }
       return null;
     } catch (error) {

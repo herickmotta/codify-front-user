@@ -13,6 +13,7 @@ import CoursesService from "../../services/CoursesService";
 import { Container } from "./styles";
 
 export default function Course() {
+  const [isCourseStarted, setIsCourseStarted] = useState();
   const [courseId, setCourseId] = useState();
   const [courseName, setCourseName] = useState();
   const [courseDescription, setCourseDescription] = useState();
@@ -31,11 +32,12 @@ export default function Course() {
   useEffect(async () => {
     const data = await CoursesService.getById(id, user.token);
     const progressData = await CoursesService.getCourseProgress(id, user.token);
-    if (data.success && progressData.success) {
-      setCourseId(data.success.id);
-      setCourseName(data.success.name);
-      setCourseDescription(data.success.description);
-      setChapters(data.success.chapters);
+    if (data && progressData.success) {
+      setIsCourseStarted(data.isCourseStarted);
+      setCourseId(data.id);
+      setCourseName(data.name);
+      setCourseDescription(data.description);
+      setChapters(data.chapters);
       setUserProgress(progressData.success.progress);
     } else if (progressData.response.status === 404) {
       setIncompleteCourse(true);
@@ -57,6 +59,7 @@ export default function Course() {
           userProgress={userProgress}
           incompleteCourse={incompleteCourse}
           chapters={chapters}
+          isCourseStarted={isCourseStarted}
         />
       )}
       {chapters && <AccordionChapters chapters={chapters} courseId={id} />}
