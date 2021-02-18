@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable class-methods-use-this */
 import api from "../config/api";
 
@@ -87,6 +88,22 @@ class CoursesService {
       }
       return null;
     } catch (error) {
+      return error;
+    }
+  }
+
+  async getDataById(id, token) {
+    try {
+      const { data } = await api.get(`/courses/${id}/menu`, {
+        headers: { Authorization: `JWT ${token}` },
+      });
+      console.log(data);
+      if (data) {
+        return { success: data };
+      }
+      return null;
+    } catch (error) {
+      console.log(error);
       return error;
     }
   }

@@ -1,14 +1,16 @@
+/* eslint-disable eqeqeq */
 /* eslint-disable no-alert */
 import React, { useState, useEffect, useContext } from "react";
 import { useParams, useHistory, useLocation } from "react-router-dom";
 import TopicsService from "../../services/TopicsService";
 import LessonsService from "../../services/LessonsService";
-import ChaptersService from "../../services/ChaptersService";
+import CoursesService from "../../services/CoursesService";
 import UserContext from "../../contexts/UserContext";
-import { Container, Content } from "./style";
+import { Container, Content, Menu } from "./style";
 import BulletNavigation from "./components/BulletNavigation";
 import Header from "./components/Header";
 import Activity from "./components/Activity";
+import MenuItems from "./components/MenuItems";
 
 export default function StudyArea() {
   const { user } = useContext(UserContext);
@@ -18,18 +20,19 @@ export default function StudyArea() {
   const [markedDone, setMarkedDone] = useState(false);
   const [update, setUpdate] = useState(false);
   const [options, setOptions] = useState(null);
+  const [openMenu, setOpenMenu] = useState(true);
   const history = useHistory();
   const currentRoute = useLocation().pathname;
 
   useEffect(async () => {
-    const data = await ChaptersService.getById(chapterId, topicId, user.token);
+    const data = await CoursesService.getDataById(id, user.token);
 
     if (data.success) {
       setOptions(data.success);
     } else {
       alert("erro");
     }
-  }, [chapterId]);
+  }, [openMenu]);
 
   useEffect(async () => {
     const data = await TopicsService.getById(
@@ -76,14 +79,37 @@ export default function StudyArea() {
     });
   }
 
-  function teste(e) {
-    setCurrentLesson(null);
-    history.push(`/courses/${id}/chapters/${chapterId}/topics/${e.value}`);
+  function changeTopic(chapId, topId) {
+    if (chapterId != chapId || topicId != topId) {
+      setCurrentLesson(null);
+      history.push(`/courses/${id}/chapters/${chapId}/topics/${topId}`);
+    }
   }
 
   return (
     <Container>
-      <Header options={options} teste={teste} courseId={id} />
+      <Header
+        options={options}
+        courseId={id}
+        openMenu={openMenu}
+        setOpenMenu={setOpenMenu}
+      />
+      {options && (
+        <Menu openMenu={openMenu}>
+          {options.list.map((e) => (
+            <>
+              <h2>{e.name}</h2>
+              {e.chapterData.map((t) => (
+                <MenuItems
+                  item={t}
+                  chapterId={e.id}
+                  changeTopic={changeTopic}
+                />
+              ))}
+            </>
+          ))}
+        </Menu>
+      )}
       <Content>
         {topicData && currentLesson && (
           <ul>
