@@ -23,7 +23,7 @@ export default function StudyArea() {
   const [openMenu, setOpenMenu] = useState(false);
   const history = useHistory();
   const currentRoute = useLocation().pathname;
-  console.log(options);
+
   useEffect(async () => {
     const data = await CoursesService.getDataById(id, topicId, user.token);
 
@@ -135,8 +135,10 @@ export default function StudyArea() {
               {e.chapterData.map((t) => (
                 <MenuItems
                   item={t}
-                  chapterId={e.id}
+                  chapter={e.id}
                   changeTopic={changeTopic}
+                  openMenu={openMenu}
+                  setOpenMenu={setOpenMenu}
                 />
               ))}
             </>

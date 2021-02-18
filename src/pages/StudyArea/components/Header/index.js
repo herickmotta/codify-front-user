@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 import { IoIosArrowBack, IoIosArrowDown } from "react-icons/io";
 import { Container, Icon, Topics } from "./style";
 
-export default function Header({ options, courseId }) {
+export default function Header({ options, courseId, openMenu, setOpenMenu }) {
   const [topicName, setTopicName] = useState();
 
   useEffect(() => {
@@ -23,7 +23,7 @@ export default function Header({ options, courseId }) {
       </Icon>
 
       {topicName && (
-        <Topics>
+        <Topics openMenu={openMenu} onClick={() => setOpenMenu(!openMenu)}>
           <h1>{topicName}</h1>
           <IoIosArrowDown />
         </Topics>

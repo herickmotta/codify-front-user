@@ -13,16 +13,17 @@ export const Topics = styled.div`
   width: 30%;
   color: ${Colors.white};
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   position: absolute;
   left: 35%;
   top: 25px;
   cursor: pointer;
+
   svg {
     width: 30px;
     height: 30px;
-    transition: all 150ms linear;
-    transform: ${(props) => (props.isVisible ? `rotate(180deg)` : `rotate(0)`)};
+    transition: all 200ms linear;
+    transform: ${(props) => (props.openMenu ? `rotate(180deg)` : `rotate(0)`)};
   }
 `;
 
