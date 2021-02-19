@@ -27,8 +27,8 @@ export default function StudyArea() {
   useEffect(async () => {
     const data = await CoursesService.getDataById(id, topicId, user.token);
 
-    if (data.success) {
-      setOptions(data.success);
+    if (data) {
+      setOptions(data);
     } else {
       alert("erro");
     }
