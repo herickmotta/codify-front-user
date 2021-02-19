@@ -26,6 +26,7 @@ export const CardsList = styled.ul`
 
   & > div {
     margin-right: 1.5rem;
+    margin-bottom: 1.5rem;
   }
 
   & > :last-child {
