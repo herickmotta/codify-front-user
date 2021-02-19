@@ -49,13 +49,11 @@ class CoursesService {
       const { data } = await api.get(`/courses/${id}`, {
         headers: { Authorization: `JWT ${token}` },
       });
-      console.log(data);
       if (data) {
         return { success: data };
       }
       return null;
     } catch (error) {
-      console.log(error);
       return error;
     }
   }
