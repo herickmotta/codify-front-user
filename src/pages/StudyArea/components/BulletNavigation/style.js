@@ -7,7 +7,7 @@ const Container = styled.li`
 
   & > :first-child {
     color: ${(props) => props.completed
-      ? Colors.green
+      ? Colors.lightGreen
       : (props.clicked ? Colors.white : Colors.lightGray)
     };
 
@@ -18,7 +18,7 @@ const Container = styled.li`
   & > :last-child {
     border-top: 2px solid
      ${(props) => props.completed
-        ? Colors.green
+        ? Colors.lightGreen
         : (props.clicked ? Colors.white : Colors.lightGray)
       }
     ;

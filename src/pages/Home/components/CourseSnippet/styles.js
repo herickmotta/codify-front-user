@@ -3,14 +3,15 @@ import colors from "../../../../config/colors";
 import typography from "../../../../config/typography";
 
 export const Snippet = styled.div`
-  height: 160px;
-  width: 656px;
+  height: 210px;
+  width: 50%;
   border-radius: 20px;
   overflow: hidden;
   display: flex;
   justify-content: space-between;
   box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.1);
   font-family: ${typography.Roboto};
+  background: ${colors.white};
 `;
 
 export const ImageBox = styled.div`
@@ -35,30 +36,33 @@ export const DescriptionBox = styled.div`
   justify-content: space-evenly;
   padding: 0 20px;
   h1 {
+    font-size: calc(14px + (20 - 14) * ((100vw - 300px) / (1600 - 300)));
     font-weight: bold;
   }
   p {
+    font-size: calc(14px + (20 - 14) * ((100vw - 300px) / (1600 - 300)));
     color: ${colors.gray};
   }
   a {
     color: ${colors.gray};
     font-weight: bold;
-    font-size: 14px;
+    font-size: 16px;
     opacity: 70%;
   }
 `;
 
 export const ButtonBox = styled.div`
-  width: 25%;
+  width: 28%;
   height: 100%;
   display: flex;
   align-items: center;
   padding-right: 10px;
+  margin-right: 10px;
   font-weight: bold;
   button {
     margin: 0;
-    padding: 10px;
-    font-size: 14px;
+    padding: 16px;
+    font-size: 18px;
     cursor: pointer;
   }
 `;

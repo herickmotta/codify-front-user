@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable class-methods-use-this */
 import api from "../config/api";
 
@@ -50,7 +51,7 @@ class CoursesService {
         headers: { Authorization: `JWT ${token}` },
       });
       if (data) {
-        return { success: data };
+        return data;
       }
       return null;
     } catch (error) {
@@ -85,6 +86,39 @@ class CoursesService {
       }
       return null;
     } catch (error) {
+      return error;
+    }
+  }
+
+  async startCourse(courseId, token) {
+    try {
+      const { data } = await api.post(
+        `/courses/start`,
+        { courseId },
+        {
+          headers: { Authorization: `JWT ${token}` },
+        }
+      );
+      if (data) {
+        return data;
+      }
+      return null;
+    } catch (error) {
+      return error;
+    }
+  }
+
+  async getDataById(id, topicId, token) {
+    try {
+      const { data } = await api.get(`/courses/${id}/menu/topics/${topicId}`, {
+        headers: { Authorization: `JWT ${token}` },
+      });
+      if (data) {
+        return data;
+      }
+      return null;
+    } catch (error) {
+      console.log(error);
       return error;
     }
   }
