@@ -4,24 +4,25 @@ import { FormControlLabel, Checkbox } from "@material-ui/core";
 import Exercise from "../Exercise";
 import Button from "../../../../components/Button";
 import ClassVideo from "../ClassVideo";
-import EndLesson from "./style";
+import EndActivity from "./style";
 
 export default function Activity({
-  currentLesson,
+  currentActivity,
   markedDone,
   setMarkedDone,
-  concludeLesson,
+  concludeActivity,
   next
 }) {
+  const { exerciseDones, theoryDones, youtubeLink } = currentActivity;
   useEffect(() => {
     if (
       (!markedDone &&
         (
-          currentLesson.exerciseDones &&
-          currentLesson.exerciseDones.length > 0
+          exerciseDones &&
+          exerciseDones.length > 0
         ) || (
-          currentLesson.theoryDones && 
-          currentLesson.theoryDones.length > 0
+          theoryDones && 
+          theoryDones.length > 0
         )
       )
     ) {
@@ -29,40 +30,40 @@ export default function Activity({
     } else if (
       (markedDone &&
         (
-          currentLesson.exerciseDones &&
-          currentLesson.exerciseDones.length === 0
+          exerciseDones &&
+          exerciseDones.length === 0
         ) || (
-          currentLesson.theoryDones && 
-          currentLesson.theoryDones.length === 0
+          theoryDones && 
+          theoryDones.length === 0
         )
       )
     ) {
       setMarkedDone(false);
     }
-  }, [currentLesson]);
+  }, [currentActivity]);
 
   return (
     <>
-      {currentLesson && currentLesson.youtubeLink ? (
-        <ClassVideo link={currentLesson.youtubeLink} />
+      {currentActivity && youtubeLink ? (
+        <ClassVideo link={youtubeLink} />
       ) : (
-        <Exercise name={`Exercicio ${currentLesson.id}`} />
+        <Exercise name={`Exercicio ${currentActivity.id}`} />
       )}
-      <EndLesson checked={markedDone}>
+      <EndActivity checked={markedDone}>
         <FormControlLabel
           control={
             <Checkbox
               checked={markedDone}
               onChange={() => {
                 setMarkedDone(!markedDone);
-                concludeLesson(currentLesson);
+                concludeActivity(currentActivity);
               }}
             />
           }
           label="Marcar como concluido"
         />
         <Button text="Avancar >>" onClick={next} />
-      </EndLesson>
+      </EndActivity>
     </>
   );
 }

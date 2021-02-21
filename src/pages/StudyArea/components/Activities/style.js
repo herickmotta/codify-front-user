@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import Colors from "../../../../config/colors";
 
-const EndLesson = styled.footer`
+const EndActivity = styled.footer`
   margin: 0 auto;
   margin-top: 1.5vh;
   width: 60%;
@@ -20,4 +20,4 @@ const EndLesson = styled.footer`
   }
 `;
 
-export default EndLesson;
+export default EndActivity;

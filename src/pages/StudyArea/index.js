@@ -3,20 +3,20 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useParams, useHistory, useLocation } from "react-router-dom";
 import TopicsService from "../../services/TopicsService";
-import LessonsService from "../../services/LessonsService";
+import ActivitiesService from "../../services/ActivitiesService";
 import CoursesService from "../../services/CoursesService";
 import UserContext from "../../contexts/UserContext";
 import { Container, Content, Menu } from "./style";
 import BulletNavigation from "./components/BulletNavigation";
 import Header from "./components/Header";
-import Activity from "./components/Activity";
+import Activities from "./components/Activities";
 import MenuItems from "./components/MenuItems";
 
 export default function StudyArea() {
   const { user } = useContext(UserContext);
   const { id, chapterId, topicId } = useParams();
   const [topicData, setTopicData] = useState(null);
-  const [currentLesson, setCurrentLesson] = useState(null);
+  const [currentActivity, setActivity] = useState(null);
   const [markedDone, setMarkedDone] = useState(false);
   const [update, setUpdate] = useState(false);
   const [options, setOptions] = useState(null);
@@ -44,26 +44,42 @@ export default function StudyArea() {
 
     if (data.success) {
       setTopicData(data.success);
-      if (!currentLesson) {
-        setCurrentLesson({ data: data.success.exercises[0], index: 0 });
+      if (!currentActivity) {
+        setActivity({
+          data: data.success.activities[0],
+          index: 0,
+        });
+      } else {
+        setActivity({
+          data: data.success.activities[currentActivity.index],
+          index: currentActivity.index,
+        });
       }
     } else {
       alert("erro");
     }
   }, [update, currentRoute]);
 
-  async function concludeLesson(lesson) {
-    const type = lesson.exerciseDones ? "exercise" : "theory";
-    const lessonData = {
+  async function concludeActivity(activity) {
+    const type = activity.exerciseDones ? "exercise" : "theory";
+    const activityData = {
       userId: user.id,
       type,
     };
 
     let result;
     if (!markedDone) {
-      result = await LessonsService.markDone(lesson.id, lessonData, user.token);
+      result = await ActivitiesService.markDone(
+        activity.id,
+        activityData,
+        user.token
+      );
     } else {
-      result = await LessonsService.markOff(lesson.id, lessonData, user.token);
+      result = await ActivitiesService.markOff(
+        activity.id,
+        activityData,
+        user.token
+      );
     }
     if (result.success) {
       setUpdate(!update);
@@ -74,7 +90,7 @@ export default function StudyArea() {
 
   function changeTopic(chapId, topId) {
     if (chapterId != chapId || topicId != topId) {
-      setCurrentLesson(null);
+      setActivity(null);
       history.push(`/courses/${id}/chapters/${chapId}/topics/${topId}`);
     }
   }
@@ -107,13 +123,13 @@ export default function StudyArea() {
   }
 
   function next() {
-    const nextIndex = currentLesson.index + 1;
+    const nextIndex = currentActivity.index + 1;
 
-    if (nextIndex >= topicData.exercises.length) {
+    if (nextIndex >= topicData.activities.length) {
       changeTopicOrChapter();
     } else {
-      setCurrentLesson({
-        data: topicData.exercises[nextIndex],
+      setActivity({
+        data: topicData.activities[nextIndex],
         index: nextIndex,
       });
     }
@@ -146,26 +162,27 @@ export default function StudyArea() {
         </Menu>
       )}
       <Content>
-        {topicData && currentLesson && (
+        {topicData && currentActivity && (
           <ul>
-            {topicData.exercises.map((e, i) => (
+            {topicData.activities.map((e, i) => (
               <BulletNavigation
                 key={e.id}
                 index={i}
-                bullet={e}
-                current={currentLesson.data}
-                setCurrentLesson={setCurrentLesson}
+                data={e}
+                current={currentActivity.data}
+                currentIndex={currentActivity.index}
+                setActivity={setActivity}
               />
             ))}
           </ul>
         )}
       </Content>
-      {currentLesson && (
-        <Activity
-          currentLesson={currentLesson.data}
+      {currentActivity && (
+        <Activities
+          currentActivity={currentActivity.data}
           markedDone={markedDone}
           setMarkedDone={setMarkedDone}
-          concludeLesson={concludeLesson}
+          concludeActivity={concludeActivity}
           next={next}
         />
       )}
