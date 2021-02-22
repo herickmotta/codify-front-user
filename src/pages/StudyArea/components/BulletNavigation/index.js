@@ -31,7 +31,6 @@ export default function BulletNavigation({
   }, [current]);
 
   useEffect(() => {
-    console.log('oi')
     if (current === data) setClicked(true);
     else setClicked(false);
   }, [currentIndex]);

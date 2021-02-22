@@ -1,6 +1,5 @@
-/* eslint-disable eqeqeq */
 import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { AiFillCheckCircle } from "react-icons/ai";
 import { BsCircleFill } from "react-icons/bs";
 import Container from "./style";
@@ -11,14 +10,16 @@ export default function MenuItems({
   chapter,
   openMenu,
   setOpenMenu,
-  chapterId,
-  topicId,
 }) {
+  const { chapterId, topicId } = useParams();
   const [currentTopic, setCurrentTopic] = useState(false);
   const currentRoute = useLocation().pathname;
 
   useEffect(() => {
-    if (chapterId === chapter && topicId === item.id) {
+    if (
+      parseInt(chapterId, 10) === chapter &&
+      parseInt(topicId, 10) === item.id
+    ) {
       setCurrentTopic(true);
     } else {
       setCurrentTopic(false);

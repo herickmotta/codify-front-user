@@ -1,5 +1,4 @@
-/* eslint-disable */
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { FormControlLabel, Checkbox } from "@material-ui/core";
 import Exercise from "../Exercise";
 import Button from "../../../../components/Button";
@@ -11,33 +10,17 @@ export default function Activity({
   markedDone,
   setMarkedDone,
   concludeActivity,
-  next
+  next,
+  disabled,
 }) {
   const { exerciseDones, theoryDones, youtubeLink } = currentActivity;
   useEffect(() => {
     if (
-      (!markedDone &&
-        (
-          exerciseDones &&
-          exerciseDones.length > 0
-        ) || (
-          theoryDones && 
-          theoryDones.length > 0
-        )
-      )
+      (exerciseDones && exerciseDones.length > 0) ||
+      (theoryDones && theoryDones.length > 0)
     ) {
       setMarkedDone(true);
-    } else if (
-      (markedDone &&
-        (
-          exerciseDones &&
-          exerciseDones.length === 0
-        ) || (
-          theoryDones && 
-          theoryDones.length === 0
-        )
-      )
-    ) {
+    } else {
       setMarkedDone(false);
     }
   }, [currentActivity]);
@@ -62,7 +45,7 @@ export default function Activity({
           }
           label="Marcar como concluido"
         />
-        <Button text="Avancar >>" onClick={next} />
+        {!disabled && <Button text="Avancar >>" onClick={next} />}
       </EndActivity>
     </>
   );

@@ -1,4 +1,4 @@
-/* eslint-disable eqeqeq */
+/* eslint-disable react/no-array-index-key */
 /* eslint-disable no-alert */
 import React, { useState, useEffect, useContext } from "react";
 import { useParams, useHistory, useLocation } from "react-router-dom";
@@ -21,8 +21,28 @@ export default function StudyArea() {
   const [update, setUpdate] = useState(false);
   const [options, setOptions] = useState(null);
   const [openMenu, setOpenMenu] = useState(false);
+  const [disabledButton, setDisabledButton] = useState(false);
   const history = useHistory();
   const currentRoute = useLocation().pathname;
+
+  useEffect(() => {
+    if (topicData && options && currentActivity) {
+      const { currentTopicIndex, currentChapterIndex, list } = options;
+      const lastChapter = list.length - 1;
+      const lastTopic = list[currentChapterIndex].chapterData.length - 1;
+      const lastActivity = topicData.activities.length - 1;
+
+      if (
+        currentChapterIndex === lastChapter &&
+        currentTopicIndex === lastTopic &&
+        lastActivity === currentActivity.index
+      ) {
+        setDisabledButton(true);
+      } else {
+        setDisabledButton(false);
+      }
+    }
+  }, [currentActivity]);
 
   useEffect(async () => {
     const data = await CoursesService.getDataById(id, topicId, user.token);
@@ -89,7 +109,7 @@ export default function StudyArea() {
   }
 
   function changeTopic(chapId, topId) {
-    if (chapterId != chapId || topicId != topId) {
+    if (parseInt(chapterId, 10) !== chapId || parseInt(topicId, 10) !== topId) {
       setActivity(null);
       history.push(`/courses/${id}/chapters/${chapId}/topics/${topId}`);
     }
@@ -97,20 +117,12 @@ export default function StudyArea() {
 
   function changeTopicOrChapter() {
     const { currentTopicIndex, currentChapterIndex, list } = options;
-    const chaptersQuantity = list.length;
     const topicsQuantity = list[currentChapterIndex].chapterData.length;
     const nextChapterIndex = currentChapterIndex + 1;
     const nextTopicIndex = currentTopicIndex + 1;
     let nextChapterId;
     let nextTopicId;
 
-    if (
-      nextChapterIndex >= chaptersQuantity &&
-      nextTopicIndex >= topicsQuantity
-    ) {
-      alert("Fim do curso");
-      return;
-    }
     if (nextTopicIndex >= topicsQuantity) {
       nextChapterId = list[nextChapterIndex].id;
       nextTopicId = list[nextChapterIndex].chapterData[0].id;
@@ -150,13 +162,12 @@ export default function StudyArea() {
               <h2>{e.name}</h2>
               {e.chapterData.map((t) => (
                 <MenuItems
+                  key={t.id}
                   item={t}
                   chapter={e.id}
                   changeTopic={changeTopic}
                   openMenu={openMenu}
                   setOpenMenu={setOpenMenu}
-                  chapterId={chapterId}
-                  topicId={topicId}
                 />
               ))}
             </>
@@ -168,7 +179,7 @@ export default function StudyArea() {
           <ul>
             {topicData.activities.map((e, i) => (
               <BulletNavigation
-                key={e.id}
+                key={i}
                 index={i}
                 data={e}
                 current={currentActivity.data}
@@ -186,6 +197,7 @@ export default function StudyArea() {
           setMarkedDone={setMarkedDone}
           concludeActivity={concludeActivity}
           next={next}
+          disabled={disabledButton}
         />
       )}
     </Container>
