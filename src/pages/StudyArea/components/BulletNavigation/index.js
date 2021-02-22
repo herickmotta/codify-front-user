@@ -43,7 +43,7 @@ export default function BulletNavigation({
           setActivity({ data, index });
         }}
       >
-        <BsCircleFill size={25} />
+        <BsCircleFill size={23} />
         <p>{youtubeLink ? "Teoria" : "Exercicio"}</p>
       </div>
       <div />

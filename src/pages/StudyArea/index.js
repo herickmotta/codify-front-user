@@ -155,6 +155,8 @@ export default function StudyArea() {
                   changeTopic={changeTopic}
                   openMenu={openMenu}
                   setOpenMenu={setOpenMenu}
+                  chapterId={chapterId}
+                  topicId={topicId}
                 />
               ))}
             </>
