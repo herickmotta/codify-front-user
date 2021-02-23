@@ -6,7 +6,7 @@ export const Container = styled.header`
   display: flex;
   background-color: ${Colors.black};
   font-size: 25px;
-  padding: 15px 9px;
+  padding: 15px 20px;
 `;
 
 export const Topics = styled.div`
@@ -19,17 +19,19 @@ export const Topics = styled.div`
   top: 25px;
   cursor: pointer;
 
+  h1 {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
   svg {
-    width: 30px;
-    height: 30px;
     transition: all 200ms linear;
     transform: ${(props) => (props.openMenu ? `rotate(180deg)` : `rotate(0)`)};
+    margin-left: 0.1em;
   }
 `;
 
 export const Icon = styled.div`
-  width: 46px;
-  height: 46px;
   background-color: ${Colors.lightGray};
   font-size: 36px;
   border-radius: 6px;

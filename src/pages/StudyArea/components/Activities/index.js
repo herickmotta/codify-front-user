@@ -3,7 +3,7 @@ import { FormControlLabel, Checkbox } from "@material-ui/core";
 import Exercise from "../Exercise";
 import Button from "../../../../components/Button";
 import ClassVideo from "../ClassVideo";
-import EndActivity from "./style";
+import { Container, Box, EndActivity, CodeEditor } from "./style";
 
 export default function Activity({
   currentActivity,
@@ -19,6 +19,7 @@ export default function Activity({
   const { exerciseDones, theoryDones, youtubeLink } = currentActivity;
   const { currentTopicIndex, currentChapterIndex, list } = options;
   const [disabledButton, setDisabledButton] = useState(false);
+  const [activityType, setType] = useState("theory");
 
   useEffect(() => {
     if (topicData && options && currentActivity) {
@@ -46,6 +47,14 @@ export default function Activity({
       setMarkedDone(true);
     } else {
       setMarkedDone(false);
+    }
+  }, [currentActivity]);
+
+  useEffect(() => {
+    if (!exerciseDones) {
+      setType("theory");
+    } else {
+      setType("exercise");
     }
   }, [currentActivity]);
 
@@ -79,29 +88,41 @@ export default function Activity({
       });
     }
   }
-
+  console.log(currentActivity);
   return (
-    <>
-      {currentActivity && youtubeLink ? (
-        <ClassVideo link={youtubeLink} />
-      ) : (
-        <Exercise name={`Exercicio ${currentActivity.id}`} />
+    <Container>
+      <Box type={activityType}>
+        {activityType === "theory" ? (
+          <ClassVideo link={youtubeLink} />
+        ) : (
+          <Exercise
+            id={currentActivity.id}
+            name={currentActivity.name}
+            wording={currentActivity.wording}
+          />
+        )}
+        <EndActivity checked={markedDone}>
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={markedDone}
+                onChange={() => {
+                  setMarkedDone(!markedDone);
+                  concludeActivity(currentActivity);
+                }}
+              />
+            }
+            label="Marcar como concluido"
+          />
+          {!disabledButton && <Button text="Avancar >>" onClick={next} />}
+        </EndActivity>
+      </Box>
+      {activityType !== "theory" && (
+        <CodeEditor>
+          <span>insira aqui seu codigo</span>
+          <span>teste do codigo</span>
+        </CodeEditor>
       )}
-      <EndActivity checked={markedDone}>
-        <FormControlLabel
-          control={
-            <Checkbox
-              checked={markedDone}
-              onChange={() => {
-                setMarkedDone(!markedDone);
-                concludeActivity(currentActivity);
-              }}
-            />
-          }
-          label="Marcar como concluido"
-        />
-        {!disabledButton && <Button text="Avancar >>" onClick={next} />}
-      </EndActivity>
-    </>
+    </Container>
   );
 }
