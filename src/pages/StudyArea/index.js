@@ -21,28 +21,8 @@ export default function StudyArea() {
   const [update, setUpdate] = useState(false);
   const [options, setOptions] = useState(null);
   const [openMenu, setOpenMenu] = useState(false);
-  const [disabledButton, setDisabledButton] = useState(false);
   const history = useHistory();
   const currentRoute = useLocation().pathname;
-
-  useEffect(() => {
-    if (topicData && options && currentActivity) {
-      const { currentTopicIndex, currentChapterIndex, list } = options;
-      const lastChapter = list.length - 1;
-      const lastTopic = list[currentChapterIndex].chapterData.length - 1;
-      const lastActivity = topicData.activities.length - 1;
-
-      if (
-        currentChapterIndex === lastChapter &&
-        currentTopicIndex === lastTopic &&
-        lastActivity === currentActivity.index
-      ) {
-        setDisabledButton(true);
-      } else {
-        setDisabledButton(false);
-      }
-    }
-  }, [currentActivity]);
 
   useEffect(async () => {
     const data = await CoursesService.getDataById(id, topicId, user.token);
@@ -115,38 +95,6 @@ export default function StudyArea() {
     }
   }
 
-  function changeTopicOrChapter() {
-    const { currentTopicIndex, currentChapterIndex, list } = options;
-    const topicsQuantity = list[currentChapterIndex].chapterData.length;
-    const nextChapterIndex = currentChapterIndex + 1;
-    const nextTopicIndex = currentTopicIndex + 1;
-    let nextChapterId;
-    let nextTopicId;
-
-    if (nextTopicIndex >= topicsQuantity) {
-      nextChapterId = list[nextChapterIndex].id;
-      nextTopicId = list[nextChapterIndex].chapterData[0].id;
-    } else {
-      nextTopicId = list[currentChapterIndex].chapterData[nextTopicIndex].id;
-      nextChapterId = list[currentChapterIndex].id;
-    }
-
-    changeTopic(nextChapterId, nextTopicId);
-  }
-
-  function next() {
-    const nextIndex = currentActivity.index + 1;
-
-    if (nextIndex >= topicData.activities.length) {
-      changeTopicOrChapter();
-    } else {
-      setActivity({
-        data: topicData.activities[nextIndex],
-        index: nextIndex,
-      });
-    }
-  }
-
   return (
     <Container>
       <Header
@@ -193,11 +141,14 @@ export default function StudyArea() {
       {currentActivity && (
         <Activities
           currentActivity={currentActivity.data}
+          activityIndex={currentActivity.index}
+          setActivity={setActivity}
           markedDone={markedDone}
           setMarkedDone={setMarkedDone}
           concludeActivity={concludeActivity}
-          next={next}
-          disabled={disabledButton}
+          topicData={topicData}
+          options={options}
+          changeTopic={changeTopic}
         />
       )}
     </Container>
