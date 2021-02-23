@@ -45,9 +45,9 @@ export default function CourseDetails(props) {
       const data = await CoursesService.getLastTaskSeen(courseId, user.token);
       if (data) {
         if (!data.exerciseId) {
-          setLastTaskData({ type: "Theory", id: data.theoryId });
+          setLastTaskData({ theoryId: data.theoryId });
         } else if (!data.theoryId) {
-          setLastTaskData({ type: "Exercise", id: data.exerciseId });
+          setLastTaskData({ exerciseId: data.exerciseId });
         }
         history.push(
           `/courses/${data.courseId}/chapters/${data.chapterId}/topics/${data.topicId}`
