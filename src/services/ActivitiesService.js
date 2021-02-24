@@ -1,10 +1,10 @@
 /* eslint-disable class-methods-use-this */
 import api from "../config/api";
 
-class LessonsService {
-  async markDone(id, lessonData, token) {
+class ActivitiesService {
+  async markDone(id, activityData, token) {
     try {
-      const { data } = await api.post(`/lessons/${id}`, lessonData, {
+      const { data } = await api.post(`/activities/${id}`, activityData, {
         headers: { Authorization: `JWT ${token}` },
       });
       if (data) {
@@ -16,11 +16,11 @@ class LessonsService {
     }
   }
 
-  async markOff(id, lessonData, token) {
+  async markOff(id, activityData, token) {
     try {
-      const { data } = await api.delete(`/lessons/${id}`, {
+      const { data } = await api.delete(`/activities/${id}`, {
         headers: { Authorization: `JWT ${token}` },
-        data: lessonData,
+        data: activityData,
       });
       if (data) {
         return { success: data };
@@ -32,4 +32,4 @@ class LessonsService {
   }
 }
 
-export default new LessonsService();
+export default new ActivitiesService();

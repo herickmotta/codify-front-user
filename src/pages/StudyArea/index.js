@@ -1,28 +1,48 @@
-/* eslint-disable eqeqeq */
+/* eslint-disable react/no-array-index-key */
 /* eslint-disable no-alert */
 import React, { useState, useEffect, useContext } from "react";
 import { useParams, useHistory, useLocation } from "react-router-dom";
 import TopicsService from "../../services/TopicsService";
-import LessonsService from "../../services/LessonsService";
+import ActivitiesService from "../../services/ActivitiesService";
 import CoursesService from "../../services/CoursesService";
 import UserContext from "../../contexts/UserContext";
 import { Container, Content, Menu } from "./style";
 import BulletNavigation from "./components/BulletNavigation";
 import Header from "./components/Header";
-import Activity from "./components/Activity";
+import Activities from "./components/Activities";
 import MenuItems from "./components/MenuItems";
 
 export default function StudyArea() {
   const { user } = useContext(UserContext);
   const { id, chapterId, topicId } = useParams();
   const [topicData, setTopicData] = useState(null);
-  const [currentLesson, setCurrentLesson] = useState(null);
+  const [currentActivity, setActivity] = useState(null);
   const [markedDone, setMarkedDone] = useState(false);
   const [update, setUpdate] = useState(false);
   const [options, setOptions] = useState(null);
   const [openMenu, setOpenMenu] = useState(false);
+  const [disabledButton, setDisabledButton] = useState(false);
   const history = useHistory();
   const currentRoute = useLocation().pathname;
+
+  useEffect(() => {
+    if (topicData && options && currentActivity) {
+      const { currentTopicIndex, currentChapterIndex, list } = options;
+      const lastChapter = list.length - 1;
+      const lastTopic = list[currentChapterIndex].chapterData.length - 1;
+      const lastActivity = topicData.activities.length - 1;
+
+      if (
+        currentChapterIndex === lastChapter &&
+        currentTopicIndex === lastTopic &&
+        lastActivity === currentActivity.index
+      ) {
+        setDisabledButton(true);
+      } else {
+        setDisabledButton(false);
+      }
+    }
+  }, [currentActivity]);
 
   useEffect(async () => {
     const data = await CoursesService.getDataById(id, topicId, user.token);
@@ -44,26 +64,42 @@ export default function StudyArea() {
 
     if (data.success) {
       setTopicData(data.success);
-      if (!currentLesson) {
-        setCurrentLesson({ data: data.success.exercises[0], index: 0 });
+      if (!currentActivity) {
+        setActivity({
+          data: data.success.activities[0],
+          index: 0,
+        });
+      } else {
+        setActivity({
+          data: data.success.activities[currentActivity.index],
+          index: currentActivity.index,
+        });
       }
     } else {
       alert("erro");
     }
   }, [update, currentRoute]);
 
-  async function concludeLesson(lesson) {
-    const type = lesson.exerciseDones ? "exercise" : "theory";
-    const lessonData = {
+  async function concludeActivity(activity) {
+    const type = activity.exerciseDones ? "exercise" : "theory";
+    const activityData = {
       userId: user.id,
       type,
     };
 
     let result;
     if (!markedDone) {
-      result = await LessonsService.markDone(lesson.id, lessonData, user.token);
+      result = await ActivitiesService.markDone(
+        activity.id,
+        activityData,
+        user.token
+      );
     } else {
-      result = await LessonsService.markOff(lesson.id, lessonData, user.token);
+      result = await ActivitiesService.markOff(
+        activity.id,
+        activityData,
+        user.token
+      );
     }
     if (result.success) {
       setUpdate(!update);
@@ -73,28 +109,20 @@ export default function StudyArea() {
   }
 
   function changeTopic(chapId, topId) {
-    if (chapterId != chapId || topicId != topId) {
-      setCurrentLesson(null);
+    if (parseInt(chapterId, 10) !== chapId || parseInt(topicId, 10) !== topId) {
+      setActivity(null);
       history.push(`/courses/${id}/chapters/${chapId}/topics/${topId}`);
     }
   }
 
   function changeTopicOrChapter() {
     const { currentTopicIndex, currentChapterIndex, list } = options;
-    const chaptersQuantity = list.length;
     const topicsQuantity = list[currentChapterIndex].chapterData.length;
     const nextChapterIndex = currentChapterIndex + 1;
     const nextTopicIndex = currentTopicIndex + 1;
     let nextChapterId;
     let nextTopicId;
 
-    if (
-      nextChapterIndex >= chaptersQuantity &&
-      nextTopicIndex >= topicsQuantity
-    ) {
-      alert("Fim do curso");
-      return;
-    }
     if (nextTopicIndex >= topicsQuantity) {
       nextChapterId = list[nextChapterIndex].id;
       nextTopicId = list[nextChapterIndex].chapterData[0].id;
@@ -107,13 +135,13 @@ export default function StudyArea() {
   }
 
   function next() {
-    const nextIndex = currentLesson.index + 1;
+    const nextIndex = currentActivity.index + 1;
 
-    if (nextIndex >= topicData.exercises.length) {
+    if (nextIndex >= topicData.activities.length) {
       changeTopicOrChapter();
     } else {
-      setCurrentLesson({
-        data: topicData.exercises[nextIndex],
+      setActivity({
+        data: topicData.activities[nextIndex],
         index: nextIndex,
       });
     }
@@ -134,6 +162,7 @@ export default function StudyArea() {
               <h2>{e.name}</h2>
               {e.chapterData.map((t) => (
                 <MenuItems
+                  key={t.id}
                   item={t}
                   chapter={e.id}
                   changeTopic={changeTopic}
@@ -146,27 +175,29 @@ export default function StudyArea() {
         </Menu>
       )}
       <Content>
-        {topicData && currentLesson && (
+        {topicData && currentActivity && (
           <ul>
-            {topicData.exercises.map((e, i) => (
+            {topicData.activities.map((e, i) => (
               <BulletNavigation
-                key={e.id}
+                key={i}
                 index={i}
-                bullet={e}
-                current={currentLesson.data}
-                setCurrentLesson={setCurrentLesson}
+                data={e}
+                current={currentActivity.data}
+                currentIndex={currentActivity.index}
+                setActivity={setActivity}
               />
             ))}
           </ul>
         )}
       </Content>
-      {currentLesson && (
-        <Activity
-          currentLesson={currentLesson.data}
+      {currentActivity && (
+        <Activities
+          currentActivity={currentActivity.data}
           markedDone={markedDone}
           setMarkedDone={setMarkedDone}
-          concludeLesson={concludeLesson}
+          concludeActivity={concludeActivity}
           next={next}
+          disabled={disabledButton}
         />
       )}
     </Container>

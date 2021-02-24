@@ -7,7 +7,7 @@ const Container = styled.li`
   width: 100%;
   margin: 10px 15px;
   cursor: pointer;
-  color: ${Colors.lightGray};
+  color: ${(props) => (props.current ? Colors.white : Colors.lightGray)};
   font-weigth: 300;
   font-size: 20px;
 
