@@ -19,7 +19,7 @@ export const Content = styled.nav`
 
 export const Container = styled.section`
   background-color: ${Colors.darkGray};
-  height: 100vh;
+  height: 100%;
 
   * {
     font-family: ${tipography.Roboto};
@@ -40,6 +40,7 @@ export const Menu = styled.ul`
   border-bottom-right-radius: 27px;
   overflow: auto;
   max-height: calc(50% - 76px);
+  z-index: 2;
 
   h2 {
     color: ${Colors.white};

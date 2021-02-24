@@ -5,7 +5,7 @@ export const EndActivity = styled.footer`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 1.5%;
+  padding: 1.5%;
 
   button {
     font-size: 19px;
@@ -20,17 +20,13 @@ export const EndActivity = styled.footer`
 `;
 
 export const Box = styled.article`
-  margin: 0 ${(props) => (props.type !== "theory" ? "0 0 3%" : "auto")};
+  padding: 4% ${(props) => (props.type !== "theory" ? "1% 0 3%" : "0")};
   width: ${(props) => (props.type !== "theory" ? "40%" : "60%")};
 `;
 
-export const CodeEditor = styled.main`
-  background-color: red;
-  width: 60%;
-`;
-
-export const Container = styled.section`
+export const Container = styled.div`
   display: flex;
-  height: calc(94% - 120px);
-  padding-top: 4%;
+  justify-content: ${(props) =>
+    props.type === "theory" ? "flex-start" : "center"};
+  height: calc(96vh - 120px);
 `;

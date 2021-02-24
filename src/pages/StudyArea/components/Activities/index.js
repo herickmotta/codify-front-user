@@ -3,7 +3,8 @@ import { FormControlLabel, Checkbox } from "@material-ui/core";
 import Exercise from "../Exercise";
 import Button from "../../../../components/Button";
 import ClassVideo from "../ClassVideo";
-import { Container, Box, EndActivity, CodeEditor } from "./style";
+import CodeEditor from "../CodeEditor";
+import { Container, Box, EndActivity } from "./style";
 
 export default function Activity({
   currentActivity,
@@ -117,12 +118,7 @@ export default function Activity({
           {!disabledButton && <Button text="Avancar >>" onClick={next} />}
         </EndActivity>
       </Box>
-      {activityType !== "theory" && (
-        <CodeEditor>
-          <span>insira aqui seu codigo</span>
-          <span>teste do codigo</span>
-        </CodeEditor>
-      )}
+      {activityType !== "theory" && <CodeEditor />}
     </Container>
   );
 }
