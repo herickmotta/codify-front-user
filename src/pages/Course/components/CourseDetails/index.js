@@ -25,7 +25,7 @@ export default function CourseDetails(props) {
     chapters,
     isCourseStarted,
   } = props;
-  const { user } = useContext(UserContext);
+  const { user, setLastTaskData } = useContext(UserContext);
   const history = useHistory();
 
   const firstChapterId = chapters[0].id;
@@ -41,8 +41,20 @@ export default function CourseDetails(props) {
       } else {
         alert("Erro no servidor, por favor tente novamente mais tarde.");
       }
-    } else {
-      alert("Faltando implementação de continuar o curso");
+    } else if (isCourseStarted) {
+      const data = await CoursesService.getLastTaskSeen(courseId, user.token);
+      if (data) {
+        if (!data.exerciseId) {
+          setLastTaskData({ theoryId: data.theoryId });
+        } else if (!data.theoryId) {
+          setLastTaskData({ exerciseId: data.exerciseId });
+        }
+        history.push(
+          `/courses/${data.courseId}/chapters/${data.chapterId}/topics/${data.topicId}`
+        );
+      } else {
+        alert("Erro ao carregar sua última visualização.");
+      }
     }
   }
 
