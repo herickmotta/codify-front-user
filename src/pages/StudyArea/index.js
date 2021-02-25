@@ -13,36 +13,16 @@ import Activities from "./components/Activities";
 import MenuItems from "./components/MenuItems";
 
 export default function StudyArea() {
-  const { user } = useContext(UserContext);
+  const { user, lastTaskData, setLastTaskData } = useContext(UserContext);
   const { id, chapterId, topicId } = useParams();
-  const [topicData, setTopicData] = useState(null);
+  const [topicActivities, setTopicActivities] = useState(null);
   const [currentActivity, setActivity] = useState(null);
   const [markedDone, setMarkedDone] = useState(false);
   const [update, setUpdate] = useState(false);
   const [options, setOptions] = useState(null);
   const [openMenu, setOpenMenu] = useState(false);
-  const [disabledButton, setDisabledButton] = useState(false);
   const history = useHistory();
   const currentRoute = useLocation().pathname;
-
-  useEffect(() => {
-    if (topicData && options && currentActivity) {
-      const { currentTopicIndex, currentChapterIndex, list } = options;
-      const lastChapter = list.length - 1;
-      const lastTopic = list[currentChapterIndex].chapterData.length - 1;
-      const lastActivity = topicData.activities.length - 1;
-
-      if (
-        currentChapterIndex === lastChapter &&
-        currentTopicIndex === lastTopic &&
-        lastActivity === currentActivity.index
-      ) {
-        setDisabledButton(true);
-      } else {
-        setDisabledButton(false);
-      }
-    }
-  }, [currentActivity]);
 
   useEffect(async () => {
     const data = await CoursesService.getDataById(id, topicId, user.token);
@@ -63,22 +43,61 @@ export default function StudyArea() {
     );
 
     if (data.success) {
-      setTopicData(data.success);
-      if (!currentActivity) {
-        setActivity({
-          data: data.success.activities[0],
-          index: 0,
-        });
+      const { activities } = data.success;
+      setTopicActivities(activities);
+
+      let newActivity;
+      if (currentActivity) {
+        const { index } = currentActivity;
+        newActivity = {
+          data: activities[index],
+          index,
+        };
+      } else if (!currentActivity && lastTaskData && lastTaskData.exerciseId) {
+        const exerciseIndex = activities.findIndex(
+          (a) => a.exerciseDones && a.id === lastTaskData.exerciseId
+        );
+        newActivity = {
+          data: activities[exerciseIndex],
+          index: exerciseIndex,
+        };
+        setLastTaskData(null);
       } else {
-        setActivity({
-          data: data.success.activities[currentActivity.index],
-          index: currentActivity.index,
-        });
+        newActivity = {
+          data: activities[0],
+          index: 0,
+        };
       }
+      setActivity(newActivity);
     } else {
       alert("erro");
     }
   }, [update, currentRoute]);
+
+  useEffect(async () => {
+    if (currentActivity && currentActivity.data) {
+      const body = {
+        courseId: parseInt(id, 10),
+        chapterId: parseInt(chapterId, 10),
+        topicId: parseInt(topicId, 10),
+      };
+      if (currentActivity.data.exerciseDones) {
+        body.type = "Exercise";
+        body.exerciseId = currentActivity.data.id;
+      } else {
+        body.type = "Theory";
+        body.theoryId = currentActivity.data.id;
+      }
+
+      const data = await ActivitiesService.lastSeen(id, body, user.token);
+
+      if (!data.success) {
+        alert(
+          `Erro ${data.response.status} ao atualizar ultima atividade vista.`
+        );
+      }
+    }
+  }, [currentActivity]);
 
   async function concludeActivity(activity) {
     const type = activity.exerciseDones ? "exercise" : "theory";
@@ -115,38 +134,6 @@ export default function StudyArea() {
     }
   }
 
-  function changeTopicOrChapter() {
-    const { currentTopicIndex, currentChapterIndex, list } = options;
-    const topicsQuantity = list[currentChapterIndex].chapterData.length;
-    const nextChapterIndex = currentChapterIndex + 1;
-    const nextTopicIndex = currentTopicIndex + 1;
-    let nextChapterId;
-    let nextTopicId;
-
-    if (nextTopicIndex >= topicsQuantity) {
-      nextChapterId = list[nextChapterIndex].id;
-      nextTopicId = list[nextChapterIndex].chapterData[0].id;
-    } else {
-      nextTopicId = list[currentChapterIndex].chapterData[nextTopicIndex].id;
-      nextChapterId = list[currentChapterIndex].id;
-    }
-
-    changeTopic(nextChapterId, nextTopicId);
-  }
-
-  function next() {
-    const nextIndex = currentActivity.index + 1;
-
-    if (nextIndex >= topicData.activities.length) {
-      changeTopicOrChapter();
-    } else {
-      setActivity({
-        data: topicData.activities[nextIndex],
-        index: nextIndex,
-      });
-    }
-  }
-
   return (
     <Container>
       <Header
@@ -175,9 +162,9 @@ export default function StudyArea() {
         </Menu>
       )}
       <Content>
-        {topicData && currentActivity && (
+        {topicActivities && currentActivity && (
           <ul>
-            {topicData.activities.map((e, i) => (
+            {topicActivities.map((e, i) => (
               <BulletNavigation
                 key={i}
                 index={i}
@@ -193,11 +180,14 @@ export default function StudyArea() {
       {currentActivity && (
         <Activities
           currentActivity={currentActivity.data}
+          activityIndex={currentActivity.index}
+          setActivity={setActivity}
           markedDone={markedDone}
           setMarkedDone={setMarkedDone}
           concludeActivity={concludeActivity}
-          next={next}
-          disabled={disabledButton}
+          topicActivities={topicActivities}
+          options={options}
+          changeTopic={changeTopic}
         />
       )}
     </Container>
