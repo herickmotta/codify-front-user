@@ -11,6 +11,7 @@ import Course from "./pages/Course";
 import UserProfile from "./pages/UserProfile";
 import Courses from "./pages/Courses";
 import StudyArea from "./pages/StudyArea";
+import RecoverPassword from "./pages/RecoverPassword";
 
 const App = () => (
   <UserProvider>
@@ -29,6 +30,7 @@ const App = () => (
         <Route exact path="/courses" component={Courses} />
         <Route exact path="/profile" component={UserProfile} />
         <Route exact path="/courses/:id" component={Course} />
+        <Route exact path="/recover-password" component={RecoverPassword} />
       </Switch>
     </Router>
   </UserProvider>
