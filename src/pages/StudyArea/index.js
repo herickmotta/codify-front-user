@@ -13,9 +13,9 @@ import Activities from "./components/Activities";
 import MenuItems from "./components/MenuItems";
 
 export default function StudyArea() {
-  const { user } = useContext(UserContext);
+  const { user, lastTaskData, setLastTaskData } = useContext(UserContext);
   const { id, chapterId, topicId } = useParams();
-  const [topicData, setTopicData] = useState(null);
+  const [topicActivities, setTopicActivities] = useState(null);
   const [currentActivity, setActivity] = useState(null);
   const [markedDone, setMarkedDone] = useState(false);
   const [update, setUpdate] = useState(false);
@@ -43,25 +43,39 @@ export default function StudyArea() {
     );
 
     if (data.success) {
-      setTopicData(data.success);
-      if (!currentActivity) {
-        setActivity({
-          data: data.success.activities[0],
-          index: 0,
-        });
+      const { activities } = data.success;
+      setTopicActivities(activities);
+
+      let newActivity;
+      if (currentActivity) {
+        const { index } = currentActivity;
+        newActivity = {
+          data: activities[index],
+          index,
+        };
+      } else if (!currentActivity && lastTaskData && lastTaskData.exerciseId) {
+        const exerciseIndex = activities.findIndex(
+          (a) => a.exerciseDones && a.id === lastTaskData.exerciseId
+        );
+        newActivity = {
+          data: activities[exerciseIndex],
+          index: exerciseIndex,
+        };
+        setLastTaskData(null);
       } else {
-        setActivity({
-          data: data.success.activities[currentActivity.index],
-          index: currentActivity.index,
-        });
+        newActivity = {
+          data: activities[0],
+          index: 0,
+        };
       }
+      setActivity(newActivity);
     } else {
       alert("erro");
     }
   }, [update, currentRoute]);
 
   useEffect(async () => {
-    if (currentActivity) {
+    if (currentActivity && currentActivity.data) {
       const body = {
         courseId: parseInt(id, 10),
         chapterId: parseInt(chapterId, 10),
@@ -148,9 +162,9 @@ export default function StudyArea() {
         </Menu>
       )}
       <Content>
-        {topicData && currentActivity && (
+        {topicActivities && currentActivity && (
           <ul>
-            {topicData.activities.map((e, i) => (
+            {topicActivities.map((e, i) => (
               <BulletNavigation
                 key={i}
                 index={i}
@@ -171,7 +185,7 @@ export default function StudyArea() {
           markedDone={markedDone}
           setMarkedDone={setMarkedDone}
           concludeActivity={concludeActivity}
-          topicData={topicData}
+          topicActivities={topicActivities}
           options={options}
           changeTopic={changeTopic}
         />

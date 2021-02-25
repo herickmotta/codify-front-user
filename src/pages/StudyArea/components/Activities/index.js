@@ -12,7 +12,7 @@ export default function Activity({
   markedDone,
   setMarkedDone,
   concludeActivity,
-  topicData,
+  topicActivities,
   options,
   changeTopic,
 }) {
@@ -21,35 +21,40 @@ export default function Activity({
   const [disabledButton, setDisabledButton] = useState(false);
 
   useEffect(() => {
-    if (topicData && options && currentActivity) {
-      const lastChapter = list.length - 1;
-      const lastTopic = list[currentChapterIndex].chapterData.length - 1;
-      const lastActivity = topicData.activities.length - 1;
+    if (options) {
+      if (topicActivities && options && currentActivity) {
+        const lastChapter = list.length - 1;
+        const lastTopic = list[currentChapterIndex].chapterData.length - 1;
+        const lastActivity = topicActivities.length - 1;
 
-      if (
-        currentChapterIndex === lastChapter &&
-        currentTopicIndex === lastTopic &&
-        lastActivity === activityIndex
-      ) {
-        setDisabledButton(true);
-      } else {
-        setDisabledButton(false);
+        if (
+          currentChapterIndex === lastChapter &&
+          currentTopicIndex === lastTopic &&
+          lastActivity === activityIndex
+        ) {
+          setDisabledButton(true);
+        } else {
+          setDisabledButton(false);
+        }
       }
     }
   }, [currentActivity]);
 
   useEffect(() => {
-    if (
-      (exerciseDones && exerciseDones.length > 0) ||
-      (theoryDones && theoryDones.length > 0)
-    ) {
-      setMarkedDone(true);
-    } else {
-      setMarkedDone(false);
+    if (currentActivity) {
+      if (
+        (exerciseDones && exerciseDones.length > 0) ||
+        (theoryDones && theoryDones.length > 0)
+      ) {
+        setMarkedDone(true);
+      } else {
+        setMarkedDone(false);
+      }
     }
   }, [currentActivity]);
 
   function changeTopicOrChapter() {
+    // const { currentTopicIndex, currentChapterIndex, list } = options;
     const topicsQuantity = list[currentChapterIndex].chapterData.length;
     const nextChapterIndex = currentChapterIndex + 1;
     const nextTopicIndex = currentTopicIndex + 1;
@@ -70,11 +75,11 @@ export default function Activity({
   function next() {
     const nextIndex = activityIndex + 1;
 
-    if (nextIndex >= topicData.activities.length) {
+    if (nextIndex >= topicActivities.length) {
       changeTopicOrChapter();
     } else {
       setActivity({
-        data: topicData.activities[nextIndex],
+        data: topicActivities[nextIndex],
         index: nextIndex,
       });
     }
