@@ -28,20 +28,6 @@ Languages:<br>
     <img src="https://img.shields.io/badge/javascript%20-%23323330.svg?&style=for-the-badge&logo=javascript&logoColor=%23F7DF1E"/>
 </p>
 
-
-The following tools and frameworks were used in the construction of the project:<br> 
-    <img src="https://img.shields.io/badge/react%20-%23323330.svg?&style=for-the-badge&logo=react&logoColor=%23F7DF1E"/>
-    <img width="35"
- src="https://camo.githubusercontent.com/0cd910e76658429374539a8d72a0608783918aae/68747470733a2f2f7261776769742e636f6d2f676f72616e67616a69632f72656163742d69636f6e732f6d61737465722f72656163742d69636f6e732e737667"/>
-    <img src="https://img.shields.io/badge/react_router%20-%2320232a.svg?&style=for-the-badge&logo=react&logoColor=%2361DAFB"/>
-    <img src="https://img.shields.io/badge/node.js%20-%2343853D.svg?&style=for-the-badge&logo=node.js&logoColor=white"/>
-    <img src="https://img.shields.io/badge/webpack%20-%238DD6F9.svg?&style=for-the-badge&logo=webpack&logoColor=black" />
-    <img src='https://img.shields.io/badge/axios%20-%2320232a.svg?&style=for-the-badge&logo=axios&logoColor=%2361DAFB'>
-    <img src='https://img.shields.io/badge/babel%20-%2320232a.svg?&style=for-the-badge&logo=babel&logoColor=%2361DAFB'>
-    <img src='https://img.shields.io/badge/yarn%20-%2320232a.svg?&style=for-the-badge&logo=yarn&logoColor=%2361DAFB'>
-    <img src='https://img.shields.io/badge/react-icon%20-%2320232a.svg?&style=for-the-badge&logo=react-icon&logoColor=%2361DAFB'>
-    <img src='https://img.shields.io/badge/styled-components%20-%2320232a.svg?&style=for-the-badge&logo=styled-components&logoColor=%2361DAFB'>
-
 #Folow the link project.
 
 - [Link](https://front-user-codify.vercel.app)
@@ -55,7 +41,7 @@ The following tools and frameworks were used in the construction of the project:
 </a>
 
 
-### Author
+### Authors
 ---
 Gabriel Pedro Braga Piazza.
 
