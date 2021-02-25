@@ -58,22 +58,18 @@ The following tools and frameworks were used in the construction of the project:
 ### Author
 ---
 Gabriel Pedro Braga Piazza.
-<p>Piazza Medias:</p>
 <a href="https://www.linkedin.com/in/gabriel-piazza//"><img src="https://img.shields.io/badge/linkedin-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/></a> 
 <a href="https://github.com/gpbPiazza"><img src="https://img.shields.io/badge/github-%23100000.svg?&style=for-the-badge&logo=github&logoColor=white" /></a>
 
 Thiago Ribeiro Silva.
-<p>Thiago Medias:</p>
 <a href="https://www.linkedin.com/in/thiago-ribeiro-83b51a16a"><img src="https://img.shields.io/badge/linkedin-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/></a> 
 <a href="https://github.com/thiagoribb"><img src="https://img.shields.io/badge/github-%23100000.svg?&style=for-the-badge&logo=github&logoColor=white" /></a>
 
 Herick Rossato Motta.
-<p>Herick Medias:</p>
 <a href="https://www.linkedin.com/in/herick-motta-aa2142167"><img src="https://img.shields.io/badge/linkedin-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/></a> 
 <a href="https://github.com/herickmotta"><img src="https://img.shields.io/badge/github-%23100000.svg?&style=for-the-badge&logo=github&logoColor=white" /></a>
 
 Lucas Nakandakare.
-<p>Lucas Medias:</p>
 <a href="https://www.linkedin.com/in/lucas-nakandakare"><img src="https://img.shields.io/badge/linkedin-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/></a> 
 <a href="https://github.com/lhnakan"><img src="https://img.shields.io/badge/github-%23100000.svg?&style=for-the-badge&logo=github&logoColor=white" /></a>
 
