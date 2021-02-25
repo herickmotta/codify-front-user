@@ -13,10 +13,11 @@ import {
 import UserContext from "../../contexts/UserContext";
 import DropDownMenu from "./components/DropDownMenu";
 
-export default function Header({ logOut }) {
+export default function Header() {
   const { user } = useContext(UserContext);
   const history = useHistory();
   const [isMenuDown, setIsMenuDown] = useState(false);
+
   return (
     <Container isMenuDown={isMenuDown}>
       <LeftBox>
@@ -27,14 +28,13 @@ export default function Header({ logOut }) {
         <Nav>
           <Link to="/home"> Home </Link>
           <Link to="/courses"> Cursos </Link>
-          <Link to="/profile"> Perfil </Link>
         </Nav>
       </LeftBox>
       <AvatarBox onClick={() => setIsMenuDown(!isMenuDown)}>
         <ArrowDropMenu isMenuDown={isMenuDown}>
           <IoIosArrowDown />
         </ArrowDropMenu>
-        <DropDownMenu isMenuDown={isMenuDown} logOut={logOut} />
+        <DropDownMenu isMenuDown={isMenuDown} />
         <Avatar name={user.name} size="50px" />
       </AvatarBox>
     </Container>

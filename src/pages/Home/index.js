@@ -4,7 +4,6 @@ import { useHistory } from "react-router-dom";
 import Header from "../../components/Header";
 import UserContext from "../../contexts/UserContext";
 import CoursesService from "../../services/CoursesService";
-import UserService from "../../services/UserService";
 import SignIn from "../SignIn";
 import CardsSection from "./components/CardsSection";
 import SnippetSection from "./components/SnippetSection";
@@ -13,10 +12,9 @@ import { Container, MainContent } from "./styles";
 
 export default function Home() {
   const history = useHistory();
-  const { user, setUser } = useContext(UserContext);
+  const { user } = useContext(UserContext);
   const [coursesStarted, setCoursesStarted] = useState([]);
   const [courses, setCourses] = useState([]);
-  const [loading, setLoading] = useState(false);
 
   if (!user) {
     history.push("/");
@@ -46,21 +44,9 @@ export default function Home() {
     getAllCoursesNotStarted();
   }, []);
 
-  const logOut = async () => {
-    setLoading(true);
-    const data = await UserService.logOut(user.token);
-    setLoading(false);
-    if (data) {
-      history.push("/");
-      localStorage.clear();
-    } else {
-      setUser(null);
-    }
-  };
-
   return (
     <Container>
-      <Header logOut={() => logOut()} loading={loading} />
+      <Header />
       <WelcomeBanner isSomeCourseStarted={coursesStarted.length === 0} />
       <MainContent>
         {coursesStarted.length === 0 ? (
