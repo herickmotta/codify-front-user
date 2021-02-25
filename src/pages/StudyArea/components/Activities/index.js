@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { FormControlLabel, Checkbox } from "@material-ui/core";
-import Exercise from "../Exercise";
+import ExerciseWording from "../ExerciseWording";
 import Button from "../../../../components/Button";
 import ClassVideo from "../ClassVideo";
 import CodeEditor from "../CodeEditor";
@@ -17,13 +17,20 @@ export default function Activity({
   options,
   changeTopic,
 }) {
-  const { exerciseDones, theoryDones, youtubeLink } = currentActivity;
+  const {
+    name,
+    wording,
+    example,
+    exerciseDones,
+    theoryDones,
+    youtubeLink,
+  } = currentActivity;
+  const { currentTopicIndex, currentChapterIndex, list } = options;
   const [disabledButton, setDisabledButton] = useState(false);
   const [activityType, setType] = useState("theory");
 
   useEffect(() => {
     if (topicData && options && currentActivity) {
-      const { currentTopicIndex, currentChapterIndex, list } = options;
       const lastChapter = list.length - 1;
       const lastTopic = list[currentChapterIndex].chapterData.length - 1;
       const lastActivity = topicData.activities.length - 1;
@@ -60,7 +67,6 @@ export default function Activity({
   }, [currentActivity]);
 
   function changeTopicOrChapter() {
-    const { currentTopicIndex, currentChapterIndex, list } = options;
     const topicsQuantity = list[currentChapterIndex].chapterData.length;
     const nextChapterIndex = currentChapterIndex + 1;
     const nextTopicIndex = currentTopicIndex + 1;
@@ -97,11 +103,7 @@ export default function Activity({
         {activityType === "theory" ? (
           <ClassVideo link={youtubeLink} />
         ) : (
-          <Exercise
-            id={currentActivity.id}
-            name={currentActivity.name}
-            wording={currentActivity.wording}
-          />
+          <ExerciseWording name={name} wording={wording} example={example} />
         )}
         <EndActivity checked={markedDone}>
           <FormControlLabel

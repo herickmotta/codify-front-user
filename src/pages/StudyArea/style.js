@@ -20,11 +20,7 @@ export const Content = styled.nav`
 export const Container = styled.section`
   background-color: ${Colors.darkGray};
   height: 100%;
-
-  * {
-    font-family: ${tipography.Roboto};
-    font-weight: 700;
-  }
+  font-family: ${tipography.Roboto};
 `;
 
 export const Menu = styled.ul`

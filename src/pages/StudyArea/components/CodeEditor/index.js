@@ -17,9 +17,6 @@ const testButton = (
     Rodar testes <IoPlayForwardOutline />
   </p>
 );
-const defaultCode = `function minhaFuncao() {
-  // Insira seu codigo aqui
-}`;
 const defaultConsole = "Rode os testes para verificar seu codigo";
 
 export default function CodeEditor({ currentActivity }) {
@@ -28,34 +25,16 @@ export default function CodeEditor({ currentActivity }) {
 
   useEffect(() => {
     setResult(null);
-    setUserCode(defaultCode);
+    setUserCode(currentActivity.defaultCode);
   }, [currentActivity]);
 
-  async function main(e) {
-    e.preventDefault();
+  async function main() {
+    const { test } = currentActivity;
 
-    const testCode = `
-      describe('minhaFuncao', () => {
-        it('Retorna 10 quando passado 10', () => {
-          const expected = 10;
-
-          const result = minhaFuncao(expected);
-
-          expect(result).equal(expected);
-        });
-        it('Retorna 55 quando passado 55', () => {
-          const param = 55;
-
-          const result = minhaFuncao(param);
-
-          expect(result).equal(param);
-        });
-      });
-    `;
-    const result = await runTests(userCode, testCode);
+    const result = await runTests(userCode, test);
     setResult(result);
   }
-  console.log(testResult);
+
   return (
     <Container>
       <HeaderEditor>
@@ -67,7 +46,6 @@ export default function CodeEditor({ currentActivity }) {
         height="calc(60% - 37px)"
         defaultLanguage="javascript"
         theme="vs-dark"
-        defaultValue={defaultCode}
         value={userCode}
         onChange={setUserCode}
       />

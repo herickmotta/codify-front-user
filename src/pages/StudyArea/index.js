@@ -27,8 +27,8 @@ export default function StudyArea() {
   useEffect(async () => {
     const data = await CoursesService.getDataById(id, topicId, user.token);
 
-    if (data) {
-      setOptions(data);
+    if (data.success) {
+      setOptions(data.success);
     } else {
       alert("erro");
     }
@@ -60,30 +60,30 @@ export default function StudyArea() {
     }
   }, [update, currentRoute]);
 
-  // useEffect(async () => {
-  //   if (currentActivity) {
-  //     const body = {
-  //       courseId: parseInt(id, 10),
-  //       chapterId: parseInt(chapterId, 10),
-  //       topicId: parseInt(topicId, 10),
-  //     };
-  //     if (currentActivity.data.exerciseDones) {
-  //       body.type = "Exercise";
-  //       body.exerciseId = currentActivity.data.id;
-  //     } else {
-  //       body.type = "Theory";
-  //       body.theoryId = currentActivity.data.id;
-  //     }
+  useEffect(async () => {
+    if (currentActivity) {
+      const body = {
+        courseId: parseInt(id, 10),
+        chapterId: parseInt(chapterId, 10),
+        topicId: parseInt(topicId, 10),
+      };
+      if (currentActivity.data.exerciseDones) {
+        body.type = "Exercise";
+        body.exerciseId = currentActivity.data.id;
+      } else {
+        body.type = "Theory";
+        body.theoryId = currentActivity.data.id;
+      }
 
-  //     const data = await ActivitiesService.lastSeen(id, body, user.token);
+      const data = await ActivitiesService.lastSeen(id, body, user.token);
 
-  //     if (!data.success) {
-  //       alert(
-  //         `Erro ${data.response.status} ao atualizar ultima atividade vista.`
-  //       );
-  //     }
-  //   }
-  // }, [currentActivity]);
+      if (!data.success) {
+        alert(
+          `Erro ${data.response.status} ao atualizar ultima atividade vista.`
+        );
+      }
+    }
+  }, [currentActivity]);
 
   async function concludeActivity(activity) {
     const type = activity.exerciseDones ? "exercise" : "theory";
