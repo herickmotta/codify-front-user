@@ -72,10 +72,10 @@ export const ContainerImgAndProgress = styled.div`
   width: 50%;
   margin-left: 15px;
 
-  img {
-    border-radius: 50%;
-    height: 50px;
-    width: 50px;
+  & > :first-child {
+    * {
+      border-radius: 50%;
+    }
   }
 
   p {

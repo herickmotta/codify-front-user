@@ -53,10 +53,10 @@ export const AvatarBox = styled.div`
   align-items: center;
   position: relative;
   padding-right: 20px;
+  cursor: pointer;
 
-  img {
+  div {
     border-radius: 50%;
-    height: 100%;
   }
 `;
 
