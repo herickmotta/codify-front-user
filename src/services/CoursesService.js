@@ -114,7 +114,7 @@ class CoursesService {
         headers: { Authorization: `JWT ${token}` },
       });
       if (data) {
-        return data;
+        return { success: data };
       }
       return null;
     } catch (error) {

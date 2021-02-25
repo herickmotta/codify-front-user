@@ -13,6 +13,7 @@ const Colors = {
   backgroundGray: "#E5E5E5",
   blackMenu: "#1C1C1C",
   greyScrollBar: "#5B5B5B",
+  lightGrayButton: "#595959",
 };
 
 export default Colors;
