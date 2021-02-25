@@ -24,7 +24,7 @@ const FormsContainer = styled.form`
     margin-top: 16px;
   }
   p {
-    color: ${Colors.red};
+    color: ${(props) => props.color || Colors.red};
     font-weight: bold;
   }
 `;

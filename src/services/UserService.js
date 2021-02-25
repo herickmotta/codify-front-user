@@ -43,6 +43,32 @@ class UserService {
       return null;
     }
   }
+
+  async sendEmailToRecoverPassword(email) {
+    try {
+      const { data } = await api.post(`/users/recover-password`, email);
+      if (data) {
+        return data;
+      }
+      return null;
+    } catch (error) {
+      return error.response.status;
+    }
+  }
+
+  async redefinePassword(body) {
+    try {
+      const { data } = await api.put(`/users/redefine-password`, body);
+      if (data) {
+        return data;
+      }
+      return null;
+    } catch (error) {
+      if (error.response.status === 422) return error.response.data;
+
+      return error.response.status;
+    }
+  }
 }
 
 export default new UserService();

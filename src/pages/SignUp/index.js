@@ -7,6 +7,7 @@ import Input from "../../components/Input";
 import Button from "../../components/Button";
 import UserService from "../../services/UserService";
 import WarningModal from "../../components/WarningModal";
+import Colors from "../../config/colors";
 
 export default function SignUp() {
   const [name, setName] = useState();
@@ -99,13 +100,14 @@ export default function SignUp() {
           text="cadastrar"
         />
         <Link to="/">Ja tem conta? Faca login</Link>
-        <Link to="/recoverPassword">Esqueceu sua senha?</Link>
+        <Link to="/recover-password">Esqueceu sua senha?</Link>
       </FormsContainer>
       {modalIsOpen && (
         <WarningModal
           modalIsOpen={modalIsOpen}
           warning={warning}
           setModalIsOpen={setModalIsOpen}
+          color={Colors.green}
         />
       )}
     </InitialBackground>

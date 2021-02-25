@@ -6,7 +6,12 @@ import { customStyles, Icon } from "./styles";
 import Button from "../Button";
 import FormsContainer from "../FormsContainer/styles";
 
-export default function WarningModal({ modalIsOpen, warning, setModalIsOpen }) {
+export default function WarningModal({
+  modalIsOpen,
+  warning,
+  setModalIsOpen,
+  color,
+}) {
   const history = useHistory();
 
   function closeModal(e) {
@@ -21,7 +26,7 @@ export default function WarningModal({ modalIsOpen, warning, setModalIsOpen }) {
       style={customStyles}
       onRequestClose={closeModal}
     >
-      <FormsContainer onSubmit={closeModal}>
+      <FormsContainer onSubmit={closeModal} color={color}>
         <Icon>
           <GoCheck />
         </Icon>

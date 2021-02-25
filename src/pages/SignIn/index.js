@@ -76,7 +76,7 @@ export default function SignIn() {
           text="entrar"
         />
         <Link to="/signup">Primeira vez? Crie uma conta!</Link>
-        <Link to="/recoverPassword">Esqueceu sua senha?</Link>
+        <Link to="/recover-password">Esqueceu sua senha?</Link>
       </FormsContainer>
     </InitialBackground>
   );
