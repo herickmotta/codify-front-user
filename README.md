@@ -77,6 +77,10 @@ Lucas Nakandakare.
 <a href="https://www.linkedin.com/in/lucas-nakandakare"><img src="https://img.shields.io/badge/linkedin-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/></a> 
 <a href="https://github.com/lhnakan"><img src="https://img.shields.io/badge/github-%23100000.svg?&style=for-the-badge&logo=github&logoColor=white" /></a>
 
+Vagner Pavani.
+
+<a href="https://www.linkedin.com/in/vagner-pavani-89a928187"><img src="https://img.shields.io/badge/linkedin-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/></a> 
+<a href="https://github.com/vagnerpavani"><img src="https://img.shields.io/badge/github-%23100000.svg?&style=for-the-badge&logo=github&logoColor=white" /></a>
 
 
 <br>
