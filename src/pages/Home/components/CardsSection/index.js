@@ -15,6 +15,7 @@ export default function CardsSection({ title, courses, coursesStarted }) {
             name={c.name}
             description={c.description}
             photo={c.photo}
+            LastTaskSeensData={c.LastTaskSeensData}
           />
         ))}
       </CardsList>

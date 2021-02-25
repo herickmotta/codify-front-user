@@ -15,6 +15,7 @@ export default function Home() {
   const history = useHistory();
   const { user, setUser } = useContext(UserContext);
   const [coursesStarted, setCoursesStarted] = useState([]);
+  const [snippetCourse, setSnippetCourse] = useState({});
   const [courses, setCourses] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -26,6 +27,9 @@ export default function Home() {
   const getAllCoursesStarted = async () => {
     const data = await CoursesService.getAllCoursesStarted(user.token);
     if (data) {
+      const lastCourseSeen = data.splice(0, 1)[0];
+      setSnippetCourse(lastCourseSeen);
+
       setCoursesStarted(data);
     } else {
       alert("Erro ao carregar cursos");
@@ -74,7 +78,7 @@ export default function Home() {
           <>
             <SnippetSection
               title="Continue seu curso atual"
-              course={coursesStarted[0]}
+              course={snippetCourse}
             />
 
             <CardsSection

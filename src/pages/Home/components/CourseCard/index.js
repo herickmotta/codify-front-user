@@ -4,7 +4,6 @@ import { useHistory } from "react-router-dom";
 import Spinner from "../../../../components/Spinner";
 import Colors from "../../../../config/colors";
 import UserContext from "../../../../contexts/UserContext";
-import CoursesService from "../../../../services/CoursesService";
 
 import { Card, ImageBox, DescriptionBox, StudyButton } from "./styles";
 import Button from "../../../../components/Button";
@@ -15,27 +14,35 @@ export default function CourseCard({
   description,
   photo,
   coursesStarted,
+  LastTaskSeensData,
 }) {
+  const { setLastTaskData } = useContext(UserContext);
   const history = useHistory();
 
-  const { user } = useContext(UserContext);
-
   const [loading, setLoading] = useState(false);
+  const {
+    chapterId,
+    courseId,
+    theoryId,
+    exerciseId,
+    topicId,
+  } = LastTaskSeensData;
 
-  const goStudyArea = async () => {
+  const travelToStudyArea = (e) => {
+    e.stopPropagation();
     setLoading(true);
-    const data = await CoursesService.getById(id, user.token);
-    setLoading(false);
-    if (data.success) {
-      const { chapters } = data.success;
-      const { topics } = chapters[0];
-      history.push(
-        `/courses/${id}/chapters/${chapters[0].id}/topics/${topics[0].id}`
-      );
-    } else {
-      alert("Não foi possível navegar para sua área te estudo");
+    if (exerciseId) {
+      setLastTaskData({ exerciseId });
     }
+    if (theoryId) {
+      setLastTaskData({ theoryId });
+    }
+    setLoading(false);
+    history.push(
+      `/courses/${courseId}/chapters/${chapterId}/topics/${topicId}`
+    );
   };
+
   return (
     <Card onClick={() => history.push(`/courses/${id}`)}>
       <ImageBox>
@@ -52,7 +59,10 @@ export default function CourseCard({
             {loading ? (
               <Spinner color={Colors.blue} />
             ) : (
-              <Button text="Continuar curso >>" onClick={() => goStudyArea()} />
+              <Button
+                text="Continuar curso >>"
+                onClick={(e) => travelToStudyArea(e)}
+              />
             )}
           </StudyButton>
         ) : (
