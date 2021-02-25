@@ -43,6 +43,18 @@ class UserService {
       return null;
     }
   }
+
+  async sendEmailToRecoverPassword(email) {
+    try {
+      const { data } = await api.post(`/users/recover-password`, email);
+      if (data) {
+        return data;
+      }
+      return null;
+    } catch (error) {
+      return error.response.status;
+    }
+  }
 }
 
 export default new UserService();
