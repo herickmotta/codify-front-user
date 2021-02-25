@@ -12,6 +12,7 @@ import UserProfile from "./pages/UserProfile";
 import Courses from "./pages/Courses";
 import StudyArea from "./pages/StudyArea";
 import RecoverPassword from "./pages/RecoverPassword";
+import RedefinePassword from "./pages/RedefinePassword";
 
 const App = () => (
   <UserProvider>
@@ -31,6 +32,7 @@ const App = () => (
         <Route exact path="/profile" component={UserProfile} />
         <Route exact path="/courses/:id" component={Course} />
         <Route exact path="/recover-password" component={RecoverPassword} />
+        <Route exact path="/redefine-password" component={RedefinePassword} />
       </Switch>
     </Router>
   </UserProvider>

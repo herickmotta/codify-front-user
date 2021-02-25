@@ -9,38 +9,35 @@ import Button from "../../components/Button";
 import WarningModal from "../../components/WarningModal";
 import Colors from "../../config/colors";
 
-export default function RecoverPassword() {
+export default function RedefinePassword() {
   const [warning, setWarning] = useState(false);
-  const [email, setEmail] = useState();
+  const [newPassword, setNewPassword] = useState();
+  const [newPasswordConfirmation, setNewPasswordConfirmation] = useState();
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [message, setMessage] = useState("");
 
-  async function recoverPassword(e) {
+  async function redefinePassword(e) {
     e.preventDefault();
-
-    // caso sucesso
-    // setMessage("kjsasadjksad");
-    // setModalIsOpen(true);
-
-    // caso de erro
-    // setWarning(true);
-    // setMessage("kjsasadjksad");
-    // setModalIsOpen(true);
   }
 
   return (
     <InitialBackground>
       <Logo />
-      <FormsContainer onSubmit={recoverPassword}>
+      <FormsContainer onSubmit={redefinePassword}>
         <Input
-          type="email"
-          placeHolder="e-mail"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          type="password"
+          placeHolder="nova senha"
+          value={newPassword}
+          onChange={(e) => setNewPassword(e.target.value)}
+        />
+        <Input
+          type="password"
+          placeHolder="repita sua nova senha"
+          value={newPasswordConfirmation}
+          onChange={(e) => setNewPasswordConfirmation(e.target.value)}
         />
         {warning && <p>{warning}</p>}
-        <Button text="Recuperar senha" />
-        <Link to="/">Voltar para login</Link>
+        <Button text="Redefinir senha" />
       </FormsContainer>
       {modalIsOpen && (
         <WarningModal
