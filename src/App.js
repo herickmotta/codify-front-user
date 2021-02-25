@@ -32,7 +32,11 @@ const App = () => (
         <Route exact path="/profile" component={UserProfile} />
         <Route exact path="/courses/:id" component={Course} />
         <Route exact path="/recover-password" component={RecoverPassword} />
-        <Route exact path="/redefine-password" component={RedefinePassword} />
+        <Route
+          exact
+          path="/redefine-password/:id/:token"
+          component={RedefinePassword}
+        />
       </Switch>
     </Router>
   </UserProvider>
