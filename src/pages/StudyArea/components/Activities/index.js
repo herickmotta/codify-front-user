@@ -54,7 +54,6 @@ export default function Activity({
   }, [currentActivity]);
 
   function changeTopicOrChapter() {
-    // const { currentTopicIndex, currentChapterIndex, list } = options;
     const topicsQuantity = list[currentChapterIndex].chapterData.length;
     const nextChapterIndex = currentChapterIndex + 1;
     const nextTopicIndex = currentTopicIndex + 1;
