@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-
+import Avatar from "react-avatar";
 import { ProgressBar } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { RiArrowLeftSLine } from "react-icons/ri";
@@ -56,10 +56,7 @@ export default function CourseDetails(props) {
       {!incompleteCourse && (
         <ContainerUserProgress>
           <ContainerImgAndProgress>
-            <img
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJIyiiNbz3VC9Afr-LqWpcw7loxjPnacfZSA&usqp=CAU"
-              alt=""
-            />
+            <Avatar name={user.name} size="50px" />
 
             <div>
               <p>

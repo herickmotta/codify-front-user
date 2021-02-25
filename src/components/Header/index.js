@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { IoIosArrowDown } from "react-icons/io";
+import Avatar from "react-avatar";
 import {
   Container,
   LogoBox,
@@ -9,10 +10,11 @@ import {
   LeftBox,
   ArrowDropMenu,
 } from "./styles";
-
+import UserContext from "../../contexts/UserContext";
 import DropDownMenu from "./components/DropDownMenu";
 
 export default function Header({ logOut }) {
+  const { user } = useContext(UserContext);
   const history = useHistory();
   const [isMenuDown, setIsMenuDown] = useState(false);
   return (
@@ -33,10 +35,7 @@ export default function Header({ logOut }) {
           <IoIosArrowDown />
         </ArrowDropMenu>
         <DropDownMenu isMenuDown={isMenuDown} logOut={logOut} />
-        <img
-          src="https://i1.wp.com/terracoeconomico.com.br/wp-content/uploads/2019/01/default-user-image.png?ssl=1"
-          alt=""
-        />
+        <Avatar name={user.name} size="50px" />
       </AvatarBox>
     </Container>
   );
