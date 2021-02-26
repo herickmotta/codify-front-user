@@ -7,18 +7,20 @@ import { Snippet, ImageBox, DescriptionBox, ButtonBox } from "./styles";
 
 export default function CourseSnippet({ course }) {
   const { id, name, description, photo, LastTaskSeensData } = course;
-  const {
-    chapterId,
-    courseId,
-    theoryId,
-    exerciseId,
-    topicId,
-  } = LastTaskSeensData;
+
   const history = useHistory();
 
   const { setLastTaskData } = useContext(UserContext);
 
   const travelToStudyArea = () => {
+    const {
+      chapterId,
+      courseId,
+      theoryId,
+      exerciseId,
+      topicId,
+    } = LastTaskSeensData;
+
     if (exerciseId) {
       setLastTaskData({ exerciseId });
     }

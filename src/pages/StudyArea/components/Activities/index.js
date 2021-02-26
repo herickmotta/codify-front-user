@@ -17,60 +17,80 @@ export default function Activity({
   options,
   changeTopic,
 }) {
-  const {
-    name,
-    wording,
-    example,
-    exerciseDones,
-    theoryDones,
-    youtubeLink,
-  } = currentActivity;
-  const { currentTopicIndex, currentChapterIndex, list } = options;
   const [disabledButton, setDisabledButton] = useState(false);
   const [activityType, setType] = useState("theory");
+  const [title, setTitle] = useState();
+  const [wordingText, setWordingText] = useState();
+  const [sample, setSample] = useState();
+  const [link, setLink] = useState();
+
+  function verifyToDisablaButton(currentTopicIndex, currentChapterIndex, list) {
+    if (topicActivities && options && currentActivity) {
+      const lastChapter = list.length - 1;
+      const lastTopic = list[currentChapterIndex].chapterData.length - 1;
+      const lastActivity = topicActivities.length - 1;
+
+      if (
+        currentChapterIndex === lastChapter &&
+        currentTopicIndex === lastTopic &&
+        lastActivity === activityIndex
+      ) {
+        setDisabledButton(true);
+      } else {
+        setDisabledButton(false);
+      }
+    }
+  }
+
+  function updateActivityData(name, wording, example, youtubeLink) {
+    setTitle(name);
+    setWordingText(wording);
+    setSample(example);
+    setLink(youtubeLink);
+  }
+
+  function markActivityAsDone(theoryDones, exerciseDones) {
+    if (
+      (exerciseDones && exerciseDones.length > 0) ||
+      (theoryDones && theoryDones.length > 0)
+    ) {
+      setMarkedDone(true);
+    } else {
+      setMarkedDone(false);
+    }
+  }
 
   useEffect(() => {
     if (options) {
-      if (topicActivities && options && currentActivity) {
-        const lastChapter = list.length - 1;
-        const lastTopic = list[currentChapterIndex].chapterData.length - 1;
-        const lastActivity = topicActivities.length - 1;
-
-        if (
-          currentChapterIndex === lastChapter &&
-          currentTopicIndex === lastTopic &&
-          lastActivity === activityIndex
-        ) {
-          setDisabledButton(true);
-        } else {
-          setDisabledButton(false);
-        }
-      }
+      const { currentTopicIndex, currentChapterIndex, list } = options;
+      verifyToDisablaButton(currentTopicIndex, currentChapterIndex, list);
     }
-  }, [currentActivity]);
 
-  useEffect(() => {
     if (currentActivity) {
-      if (
-        (exerciseDones && exerciseDones.length > 0) ||
-        (theoryDones && theoryDones.length > 0)
-      ) {
-        setMarkedDone(true);
-      } else {
-        setMarkedDone(false);
-      }
-    }
-  }, [currentActivity]);
+      const {
+        name,
+        wording,
+        example,
+        exerciseDones,
+        theoryDones,
+        youtubeLink,
+      } = currentActivity;
 
-  useEffect(() => {
-    if (!exerciseDones) {
-      setType("theory");
-    } else {
-      setType("exercise");
+      if (!exerciseDones) {
+        setType("theory");
+      } else {
+        setType("exercise");
+      }
+
+      updateActivityData(name, wording, example, youtubeLink);
+
+      markActivityAsDone(theoryDones, exerciseDones);
     }
   }, [currentActivity]);
 
   function changeTopicOrChapter() {
+    const { currentTopicIndex, currentChapterIndex, list } = options;
+
     const topicsQuantity = list[currentChapterIndex].chapterData.length;
     const nextChapterIndex = currentChapterIndex + 1;
     const nextTopicIndex = currentTopicIndex + 1;
@@ -105,9 +125,13 @@ export default function Activity({
     <Container>
       <Box type={activityType}>
         {activityType === "theory" ? (
-          <ClassVideo link={youtubeLink} />
+          <ClassVideo link={link} />
         ) : (
-          <ExerciseWording name={name} wording={wording} example={example} />
+          <ExerciseWording
+            name={title}
+            wording={wordingText}
+            example={sample}
+          />
         )}
         <EndActivity checked={markedDone}>
           <FormControlLabel
