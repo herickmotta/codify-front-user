@@ -53,6 +53,13 @@ export default function Home() {
       <Header />
       <WelcomeBanner isSomeCourseStarted={coursesStarted.length === 0} />
       <MainContent>
+        {snippetCourse && (
+          <SnippetSection
+            title="Continue seu curso atual"
+            course={snippetCourse}
+          />
+        )}
+
         {coursesStarted.length === 0 ? (
           <>
             <CardsSection
@@ -62,11 +69,6 @@ export default function Home() {
           </>
         ) : (
           <>
-            <SnippetSection
-              title="Continue seu curso atual"
-              course={snippetCourse}
-            />
-
             <CardsSection
               title="Meus cursos em andamento"
               courses={coursesStarted}
