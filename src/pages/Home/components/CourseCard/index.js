@@ -20,17 +20,19 @@ export default function CourseCard({
   const history = useHistory();
 
   const [loading, setLoading] = useState(false);
-  const {
-    chapterId,
-    courseId,
-    theoryId,
-    exerciseId,
-    topicId,
-  } = LastTaskSeensData;
 
   const travelToStudyArea = (e) => {
     e.stopPropagation();
     setLoading(true);
+
+    const {
+      chapterId,
+      courseId,
+      theoryId,
+      exerciseId,
+      topicId,
+    } = LastTaskSeensData;
+
     if (exerciseId) {
       setLastTaskData({ exerciseId });
     }
