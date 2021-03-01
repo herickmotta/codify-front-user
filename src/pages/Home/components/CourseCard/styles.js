@@ -3,10 +3,8 @@ import colors from "../../../../config/colors";
 import tipography from "../../../../config/typography";
 
 export const Card = styled.div`
-  min-width: 200px;
-  max-height: 500px;
-  min-height: 400px;
-  max-width: 23%;
+  height: 420px;
+  width: 300px;
   border-radius: 20px;
   overflow: hidden;
   display: flex;

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import tipography from "../../../../config/typography";
-import mediaMax from "../../../../config/media";
+import MEDIA_MAX from "../../../../config/media";
 
 export const Container = styled.div`
   width: 100%;
@@ -45,7 +45,7 @@ export const Container = styled.div`
     margin-bottom: 10px;
   }
 
-  ${mediaMax} {
+  ${MEDIA_MAX} {
     & > h1 {
       margin: 25px 20px;
       font-size: 20px;

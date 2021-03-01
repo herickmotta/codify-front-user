@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import tipography from "../../../../config/typography";
-import maxMedia from "../../../../config/media";
 
 export const Container = styled.div`
   width: 100%;
