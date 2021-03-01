@@ -85,5 +85,11 @@ export const ButtonBox = styled.div`
     width: 100%;
     height: 20%;
     padding: 10px;
+    button {
+      width: 100%;
+      margin: 0;
+      padding: 10px;
+      font-size: 14px;
+    }
   }
 `;
