@@ -14,9 +14,13 @@ export const Container = styled.div`
     margin: 20px 0;
     font-size: calc(20px + (32 - 20) * ((100vw - 300px) / (1600 - 300)));
   }
+  @media (max-width: 600px) {
+    justify-content: center;
+  }
 `;
 
 export const CardsList = styled.ul`
+  width: auto;
   display: flex;
   justify-content: flex-start;
   height: 100%;
@@ -31,5 +35,16 @@ export const CardsList = styled.ul`
 
   & > :last-child {
     margin-right: 0rem;
+  }
+
+  @media (max-width: 600px) {
+    justify-content: center;
+    & > div {
+      margin-right: 0em;
+    }
+
+    & > :last-child {
+      margin-right: 0rem;
+    }
   }
 `;

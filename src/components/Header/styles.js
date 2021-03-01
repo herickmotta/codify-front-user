@@ -20,6 +20,7 @@ export const Container = styled.div`
 
 export const LeftBox = styled.div`
   display: flex;
+  align-items: center;
   font-size: 18px;
 `;
 export const LogoBox = styled.div`
@@ -40,6 +41,13 @@ export const Nav = styled.nav`
   }
   a:hover {
     opacity: 50%;
+  }
+  @media (max-width: 600px) {
+    flex-direction: column;
+    align-items: flex-start;
+    a {
+      padding: 5px;
+    }
   }
 `;
 export const LogOutButton = styled.div`
