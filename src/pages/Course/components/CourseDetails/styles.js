@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import tipography from "../../../../config/typography";
+import mediaMax from "../../../../config/media";
 
 export const Container = styled.div`
   width: 100%;
@@ -36,15 +37,31 @@ export const Container = styled.div`
     margin: 20px 0;
     font-size: 25px;
     font-weight: bold;
+    text-align: center;
   }
   & > p {
     color: #383838;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+
+  ${mediaMax} {
+    & > h1 {
+      margin: 25px 20px;
+      font-size: 20px;
+    }
+    & > p {
+      color: #383838;
+    }
+    .back-button {
+      top: 10px;
+      left: 10px;
+    }
   }
 `;
 
 export const ContainerUserProgress = styled.div`
   width: 85%;
-  height: 100px;
   display: flex;
   background: #fff;
   justify-content: space-between;
@@ -55,13 +72,24 @@ export const ContainerUserProgress = styled.div`
   padding-top: 15px;
   padding-bottom: 15px;
   position: absolute;
-  bottom: -50px;
+  bottom: -80px;
   z-index: 1;
 
   button {
     width: 160px;
     margin: auto 20px;
     font-size: 15px;
+  }
+
+  ${mediaMax} {
+    padding: 10px auto;
+    flex-direction: column;
+    button {
+      width: 85%;
+      padding: 5px;
+      margin: 8px;
+      font-size: 15px;
+    }
   }
 `;
 
@@ -71,20 +99,31 @@ export const ContainerImgAndProgress = styled.div`
   align-items: center;
   width: 50%;
   margin-left: 15px;
-
   & > :first-child {
     * {
       border-radius: 50%;
     }
   }
-
   p {
     margin-bottom: 10px;
     font-size: 15px;
   }
-
   > div {
     margin-left: 15px;
+  }
+
+  ${mediaMax} {
+    width: 100%;
+    justify-content: center;
+    margin-left: 0px;
+    margin: 5px;
+
+    p {
+      margin-right: 8px;
+    }
+    > div > div {
+      width: 90%;
+    }
   }
 `;
 
