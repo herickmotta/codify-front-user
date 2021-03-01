@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import Colors from "../../config/colors";
+import MEDIA_MAX from "../../config/media";
 import Tipografy from "../../config/typography";
 
 export const Container = styled.div`
@@ -42,7 +43,7 @@ export const Nav = styled.nav`
   a:hover {
     opacity: 50%;
   }
-  @media (max-width: 600px) {
+  ${MEDIA_MAX} {
     flex-direction: column;
     align-items: flex-start;
     a {
