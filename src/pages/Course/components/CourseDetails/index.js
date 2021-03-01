@@ -79,7 +79,7 @@ export default function CourseDetails(props) {
               <ProgressBar
                 now={userProgress}
                 label={`${userProgress}%`}
-                min={10}
+                min={30}
                 max={100}
                 variant="success"
                 animated

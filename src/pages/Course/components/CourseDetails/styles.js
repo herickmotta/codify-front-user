@@ -4,7 +4,7 @@ import MEDIA_MAX from "../../../../config/media";
 
 export const Container = styled.div`
   width: 100%;
-  height: 200px;
+  height: auto;
   background-image: linear-gradient(to bottom, #e4d04d, #f2e799);
   display: flex;
   flex-direction: column;
@@ -42,16 +42,15 @@ export const Container = styled.div`
   & > p {
     color: #383838;
     text-align: center;
-    margin-bottom: 10px;
   }
 
   ${MEDIA_MAX} {
     & > h1 {
-      margin: 25px 20px;
+      margin: 30px 15px;
       font-size: 20px;
     }
     & > p {
-      color: #383838;
+      margin-bottom: 30px;
     }
     .back-button {
       top: 10px;
@@ -62,6 +61,7 @@ export const Container = styled.div`
 
 export const ContainerUserProgress = styled.div`
   width: 85%;
+  height: 100px;
   display: flex;
   background: #fff;
   justify-content: space-between;
@@ -72,7 +72,7 @@ export const ContainerUserProgress = styled.div`
   padding-top: 15px;
   padding-bottom: 15px;
   position: absolute;
-  bottom: -80px;
+  bottom: -50px;
   z-index: 1;
 
   button {
@@ -81,13 +81,17 @@ export const ContainerUserProgress = styled.div`
     font-size: 15px;
   }
 
-  ${mediaMax} {
-    padding: 10px auto;
+  ${MEDIA_MAX} {
     flex-direction: column;
+    height: 140px;
+    bottom: -70px;
+    padding-top: 10px;
+    width: 100%;
+    border-radius: 0px;
     button {
       width: 85%;
-      padding: 5px;
-      margin: 8px;
+      padding: 8px;
+      margin: 5px;
       font-size: 15px;
     }
   }
@@ -112,7 +116,7 @@ export const ContainerImgAndProgress = styled.div`
     margin-left: 15px;
   }
 
-  ${mediaMax} {
+  ${MEDIA_MAX} {
     width: 100%;
     justify-content: center;
     margin-left: 0px;
