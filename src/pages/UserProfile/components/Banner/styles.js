@@ -65,5 +65,7 @@ export const UserName = styled.p`
   ${MEDIA_MAX} {
     font-size: 1.75rem;
     line-height: 2.25rem;
+
+    margin-bottom: 5%;
   }
 `;

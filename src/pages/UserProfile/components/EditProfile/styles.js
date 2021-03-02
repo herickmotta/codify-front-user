@@ -75,8 +75,9 @@ export const PictureContainer = styled.div`
   width: 100%;
 
   div {
-    width: 15rem !important;
-    height: 15rem !important;
+    margin-top: 8%;
+    width: 10rem !important;
+    height: 10rem !important;
     border-radius: 100%;
   }
 `;
