@@ -5,7 +5,7 @@ import MEDIA_MAX from "../../../../config/media";
 
 export const Container = styled.form`
   width: 65%;
-  height: auto;
+  /* height: auto; */
   display: flex;
   justify-content: space-between;
   align-items: flex-start;

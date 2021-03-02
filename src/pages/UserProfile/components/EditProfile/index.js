@@ -17,8 +17,11 @@ export default function EditProfile({ email, name }) {
   const [completeName, setCompleteName] = useState(name);
   const [userEmail, setUserEmail] = useState(email);
   const [error, setError] = useState(false);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessagr] = useState("");
+  const [editPassowrd, setEditPassword] = useState(false);
+  const [passowrd, setPassword] = useState("");
+  const [confirmantionPassword, setConfirmantionPassword] = useState("");
 
   return (
     <Container>
@@ -33,7 +36,7 @@ export default function EditProfile({ email, name }) {
           // onFocus={() => setError(false)}
           onChange={(text) => setCompleteName(text)}
         />
-        <Label marginTop="10%">e-mail</Label>
+        <Label marginTop="5%">e-mail</Label>
         <Input
           borderColor={Colors.editProfileGrey}
           Color={Colors.editProfileGrey}
@@ -44,17 +47,42 @@ export default function EditProfile({ email, name }) {
           onChange={(text) => setUserEmail(text)}
         />
         {error && <ErrorMessage>{errorMessage}</ErrorMessage>}
+        {editPassowrd && (
+          <>
+            <Label marginTop="5%">Senha</Label>
+            <Input
+              borderColor={Colors.editProfileGrey}
+              Color={Colors.editProfileGrey}
+              type="text"
+              placeholder="Nome completo"
+              value={passowrd}
+              // onFocus={() => setError(false)}
+              onChange={(text) => setPassword(text)}
+            />
+            <Label marginTop="5%">Repita senha</Label>
+            <Input
+              borderColor={Colors.editProfileGrey}
+              Color={Colors.editProfileGrey}
+              type="password"
+              placeholder="repita senha"
+              value={confirmantionPassword}
+              // onFocus={() => setError(false)}
+              onChange={(text) => setConfirmantionPassword(text)}
+            />
+          </>
+        )}
         <ButtonContainer>
-          <Button
-            width="12rem"
-            onClick={() => console.log("zape")}
-            disabled={loading}
-            text="Trocar senha"
-            textColor={Colors.blue}
-            color={Colors.white}
-            marginRight="15px"
-            type="submit"
-          />
+          {!editPassowrd && (
+            <Button
+              width="12rem"
+              onClick={() => setEditPassword(true)}
+              text="Trocar senha"
+              textColor={Colors.blue}
+              color={Colors.white}
+              marginRight="15px"
+              type="submit"
+            />
+          )}
           <Button
             width="12rem"
             onClick={() => console.log("zape")}
