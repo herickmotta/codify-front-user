@@ -13,7 +13,8 @@ export const DropMenu = styled.nav`
   border-radius: 15px;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
-  box-shadow: 0px 5px 3px 2px rgba(0, 0, 0, 0.1);
+  box-shadow: ${(props) =>
+    props.isMenuDown ? "0px 5px 3px 2px rgba(0, 0, 0, 0.1)" : "0"};
   overflow: hidden;
   padding: 0 10px;
   background: ${Colors.white};
