@@ -22,9 +22,15 @@ export default function DropDownMenu({ isMenuDown }) {
     }
   };
 
+  const goToPerfil = () => {
+    history.push("/profile");
+  };
+
   return (
     <DropMenu isMenuDown={isMenuDown}>
-      <button type="button">Perfil</button>
+      <button type="button" onClick={goToPerfil}>
+        Perfil
+      </button>
       <button type="button" onClick={logOut}>
         {loading ? <Spinner color="black" /> : "Sair"}
       </button>
