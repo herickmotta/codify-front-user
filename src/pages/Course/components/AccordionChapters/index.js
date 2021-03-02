@@ -61,13 +61,15 @@ export default function AccordionChapters({ chapters, courseId }) {
               <AccordionItemButton>
                 <div className="item">
                   <h2>{chapter.name}</h2>
-                  <p>
-                    {chapter.classesAmount > 1
-                      ? `${chapter.classesAmount} Aulas`
-                      : `${chapter.classesAmount} Aula`}
-                    &nbsp; • &nbsp;
-                    {chapter.exercisesAmount} Exercícios
-                  </p>
+                  <div>
+                    <p>
+                      {chapter.classesAmount > 1
+                        ? `${chapter.classesAmount} Aulas `
+                        : `${chapter.classesAmount} Aula `}
+                    </p>
+                    <span> • </span>
+                    <p> {chapter.exercisesAmount} Exercícios</p>
+                  </div>
                 </div>
               </AccordionItemButton>
             </AccordionItemHeading>

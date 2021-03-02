@@ -22,13 +22,9 @@ export default function DropDownMenu({ isMenuDown }) {
     }
   };
 
-  const goToPerfil = () => {
-    history.push("/profile");
-  };
-
   return (
     <DropMenu isMenuDown={isMenuDown}>
-      <button type="button" onClick={goToPerfil}>
+      <button type="button" onClick={() => history.push("/profile")}>
         Perfil
       </button>
       <button type="button" onClick={logOut}>

@@ -5,15 +5,19 @@ import MEDIA_MAX from "../../../../config/media";
 
 export const Container = styled.header`
   width: 100%;
-  height: auto;
+  height: 21.5rem;
   display: flex;
   justify-content: center;
 
   /* position: absolute; */
   /* left: 0px;
   top: 119px; */
+  margin-top: 80px;
 
   background-color: ${Colors.blueBanner};
+  ${MEDIA_MAX} {
+    padding-top: 20px;
+  }
 `;
 
 export const AvatarBox = styled.div`

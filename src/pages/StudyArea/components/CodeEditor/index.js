@@ -5,7 +5,7 @@ import { HiOutlineLightBulb } from "react-icons/hi";
 import { IoPlayForwardOutline } from "react-icons/io5";
 import ConsoleResult from "../ConsoleResult";
 import Button from "../../../../components/Button";
-import { Container, ConsoleBox, HeaderEditor } from "./style";
+import { ConsoleBox, HeaderEditor } from "./style";
 
 const solutionButton = (
   <p>
@@ -19,7 +19,7 @@ const testButton = (
 );
 const defaultConsole = "Rode os testes para verificar seu codigo";
 
-export default function CodeEditor({ currentActivity }) {
+export default function CodeEditor({ currentActivity, setAnswer }) {
   const [userCode, setUserCode] = useState();
   const [testResult, setResult] = useState();
 
@@ -36,10 +36,14 @@ export default function CodeEditor({ currentActivity }) {
   }
 
   return (
-    <Container>
+    <>
       <HeaderEditor>
         <h3>Seu codigo</h3>
-        <Button text={solutionButton} width="auto" />
+        <Button
+          text={solutionButton}
+          width="auto"
+          onClick={() => setAnswer(true)}
+        />
       </HeaderEditor>
 
       <Editor
@@ -62,6 +66,6 @@ export default function CodeEditor({ currentActivity }) {
             <ConsoleResult test={r} state={r.state} index={i} key={r.id} />
           ))}
       </ConsoleBox>
-    </Container>
+    </>
   );
 }

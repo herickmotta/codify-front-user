@@ -13,6 +13,12 @@ const InitialBackground = styled.section`
   align-items: center;
   justify-content: center;
   padding: 80px 0;
+  text-align: center;
+
+  @media (max-width: 500px) {
+    height: 100%;
+    padding: 0;
+  }
 `;
 
 export default InitialBackground;
