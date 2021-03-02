@@ -3,12 +3,11 @@ import Colors from "../../config/colors";
 
 export const Container = styled.body`
   width: 100%;
-  min-height: 100vh;
+  min-height: calc(21.2rem + 80px + 860px);
   display: flex;
   flex-direction: column;
   align-items: center;
   background: ${Colors.backgroundGray};
-
   position: relative;
 `;
 

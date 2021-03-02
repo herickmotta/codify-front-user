@@ -69,6 +69,20 @@ class UserService {
       return error.response.status;
     }
   }
+
+  async editProfile(body, userToken) {
+    try {
+      const { data } = await api.put(`/users/edit-profile`, body, {
+        headers: { Authorization: `JWT ${userToken}` },
+      });
+      if (data) {
+        return { success: data };
+      }
+      return null;
+    } catch (error) {
+      return error;
+    }
+  }
 }
 
 export default new UserService();

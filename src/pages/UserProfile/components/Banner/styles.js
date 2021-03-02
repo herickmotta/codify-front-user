@@ -5,8 +5,7 @@ import MEDIA_MAX from "../../../../config/media";
 
 export const Container = styled.header`
   width: 100%;
-  height: 21.2rem;
-
+  height: auto;
   display: flex;
   justify-content: center;
 
@@ -66,6 +65,7 @@ export const UserName = styled.p`
     font-size: 1.75rem;
     line-height: 2.25rem;
 
-    margin-bottom: 5%;
+    padding-bottom: 40px;
+    margin-bottom: 15px;
   }
 `;

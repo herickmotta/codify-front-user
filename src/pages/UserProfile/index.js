@@ -13,7 +13,7 @@ export default function UserProfile() {
     <Container>
       <Header />
       <Banner name={user.name} />
-      <EditProfile email={user.email} name={user.name} />
+      <EditProfile email={user.email} name={user.name} userToken={user.token} />
     </Container>
   );
 }

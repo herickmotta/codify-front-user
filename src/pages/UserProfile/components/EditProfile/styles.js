@@ -5,7 +5,7 @@ import MEDIA_MAX from "../../../../config/media";
 
 export const Container = styled.form`
   width: 65%;
-  /* height: auto; */
+  height: auto;
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
@@ -18,7 +18,6 @@ export const Container = styled.form`
   border-radius: 1.5rem;
 
   padding: 59px 20px 39px 57px;
-
   ${MEDIA_MAX} {
     left: 0%;
     top: 18rem;
@@ -27,7 +26,7 @@ export const Container = styled.form`
 
     padding: 30px 25px 20px 25px;
 
-    flex-wrap: wrap;
+    flex-direction: column-reverse;
 
     button {
       font-size: 18px;
@@ -79,6 +78,9 @@ export const PictureContainer = styled.div`
     width: 10rem !important;
     height: 10rem !important;
     border-radius: 100%;
+  }
+  ${MEDIA_MAX} {
+    margin-bottom: 40px;
   }
 `;
 
