@@ -3,7 +3,7 @@ import { FormControlLabel, Checkbox } from "@material-ui/core";
 import ExerciseWording from "../ExerciseWording";
 import Button from "../../../../components/Button";
 import ClassVideo from "../ClassVideo";
-import CodeEditor from "../CodeEditor";
+import ExerciseEditor from "../ExerciseEditor";
 import { Container, Box, EndActivity } from "./style";
 
 export default function Activity({
@@ -82,7 +82,8 @@ export default function Activity({
         setType("exercise");
       }
 
-      updateActivityData(name, wording, example, youtubeLink);
+      if (title !== name)
+        updateActivityData(name, wording, example, youtubeLink);
 
       markActivityAsDone(theoryDones, exerciseDones);
     }
@@ -150,7 +151,7 @@ export default function Activity({
         </EndActivity>
       </Box>
       {activityType !== "theory" && (
-        <CodeEditor currentActivity={currentActivity} />
+        <ExerciseEditor currentActivity={currentActivity} />
       )}
     </Container>
   );
