@@ -5,7 +5,7 @@ import Input from "../../../../components/Input";
 import Colors from "../../../../config/colors";
 import UserContext from "../../../../contexts/UserContext";
 import UserService from "../../../../services/UserService";
-
+import UploadImage from "./components/UploadImage";
 import {
   Container,
   InputsContainer,
@@ -155,7 +155,14 @@ export default function EditProfile({ email, name, userToken }) {
         </ButtonContainer>
       </InputsContainer>
       <PictureContainer>
-        <Avatar name={name} size="100%" />
+        <div>
+          {user.imageUrl ? (
+            <img src={user.imageUrl} alt="avatar" className="avatar" />
+          ) : (
+            <Avatar name={user.name} size="50px" className="avatar" />
+          )}
+          <UploadImage />
+        </div>
       </PictureContainer>
     </Container>
   );

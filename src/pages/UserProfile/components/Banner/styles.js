@@ -34,8 +34,13 @@ export const AvatarBox = styled.div`
   border-radius: 100%;
 
   div {
-    /* width: 10rem !important; */
-    border-radius: 100%;
+    border-radius: 50%;
+  }
+  img {
+    object-fit: fit;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
   }
 `;
 

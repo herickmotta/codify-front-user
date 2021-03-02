@@ -16,6 +16,7 @@ const Colors = {
   greyScrollBar: "#5B5B5B",
   lightGrayButton: "#595959",
   editProfileGrey: "#9F9F9F",
+  editBlue: "#2C8396",
 };
 
 export default Colors;

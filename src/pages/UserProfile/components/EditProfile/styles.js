@@ -73,11 +73,27 @@ export const PictureContainer = styled.div`
 
   width: 100%;
 
-  div {
+  div,
+  img,
+  .edit {
     margin-top: 8%;
     width: 10rem !important;
     height: 10rem !important;
     border-radius: 100%;
+    .visible {
+      display: flex;
+    }
+    &:hover {
+      .avatar {
+        opacity: 50%;
+      }
+      .edit {
+        display: flex;
+      }
+    }
+  }
+  img {
+    margin-top: 14%;
   }
   ${MEDIA_MAX} {
     margin-bottom: 40px;
