@@ -38,10 +38,6 @@ export const HeaderEditor = styled.div`
   padding: 0 10px 0 20px;
   color: ${Colors.white};
 
-  * {
-    font-size: 15px;
-  }
-
   button {
     display: flex;
     align-items: center;
@@ -50,5 +46,9 @@ export const HeaderEditor = styled.div`
     background-color: ${Colors.lightGrayButton};
     border-radius: 10px;
     line-height: 17px;
+  }
+
+  @media (max-width: 800px) {
+    padding: 0 2% 0 4%;
   }
 `;

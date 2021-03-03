@@ -8,9 +8,6 @@ const HeaderEditor = styled.div`
   padding: 0 10px 0 20px;
   color: ${Colors.white};
 
-  * {
-    font-size: 15px;
-  }
   button {
     display: flex;
     align-items: center;
@@ -22,11 +19,7 @@ const HeaderEditor = styled.div`
   }
 
   @media (max-width: 800px) {
-    padding: 0 5px 0 10px;
-
-    button {
-      padding: 5px 20px;
-    }
+    padding: 0 2% 0 4%;
   }
 `;
 

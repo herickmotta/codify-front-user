@@ -20,15 +20,11 @@ export const EndActivity = styled.footer`
     color: ${(props) => (props.checked ? Colors.lightGreen : Colors.lightGray)};
   }
 
-  @media (max-width: 900px) {
-    padding: 10% 2%;
-
-    * {
-      font-size: 15px;
-    }
+  @media (max-width: 800px) {
+    padding: 15% 2%;
 
     button {
-      padding: 5px 30px;
+      padding: 10px 30px;
     }
   }
 `;
