@@ -1,5 +1,7 @@
+/* eslint-disable react/button-has-type */
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+
 import InitialBackground from "../../components/InitialBackground/styles";
 import Logo from "../../components/Logo";
 import FormsContainer from "../../components/FormsContainer/styles";
@@ -16,8 +18,9 @@ export default function SignUp() {
   const [passwordConfirmation, setPasswordConfirmation] = useState();
   const [disableButton, setDisableButton] = useState(true);
   const [loadingButton, setLoadingButton] = useState(false);
-  const [modalIsOpen, setModalIsOpen] = useState(false);
   const [warning, setWarning] = useState();
+
+  const history = useHistory();
 
   useEffect(() => {
     if (name && email && password && passwordConfirmation) {
@@ -42,8 +45,13 @@ export default function SignUp() {
     const data = await UserService.signUp(body);
 
     if (data.success) {
-      setWarning("Usuário registrado com sucesso!");
-      setModalIsOpen(true);
+      history.push({
+        pathname: "/",
+        data: {
+          title: "Cadastro concluído com sucesso!",
+          message: "Faça login para continuar",
+        },
+      });
     } else if (data.response.status === 409) {
       setWarning("E-mail já cadastrado.");
     } else if (
@@ -93,7 +101,7 @@ export default function SignUp() {
           value={passwordConfirmation}
           onChange={(e) => setPasswordConfirmation(e.target.value)}
         />
-        {!modalIsOpen && warning && <p>{warning}</p>}
+        {warning && <p>{warning}</p>}
         <Button
           disabled={disableButton}
           loading={loadingButton}
@@ -102,14 +110,6 @@ export default function SignUp() {
         <Link to="/">Ja tem conta? Faca login</Link>
         <Link to="/recover-password">Esqueceu sua senha?</Link>
       </FormsContainer>
-      {modalIsOpen && (
-        <WarningModal
-          modalIsOpen={modalIsOpen}
-          warning={warning}
-          setModalIsOpen={setModalIsOpen}
-          color={Colors.green}
-        />
-      )}
     </InitialBackground>
   );
 }
