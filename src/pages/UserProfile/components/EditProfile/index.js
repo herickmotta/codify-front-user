@@ -155,12 +155,14 @@ export default function EditProfile({ email, name, userToken }) {
         </ButtonContainer>
       </InputsContainer>
       <PictureContainer>
-        <div>
-          {user.imageUrl ? (
-            <img src={user.imageUrl} alt="avatar" className="avatar" />
-          ) : (
-            <Avatar name={user.name} size="50px" className="avatar" />
-          )}
+        <div className="imgLabelBox">
+          <div className="imgBox">
+            {user.imageUrl ? (
+              <img src={user.imageUrl} alt="avatar" className="avatar" />
+            ) : (
+              <Avatar name={user.name} size="50px" className="avatar" />
+            )}
+          </div>
           <UploadImage />
         </div>
       </PictureContainer>

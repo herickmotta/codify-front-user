@@ -8,7 +8,7 @@ export const Container = styled.form`
   height: auto;
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
 
   position: absolute;
   left: 17.5%;
@@ -70,18 +70,37 @@ export const PictureContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-
+  margin-bottom: 50px;
   width: 100%;
-
-  div,
-  img,
-  .edit {
-    margin-top: 8%;
-    width: 10rem !important;
-    height: 10rem !important;
-    border-radius: 100%;
+  .imgLabelBox {
+    width: 10rem;
+    height: 10rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    .imgBox {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      img {
+        height: 100%;
+        width: auto;
+      }
+      div {
+        border-radius: 50%;
+        width: 10rem !important;
+        height: 10rem !important;
+      }
+    }
     .visible {
       display: flex;
+    }
+    .edit {
     }
     &:hover {
       .avatar {
@@ -91,9 +110,6 @@ export const PictureContainer = styled.div`
         display: flex;
       }
     }
-  }
-  img {
-    margin-top: 14%;
   }
   ${MEDIA_MAX} {
     margin-bottom: 40px;

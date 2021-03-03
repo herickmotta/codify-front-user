@@ -6,7 +6,8 @@ export const EditLabel = styled.label`
   opacity: 100% !important;
   width: 100%;
   height: 100%;
-  top: 52px;
+  top: 0;
+  left: 0;
   position: absolute;
   z-index: 2;
   color: ${Colors.editBlue};
@@ -27,8 +28,8 @@ export const SpinnerBox = styled.label`
   opacity: 100% !important;
   width: 100%;
   height: 100%;
-  top: 52px;
-  padding: 8px;
+  top: 22px;
+  left: 37px;
   position: absolute;
   z-index: 3;
   font-size: 80px;

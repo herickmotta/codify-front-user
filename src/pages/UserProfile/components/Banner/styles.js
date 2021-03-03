@@ -27,20 +27,14 @@ export const AvatarBox = styled.div`
 
   width: 5.5rem;
   height: 5.5rem;
-
-  /* border-radius: 100%; */
+  border-radius: 50%;
+  overflow: hidden;
   border: 4px solid ${Colors.white};
   box-sizing: border-box;
-  border-radius: 100%;
 
-  div {
-    border-radius: 50%;
-  }
   img {
-    object-fit: fit;
-    width: 100%;
+    width: auto;
     height: 100%;
-    border-radius: 50%;
   }
 `;
 
