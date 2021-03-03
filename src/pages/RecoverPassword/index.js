@@ -9,6 +9,7 @@ import Button from "../../components/Button";
 import WarningModal from "../../components/WarningModal";
 import Colors from "../../config/colors";
 import UserService from "../../services/UserService";
+import GoogleAnalyticsTracker from "../../hooks/GoogleAnalyticsTracker";
 
 export default function RecoverPassword() {
   const [warning, setWarning] = useState(false);
@@ -62,6 +63,7 @@ export default function RecoverPassword() {
           color={warning ? Colors.red : Colors.green}
         />
       )}
+      <GoogleAnalyticsTracker />
     </InitialBackground>
   );
 }

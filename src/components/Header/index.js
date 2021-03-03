@@ -27,7 +27,6 @@ export default function Header() {
 
         <Nav>
           <Link to="/home"> Home </Link>
-          <Link to="/courses"> Cursos </Link>
         </Nav>
       </LeftBox>
       <AvatarBox onClick={() => setIsMenuDown(!isMenuDown)}>

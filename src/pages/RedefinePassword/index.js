@@ -7,6 +7,7 @@ import FormsContainer from "../../components/FormsContainer/styles";
 import Input from "../../components/Input";
 import Button from "../../components/Button";
 import UserService from "../../services/UserService";
+import GoogleAnalyticsTracker from "../../hooks/GoogleAnalyticsTracker";
 
 export default function RedefinePassword() {
   const [warning, setWarning] = useState(false);
@@ -88,6 +89,7 @@ export default function RedefinePassword() {
         <Button text="Redefinir senha" loading={loading} disabled={loading} />
         <Link to="/">Voltar para login</Link>
       </FormsContainer>
+      <GoogleAnalyticsTracker />
     </InitialBackground>
   );
 }
