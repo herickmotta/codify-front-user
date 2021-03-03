@@ -7,10 +7,14 @@ export default function Input({
   placeHolder,
   value,
   onChange,
+  borderColor,
+  Color,
   id,
 }) {
   return (
     <Container
+      borderColor={borderColor}
+      Color={Color}
       type={type}
       placeholder={placeHolder}
       value={value}

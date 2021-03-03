@@ -65,7 +65,11 @@ export const AvatarBox = styled.div`
   position: relative;
   padding-right: 20px;
   cursor: pointer;
-
+  img {
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+  }
   div {
     border-radius: 50%;
   }
