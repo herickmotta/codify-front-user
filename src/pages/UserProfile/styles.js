@@ -1,11 +1,14 @@
 import styled from "styled-components";
+import Colors from "../../config/colors";
 
 export const Container = styled.body`
   width: 100%;
+  min-height: calc(21.2rem + 80px + 860px);
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   align-items: center;
-  box-shadow: 0px 4px 5px 0px rgba(0, 0, 0, 0.25);
+  background: ${Colors.backgroundGray};
+  position: relative;
 `;
 
 export const temp = 0;
