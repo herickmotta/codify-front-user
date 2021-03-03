@@ -19,7 +19,7 @@ export default function Header({ options, courseId, openMenu, setOpenMenu }) {
   return (
     <Container>
       <Icon onClick={() => history.push(`/courses/${courseId}`)}>
-        <IoIosArrowBack size={46} />
+        <IoIosArrowBack />
       </Icon>
 
       {topicName && (

@@ -29,7 +29,7 @@ export default function SolutionEditor({ currentActivity, setAnswer }) {
       </HeaderEditor>
 
       <Editor
-        height="calc(100% - 37px)"
+        height="calc(100% - 38px)"
         defaultLanguage="javascript"
         theme="vs-dark"
         value={solution}

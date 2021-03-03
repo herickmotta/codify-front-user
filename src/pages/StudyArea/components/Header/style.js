@@ -4,18 +4,20 @@ import Colors from "../../../../config/colors";
 export const Container = styled.header`
   width: 100%;
   display: flex;
+  aling-items: center;
   background-color: ${Colors.black};
   font-size: 25px;
   padding: 15px 20px;
 `;
 
 export const Topics = styled.div`
-  width: 30%;
+  width: 40%;
   color: ${Colors.white};
   display: flex;
   justify-content: space-evenly;
+  aling-items: center;
   position: absolute;
-  left: 35%;
+  left: 30%;
   top: 25px;
   cursor: pointer;
 
@@ -27,15 +29,27 @@ export const Topics = styled.div`
   svg {
     transition: all 200ms linear;
     transform: ${(props) => (props.openMenu ? `rotate(180deg)` : `rotate(0)`)};
-    margin-left: 0.1em;
+  }
+
+  @media (max-width: 800px) {
+    width: 60%;
+    left: 25%;
+
+    div {
+      font-size: 46px;
+    }
   }
 `;
 
 export const Icon = styled.div`
   background-color: ${Colors.lightGray};
-  font-size: 36px;
+  font-size: 46px;
   border-radius: 6px;
   display: flex;
   justify-content: center;
   align-items: center;
+
+  @media (max-width: 800px) {
+    font-size: 35px;
+  }
 `;

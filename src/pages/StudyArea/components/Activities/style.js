@@ -5,23 +5,45 @@ export const EndActivity = styled.footer`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1.5%;
+  padding: 2% 0;
 
-  button {
+  * {
     font-size: 19px;
+    line-height: 20px;
+  }
+  button {
     width: auto;
     padding: 10px 40px;
     margin-bottom: 0;
   }
   span {
     color: ${(props) => (props.checked ? Colors.lightGreen : Colors.lightGray)};
-    font-size: 19px;
+  }
+
+  @media (max-width: 900px) {
+    padding: 10% 2%;
+
+    * {
+      font-size: 15px;
+    }
+
+    button {
+      padding: 5px 30px;
+    }
   }
 `;
 
 export const Box = styled.article`
-  padding: 4% ${(props) => (props.type !== "theory" ? "1% 0 3%" : "0")};
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 4% ${(props) => (props.type !== "theory" ? "2% 0 3%" : "0")};
   width: ${(props) => (props.type !== "theory" ? "40%" : "60%")};
+  min-height: calc(568px - 109px - 4vh);
+
+  @media (max-width: 800px) {
+    width: 100%;
+  }
 `;
 
 export const Container = styled.div`
@@ -29,4 +51,9 @@ export const Container = styled.div`
   justify-content: ${(props) =>
     props.type === "theory" ? "flex-start" : "center"};
   height: calc(96vh - 120px);
+
+  @media (max-width: 800px) {
+    flex-direction: column;
+    height: calc(100% - 120px);
+  }
 `;

@@ -2,9 +2,9 @@ import styled from "styled-components";
 import Color from "../../../../config/colors";
 
 const Container = styled.aside`
+  flex-grow: 1;
   color: ${Color.lightGray};
   font-size: 18px;
-  height: calc(96% - 42px);
   padding-right: 2%;
 
   h1 {

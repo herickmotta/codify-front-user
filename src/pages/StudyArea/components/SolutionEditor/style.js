@@ -11,7 +11,6 @@ const HeaderEditor = styled.div`
   * {
     font-size: 15px;
   }
-
   button {
     display: flex;
     align-items: center;
@@ -20,6 +19,14 @@ const HeaderEditor = styled.div`
     background-color: ${Colors.lightGrayButton};
     border-radius: 10px;
     line-height: 17px;
+  }
+
+  @media (max-width: 800px) {
+    padding: 0 5px 0 10px;
+
+    button {
+      padding: 5px 20px;
+    }
   }
 `;
 
