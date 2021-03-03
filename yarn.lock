@@ -10269,6 +10269,11 @@ react-modal@^3.12.1:
     react-lifecycles-compat "^3.0.0"
     warning "^4.0.3"
 
+react-notifications-component@^3.0.4:
+  version "3.0.4"
+  resolved "https://registry.yarnpkg.com/react-notifications-component/-/react-notifications-component-3.0.4.tgz#dfee512d7cc77228874559a568ff9a38f56f96de"
+  integrity sha512-agG/lDRwZ16o2Jqt9BkdG5QHn6L/+WD2NYsuQ5C/MP8KjcLj+ddgUaa6PbjSGpHqfeBrE4LVkKh2L5tf4kdmjw==
+
 react-overlays@^4.1.0:
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/react-overlays/-/react-overlays-4.1.1.tgz#0060107cbe1c5171a744ccda3fbf0556d064bc5f"

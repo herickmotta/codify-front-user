@@ -1,30 +1,28 @@
 import React, { useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useHistory, useParams } from "react-router-dom";
 
 import InitialBackground from "../../components/InitialBackground/styles";
 import Logo from "../../components/Logo";
 import FormsContainer from "../../components/FormsContainer/styles";
 import Input from "../../components/Input";
 import Button from "../../components/Button";
-import WarningModal from "../../components/WarningModal";
-import Colors from "../../config/colors";
 import UserService from "../../services/UserService";
 
 export default function RedefinePassword() {
   const [warning, setWarning] = useState(false);
   const [newPassword, setNewPassword] = useState();
   const [newPasswordConfirmation, setNewPasswordConfirmation] = useState();
-  const [modalIsOpen, setModalIsOpen] = useState(false);
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
 
   const { id, token } = useParams();
+  const history = useHistory();
 
   async function redefinePassword(e) {
     e.preventDefault();
 
     setLoading(true);
-    const data = await UserService.redefinePassword({
+    const userData = await UserService.redefinePassword({
       id,
       token,
       password: newPassword,
@@ -44,11 +42,11 @@ export default function RedefinePassword() {
       setMessage("Sua nova senha deve ter no mínimo 8 caracteres");
     }
 
-    if (data === 'password" is required') {
+    if (userData === 'password" is required') {
       setWarning(true);
       setMessage("Campo nova senha é obrigatório");
     }
-    if (data === 404 || data === 401) {
+    if (userData === 404 || userData === 401) {
       setWarning(true);
       setMessage(
         "Seção expirou!, por favor, volte para login e clique em recuperar senha novamente"
@@ -58,9 +56,13 @@ export default function RedefinePassword() {
       setWarning(true);
       setMessage("Os campos devem ser iguais");
     } else {
-      setWarning(false);
-      setMessage("Senha redefinida com sucesso!");
-      setModalIsOpen(true);
+      history.push({
+        pathname: "/",
+        data: {
+          title: "Senha redefinida com sucesso!",
+          message: "Faça login para continuar",
+        },
+      });
     }
   }
 
@@ -86,14 +88,6 @@ export default function RedefinePassword() {
         <Button text="Redefinir senha" loading={loading} disabled={loading} />
         <Link to="/">Voltar para login</Link>
       </FormsContainer>
-      {modalIsOpen && (
-        <WarningModal
-          modalIsOpen={modalIsOpen}
-          warning={message}
-          setModalIsOpen={setModalIsOpen}
-          color={warning ? Colors.red : Colors.green}
-        />
-      )}
     </InitialBackground>
   );
 }

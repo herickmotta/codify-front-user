@@ -1,5 +1,8 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useHistory, useLocation } from "react-router-dom";
+import ReactNotification, { store } from "react-notifications-component";
+import "react-notifications-component/dist/theme.css";
+
 import UserContext from "../../contexts/UserContext";
 import InitialBackground from "../../components/InitialBackground/styles";
 import Logo from "../../components/Logo";
@@ -7,7 +10,9 @@ import FormsContainer from "../../components/FormsContainer/styles";
 import Input from "../../components/Input";
 import Button from "../../components/Button";
 import UserService from "../../services/UserService";
+import MyNotification from "../../components/Notification";
 import GoogleAnalyticsTracker from "../../hooks/GoogleAnalyticsTracker";
+
 
 export default function SignIn() {
   const { setUser } = useContext(UserContext);
@@ -17,6 +22,23 @@ export default function SignIn() {
   const [loadingButton, setLoadingButton] = useState(false);
   const [warning, setWarning] = useState();
   const history = useHistory();
+  const { data } = useLocation();
+
+  useEffect(() => {
+    if (data) {
+      store.addNotification({
+        content: MyNotification(data),
+        insert: "top",
+        isMobile: true,
+        container: "top-right",
+        animationIn: ["animate__animated", "animate__fadeIn"],
+        animationOut: ["animate__animated", "animate__fadeOut"],
+        dismiss: {
+          duration: 5000,
+        },
+      });
+    }
+  }, [data]);
 
   useEffect(() => {
     if (email && password) {
@@ -33,17 +55,19 @@ export default function SignIn() {
     setLoadingButton(true);
 
     const body = { email, password };
-    const data = await UserService.signIn(body);
+    const userData = await UserService.signIn(body);
 
-    if (data.success) {
-      setUser(data.success);
+    if (userData.success) {
+      setUser(userData.success);
       history.push("/home");
-    } else if (data.response.status === 401) {
-      setWarning("E-mail ou senha incorretos.");
-    } else if (data.response.data.error === '"email" must be a valid email') {
+    } else if (userData.response.status === 401) {
       setWarning("E-mail ou senha incorretos.");
     } else if (
-      data.response.data.error ===
+      userData.response.data.error === '"email" must be a valid email'
+    ) {
+      setWarning("E-mail ou senha incorretos.");
+    } else if (
+      userData.response.data.error ===
       '"password" length must be at least 8 characters long'
     ) {
       setWarning("Senha deve ter no mínimo 8 caracteres");
@@ -79,7 +103,7 @@ export default function SignIn() {
         <Link to="/signup">Primeira vez? Crie uma conta!</Link>
         <Link to="/recover-password">Esqueceu sua senha?</Link>
       </FormsContainer>
-          
+      <ReactNotification /> 
       <GoogleAnalyticsTracker />
     </InitialBackground>
   );
