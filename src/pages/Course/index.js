@@ -9,7 +9,7 @@ import Header from "../../components/Header";
 import AccordionChapters from "./components/AccordionChapters";
 import CourseDetails from "./components/CourseDetails";
 import CoursesService from "../../services/CoursesService";
-
+import GoogleAnalyticsTracker from "../../hooks/GoogleAnalyticsTracker";
 import { Container } from "./styles";
 
 export default function Course() {
@@ -63,6 +63,8 @@ export default function Course() {
         />
       )}
       {chapters && <AccordionChapters chapters={chapters} courseId={id} />}
+      
+      <GoogleAnalyticsTracker />
     </Container>
   );
 }

@@ -11,6 +11,7 @@ import BulletNavigation from "./components/BulletNavigation";
 import Header from "./components/Header";
 import Activities from "./components/Activities";
 import MenuItems from "./components/MenuItems";
+import GoogleAnalyticsTracker from "../../hooks/GoogleAnalyticsTracker";
 
 export default function StudyArea() {
   const { user, lastTaskData, setLastTaskData } = useContext(UserContext);
@@ -142,6 +143,7 @@ export default function StudyArea() {
         openMenu={openMenu}
         setOpenMenu={setOpenMenu}
       />
+
       {options && (
         <Menu openMenu={openMenu}>
           {options.list.map((e) => (
@@ -161,6 +163,7 @@ export default function StudyArea() {
           ))}
         </Menu>
       )}
+
       <Content>
         {topicActivities && currentActivity && (
           <ul>
@@ -177,6 +180,7 @@ export default function StudyArea() {
           </ul>
         )}
       </Content>
+
       {currentActivity && (
         <Activities
           currentActivity={currentActivity.data}
@@ -190,6 +194,8 @@ export default function StudyArea() {
           changeTopic={changeTopic}
         />
       )}
+
+      <GoogleAnalyticsTracker />
     </Container>
   );
 }
