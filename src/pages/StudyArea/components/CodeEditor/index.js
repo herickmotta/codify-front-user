@@ -47,7 +47,7 @@ export default function CodeEditor({ currentActivity, setAnswer }) {
       </HeaderEditor>
 
       <Editor
-        height="calc(60% - 37px)"
+        height="calc(60% - 38px)"
         defaultLanguage="javascript"
         theme="vs-dark"
         value={userCode}

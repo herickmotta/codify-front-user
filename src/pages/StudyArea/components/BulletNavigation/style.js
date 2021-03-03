@@ -28,5 +28,11 @@ const Container = styled.li`
   p {
     margin-top: 5px;
   }
+
+  @media (max-width: 800px) {
+    & > :last-child {
+      width: 20vw;
+    }
+  }
 `;
 export default Container;

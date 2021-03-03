@@ -10,6 +10,7 @@ export const Content = styled.nav`
   ul {
     display: flex;
     justify-content: center;
+    height: 44px;
 
     & > :last-child > :last-child {
       display: none;
@@ -19,17 +20,16 @@ export const Content = styled.nav`
 
 export const Container = styled.section`
   background-color: ${Colors.darkGray};
-  height: 100%;
+  min-height: 100vh;
   font-family: ${typography.Roboto};
 `;
 
 export const Menu = styled.ul`
-  margin: 0 auto;
   display: ${(props) => (props.openMenu ? "flex" : "none")};
   flex-direction: column;
   position: absolute;
-  left: 35%;
-  width: 30%;
+  left: 30%;
+  width: 40%;
   background-color: ${Colors.blackMenu};
   padding: 10px 20px;
   border-bottom-left-radius: 27px;
@@ -53,5 +53,13 @@ export const Menu = styled.ul`
   }
   ::-webkit-scrollbar-thumb:hover {
     background-color: ${Colors.lightGray};
+  }
+
+  @media (max-width: 800px) {
+    width: 100%;
+    left: 0;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    max-height: calc(60% - 76px);
   }
 `;

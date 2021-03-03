@@ -14,7 +14,7 @@ export const ConsoleBox = styled.ul`
   display: flex;
   flex-direction: column;
   background-color: #1e1e1e;
-  height: calc(40% - 37px);
+  height: calc(40% - 38px);
   padding: 20px;
   color: ${Colors.white};
   overflow: auto;
@@ -38,10 +38,6 @@ export const HeaderEditor = styled.div`
   padding: 0 10px 0 20px;
   color: ${Colors.white};
 
-  * {
-    font-size: 15px;
-  }
-
   button {
     display: flex;
     align-items: center;
@@ -50,5 +46,9 @@ export const HeaderEditor = styled.div`
     background-color: ${Colors.lightGrayButton};
     border-radius: 10px;
     line-height: 17px;
+  }
+
+  @media (max-width: 800px) {
+    padding: 0 2% 0 4%;
   }
 `;
