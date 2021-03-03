@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-
+import ReactGA from "react-ga";
 import ResetCSS from "./assets/global/ResetCSS";
 import GlobalStyle from "./assets/global/GlobalStyle";
 import { UserProvider } from "./contexts/UserContext";
@@ -12,26 +12,29 @@ import UserProfile from "./pages/UserProfile";
 import Courses from "./pages/Courses";
 import StudyArea from "./pages/StudyArea";
 
-const App = () => (
-  <UserProvider>
-    <Router>
-      <ResetCSS />
-      <GlobalStyle />
-      <Switch>
-        <Route
-          exact
-          path="/courses/:id/chapters/:chapterId/topics/:topicId"
-          component={StudyArea}
-        />
-        <Route exact path="/" component={SignIn} />
-        <Route exact path="/signUp" component={SignUp} />
-        <Route exact path="/home" component={Home} />
-        <Route exact path="/courses" component={Courses} />
-        <Route exact path="/profile" component={UserProfile} />
-        <Route exact path="/courses/:id" component={Course} />
-      </Switch>
-    </Router>
-  </UserProvider>
-);
+const App = () => {
+  ReactGA.initialize(process.env.GOOGLE_ANALYTICS_TRACKING_ID);
 
+  return (
+    <UserProvider>
+      <Router>
+        <ResetCSS />
+        <GlobalStyle />
+        <Switch>
+          <Route
+            exact
+            path="/courses/:id/chapters/:chapterId/topics/:topicId"
+            component={StudyArea}
+          />
+          <Route exact path="/" component={SignIn} />
+          <Route exact path="/signUp" component={SignUp} />
+          <Route exact path="/home" component={Home} />
+          <Route exact path="/courses" component={Courses} />
+          <Route exact path="/profile" component={UserProfile} />
+          <Route exact path="/courses/:id" component={Course} />
+        </Switch>
+      </Router>
+    </UserProvider>
+  );
+};
 export default App;

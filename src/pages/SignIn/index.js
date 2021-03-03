@@ -7,6 +7,7 @@ import FormsContainer from "../../components/FormsContainer/styles";
 import Input from "../../components/Input";
 import Button from "../../components/Button";
 import UserService from "../../services/UserService";
+import GoogleAnalyticsTracker from "../../hooks/GoogleAnalyticsTracker";
 
 export default function SignIn() {
   const { setUser } = useContext(UserContext);
@@ -54,30 +55,34 @@ export default function SignIn() {
   }
 
   return (
-    <InitialBackground>
-      <Logo />
-      <FormsContainer onSubmit={createUser}>
-        <Input
-          type="email"
-          placeHolder="e-mail"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <Input
-          type="password"
-          placeHolder="senha"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        {warning && <p>{warning}</p>}
-        <Button
-          disabled={disableButton}
-          loading={loadingButton}
-          text="entrar"
-        />
-        <Link to="/signup">Primeira vez? Crie uma conta!</Link>
-        <Link to="/recoverPassword">Esqueceu sua senha?</Link>
-      </FormsContainer>
-    </InitialBackground>
+    <>
+      <InitialBackground>
+        <Logo />
+        <FormsContainer onSubmit={createUser}>
+          <Input
+            type="email"
+            placeHolder="e-mail"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <Input
+            type="password"
+            placeHolder="senha"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          {warning && <p>{warning}</p>}
+          <Button
+            disabled={disableButton}
+            loading={loadingButton}
+            text="entrar"
+          />
+          <Link to="/signup">Primeira vez? Crie uma conta!</Link>
+          <Link to="/recoverPassword">Esqueceu sua senha?</Link>
+        </FormsContainer>
+      </InitialBackground>
+
+      <GoogleAnalyticsTracker />
+    </>
   );
 }
