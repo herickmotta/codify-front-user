@@ -30,6 +30,24 @@ class ActivitiesService {
       return error;
     }
   }
+
+  async lastSeen(courseId, body, token) {
+    try {
+      const { data } = await api.put(
+        `/users/courses/${courseId}/last-task-seen`,
+        body,
+        {
+          headers: { Authorization: `JWT ${token}` },
+        }
+      );
+      if (data) {
+        return { success: data };
+      }
+      return null;
+    } catch (error) {
+      return error;
+    }
+  }
 }
 
 export default new ActivitiesService();

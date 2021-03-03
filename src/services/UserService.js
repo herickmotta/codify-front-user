@@ -43,6 +43,63 @@ class UserService {
       return null;
     }
   }
+
+  async sendEmailToRecoverPassword(email) {
+    try {
+      const { data } = await api.post(`/users/recover-password`, email);
+      if (data) {
+        return data;
+      }
+      return null;
+    } catch (error) {
+      return error.response.status;
+    }
+  }
+
+  async redefinePassword(body) {
+    try {
+      const { data } = await api.put(`/users/redefine-password`, body);
+      if (data) {
+        return data;
+      }
+      return null;
+    } catch (error) {
+      if (error.response.status === 422) return error.response.data;
+
+      return error.response.status;
+    }
+  }
+
+  async editProfile(body, userToken) {
+    try {
+      const { data } = await api.put(`/users/edit-profile`, body, {
+        headers: { Authorization: `JWT ${userToken}` },
+      });
+      if (data) {
+        return { success: data };
+      }
+      return null;
+    } catch (error) {
+      return error;
+    }
+  }
+
+  async editAvatar(body, userToken) {
+    try {
+      const { data } = await api.put(`/users/edit-profile/image`, body, {
+        headers: {
+          Authorization: `JWT ${userToken}`,
+          "Content-Type": `multipart/form-data`,
+        },
+      });
+      if (data) {
+        return { success: data };
+      }
+      return null;
+    } catch (error) {
+      return error;
+    }
+  }
 }
 
 export default new UserService();

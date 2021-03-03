@@ -1,8 +1,11 @@
 import styled from "styled-components";
 import Colors from "../../config/colors";
+import MEDIA_MAX from "../../config/media";
 import Tipografy from "../../config/typography";
 
 export const Container = styled.div`
+  position: fixed;
+  top: 0;
   width: 100%;
   height: 80px;
   display: flex;
@@ -20,6 +23,7 @@ export const Container = styled.div`
 
 export const LeftBox = styled.div`
   display: flex;
+  align-items: center;
   font-size: 18px;
 `;
 export const LogoBox = styled.div`
@@ -41,6 +45,13 @@ export const Nav = styled.nav`
   a:hover {
     opacity: 50%;
   }
+  ${MEDIA_MAX} {
+    flex-direction: column;
+    align-items: flex-start;
+    a {
+      padding: 5px;
+    }
+  }
 `;
 export const LogOutButton = styled.div`
   width: 100%;
@@ -53,10 +64,14 @@ export const AvatarBox = styled.div`
   align-items: center;
   position: relative;
   padding-right: 20px;
-
+  cursor: pointer;
   img {
+    height: 50px;
+    width: 50px;
     border-radius: 50%;
-    height: 100%;
+  }
+  div {
+    border-radius: 50%;
   }
 `;
 

@@ -4,7 +4,6 @@ import { useHistory } from "react-router-dom";
 import Header from "../../components/Header";
 import UserContext from "../../contexts/UserContext";
 import CoursesService from "../../services/CoursesService";
-import UserService from "../../services/UserService";
 import SignIn from "../SignIn";
 import CardsSection from "./components/CardsSection";
 import SnippetSection from "./components/SnippetSection";
@@ -14,10 +13,10 @@ import GoogleAnalyticsTracker from "../../hooks/GoogleAnalyticsTracker";
 
 export default function Home() {
   const history = useHistory();
-  const { user, setUser } = useContext(UserContext);
+  const { user } = useContext(UserContext);
   const [coursesStarted, setCoursesStarted] = useState([]);
+  const [snippetCourse, setSnippetCourse] = useState({});
   const [courses, setCourses] = useState([]);
-  const [loading, setLoading] = useState(false);
 
   if (!user) {
     history.push("/");
@@ -27,6 +26,9 @@ export default function Home() {
   const getAllCoursesStarted = async () => {
     const data = await CoursesService.getAllCoursesStarted(user.token);
     if (data) {
+      const lastCourseSeen = data.splice(0, 1)[0];
+      setSnippetCourse(lastCourseSeen);
+
       setCoursesStarted(data);
     } else {
       alert("Erro ao carregar cursos");
@@ -47,23 +49,18 @@ export default function Home() {
     getAllCoursesNotStarted();
   }, []);
 
-  const logOut = async () => {
-    setLoading(true);
-    const data = await UserService.logOut(user.token);
-    setLoading(false);
-    if (data) {
-      history.push("/");
-      localStorage.clear();
-    } else {
-      setUser(null);
-    }
-  };
-
   return (
     <Container>
-      <Header logOut={() => logOut()} loading={loading} />
+      <Header />
       <WelcomeBanner isSomeCourseStarted={coursesStarted.length === 0} />
       <MainContent>
+        {snippetCourse && (
+          <SnippetSection
+            title="Continue seu curso atual"
+            course={snippetCourse}
+          />
+        )}
+
         {coursesStarted.length === 0 ? (
           <>
             <CardsSection
@@ -73,11 +70,6 @@ export default function Home() {
           </>
         ) : (
           <>
-            <SnippetSection
-              title="Continue seu curso atual"
-              course={coursesStarted[0]}
-            />
-
             <CardsSection
               title="Meus cursos em andamento"
               courses={coursesStarted}

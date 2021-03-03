@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import MEDIA_MAX from "../../../../config/media";
 import tipography from "../../../../config/typography";
 
 export const Container = styled.div`
@@ -14,9 +15,13 @@ export const Container = styled.div`
     margin: 20px 0;
     font-size: calc(20px + (32 - 20) * ((100vw - 300px) / (1600 - 300)));
   }
+  ${MEDIA_MAX} {
+    justify-content: center;
+  }
 `;
 
 export const CardsList = styled.ul`
+  width: auto;
   display: flex;
   justify-content: flex-start;
   height: 100%;
@@ -31,5 +36,16 @@ export const CardsList = styled.ul`
 
   & > :last-child {
     margin-right: 0rem;
+  }
+
+  ${MEDIA_MAX} {
+    justify-content: center;
+    & > div {
+      margin-right: 0em;
+    }
+
+    & > :last-child {
+      margin-right: 0rem;
+    }
   }
 `;

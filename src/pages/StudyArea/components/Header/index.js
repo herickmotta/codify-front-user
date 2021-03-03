@@ -19,13 +19,13 @@ export default function Header({ options, courseId, openMenu, setOpenMenu }) {
   return (
     <Container>
       <Icon onClick={() => history.push(`/courses/${courseId}`)}>
-        <IoIosArrowBack />
+        <IoIosArrowBack size={46} />
       </Icon>
 
       {topicName && (
         <Topics openMenu={openMenu} onClick={() => setOpenMenu(!openMenu)}>
           <h1>{topicName}</h1>
-          <IoIosArrowDown />
+          <IoIosArrowDown size={30} />
         </Topics>
       )}
     </Container>

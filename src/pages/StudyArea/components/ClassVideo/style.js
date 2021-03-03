@@ -2,11 +2,11 @@ import styled from "styled-components";
 
 const YouTubePlayer = styled.iframe`
   display: flex;
-  margin: 0 auto;
-  margin-top: 6vh;
-  width: 60%;
-  height: 60%;
+  justify-content: center;
+  width: 60vw;
+  height: 33.75vw;
   min-width: 320px;
+  min-height: 180px;
 `;
 
 export default YouTubePlayer;

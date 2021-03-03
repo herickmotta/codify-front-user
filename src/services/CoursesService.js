@@ -114,11 +114,28 @@ class CoursesService {
         headers: { Authorization: `JWT ${token}` },
       });
       if (data) {
-        return data;
+        return { success: data };
       }
       return null;
     } catch (error) {
       console.log(error);
+      return error;
+    }
+  }
+
+  async getLastTaskSeen(courseId, token) {
+    try {
+      const { data } = await api.get(
+        `/users/courses/${courseId}/last-task-seen`,
+        {
+          headers: { Authorization: `JWT ${token}` },
+        }
+      );
+      if (data) {
+        return data;
+      }
+      return null;
+    } catch (error) {
       return error;
     }
   }

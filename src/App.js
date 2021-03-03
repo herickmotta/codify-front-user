@@ -11,10 +11,12 @@ import Course from "./pages/Course";
 import UserProfile from "./pages/UserProfile";
 import Courses from "./pages/Courses";
 import StudyArea from "./pages/StudyArea";
+import RecoverPassword from "./pages/RecoverPassword";
+import RedefinePassword from "./pages/RedefinePassword";
 
 const App = () => {
   ReactGA.initialize(process.env.GOOGLE_ANALYTICS_TRACKING_ID);
-
+  
   return (
     <UserProvider>
       <Router>
@@ -32,6 +34,12 @@ const App = () => {
           <Route exact path="/courses" component={Courses} />
           <Route exact path="/profile" component={UserProfile} />
           <Route exact path="/courses/:id" component={Course} />
+          <Route exact path="/recover-password" component={RecoverPassword} />
+          <Route
+            exact
+            path="/redefine-password/:id/:token"
+            component={RedefinePassword}
+          />
         </Switch>
       </Router>
     </UserProvider>

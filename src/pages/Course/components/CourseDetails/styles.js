@@ -1,9 +1,10 @@
 import styled from "styled-components";
 import tipography from "../../../../config/typography";
+import MEDIA_MAX from "../../../../config/media";
 
 export const Container = styled.div`
   width: 100%;
-  height: 200px;
+  height: auto;
   background-image: linear-gradient(to bottom, #e4d04d, #f2e799);
   display: flex;
   flex-direction: column;
@@ -36,9 +37,25 @@ export const Container = styled.div`
     margin: 20px 0;
     font-size: 25px;
     font-weight: bold;
+    text-align: center;
   }
   & > p {
     color: #383838;
+    text-align: center;
+  }
+
+  ${MEDIA_MAX} {
+    & > h1 {
+      margin: 30px 15px;
+      font-size: 20px;
+    }
+    & > p {
+      margin-bottom: 30px;
+    }
+    .back-button {
+      top: 10px;
+      left: 10px;
+    }
   }
 `;
 
@@ -63,6 +80,21 @@ export const ContainerUserProgress = styled.div`
     margin: auto 20px;
     font-size: 15px;
   }
+
+  ${MEDIA_MAX} {
+    flex-direction: column;
+    height: 140px;
+    bottom: -70px;
+    padding-top: 10px;
+    width: 100%;
+    border-radius: 0px;
+    button {
+      width: 85%;
+      padding: 8px;
+      margin: 5px;
+      font-size: 15px;
+    }
+  }
 `;
 
 export const ContainerImgAndProgress = styled.div`
@@ -71,20 +103,31 @@ export const ContainerImgAndProgress = styled.div`
   align-items: center;
   width: 50%;
   margin-left: 15px;
-
-  img {
-    border-radius: 50%;
-    height: 50px;
-    width: 50px;
+  & > :first-child {
+    * {
+      border-radius: 50%;
+    }
   }
-
   p {
     margin-bottom: 10px;
     font-size: 15px;
   }
-
   > div {
     margin-left: 15px;
+  }
+
+  ${MEDIA_MAX} {
+    width: 100%;
+    justify-content: center;
+    margin-left: 0px;
+    margin: 5px;
+
+    p {
+      margin-right: 8px;
+    }
+    > div > div {
+      width: 90%;
+    }
   }
 `;
 

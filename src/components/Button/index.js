@@ -2,7 +2,20 @@ import React from "react";
 import Spinner from "../Spinner";
 import Container from "./styles";
 
-function Button({ loading, onClick, disabled, text, type, width, height }) {
+
+export default function Button({
+  loading,
+  onClick,
+  disabled,
+  text,
+  type,
+  width,
+  marginRight,
+  height,
+  color,
+  borderColor,
+  textColor,
+}) {
   return (
     <Container
       width={width}
@@ -10,10 +23,12 @@ function Button({ loading, onClick, disabled, text, type, width, height }) {
       onClick={onClick}
       disabled={disabled}
       type={type}
+      color={color}
+      textColor={textColor}
+      borderColor={borderColor}
+      marginRight={marginRight}
     >
       {loading ? <Spinner /> : text}
     </Container>
   );
 }
-
-export default Button;
