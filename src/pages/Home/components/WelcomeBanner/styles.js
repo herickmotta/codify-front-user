@@ -5,6 +5,7 @@ import tipography from "../../../../config/typography";
 const Banner = styled.div`
   background: ${colors.blue};
   width: 100%;
+  margin-top: 80px;
   padding: 25px 20px;
   color: ${colors.white};
   font-family: ${tipography.Roboto};

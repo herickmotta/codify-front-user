@@ -7,6 +7,7 @@ import Input from "../../components/Input";
 import Button from "../../components/Button";
 import UserService from "../../services/UserService";
 import WarningModal from "../../components/WarningModal";
+import GoogleAnalyticsTracker from "../../hooks/GoogleAnalyticsTracker";
 import Colors from "../../config/colors";
 
 export default function SignUp() {
@@ -68,6 +69,7 @@ export default function SignUp() {
   return (
     <InitialBackground>
       <Logo />
+
       <FormsContainer onSubmit={createUser}>
         <Input
           type="text"
@@ -102,6 +104,7 @@ export default function SignUp() {
         <Link to="/">Ja tem conta? Faca login</Link>
         <Link to="/recover-password">Esqueceu sua senha?</Link>
       </FormsContainer>
+
       {modalIsOpen && (
         <WarningModal
           modalIsOpen={modalIsOpen}
@@ -110,6 +113,8 @@ export default function SignUp() {
           color={Colors.green}
         />
       )}
+
+      <GoogleAnalyticsTracker />
     </InitialBackground>
   );
 }

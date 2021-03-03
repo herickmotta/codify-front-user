@@ -27,6 +27,10 @@ const FormsContainer = styled.form`
     color: ${(props) => props.color || Colors.red};
     font-weight: bold;
   }
+
+  @media (max-width: 500px) {
+    border-radius: 0;
+  }
 `;
 
 export default FormsContainer;

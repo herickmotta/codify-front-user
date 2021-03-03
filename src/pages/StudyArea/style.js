@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Colors from "../../config/colors";
-import tipography from "../../config/typography";
+import typography from "../../config/typography";
 
 export const Content = styled.nav`
   background-color: ${Colors.lightBlack};
@@ -22,6 +22,7 @@ export const Container = styled.section`
   background-color: ${Colors.darkGray};
   min-height: 100vh;
   font-family: ${tipography.Roboto};
+
 `;
 
 export const Menu = styled.ul`

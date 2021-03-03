@@ -24,7 +24,9 @@ export default function DropDownMenu({ isMenuDown }) {
 
   return (
     <DropMenu isMenuDown={isMenuDown}>
-      <button type="button">Perfil</button>
+      <button type="button" onClick={() => history.push("/profile")}>
+        Perfil
+      </button>
       <button type="button" onClick={logOut}>
         {loading ? <Spinner color="black" /> : "Sair"}
       </button>

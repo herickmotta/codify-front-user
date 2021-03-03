@@ -7,6 +7,7 @@ import FormsContainer from "../../components/FormsContainer/styles";
 import Input from "../../components/Input";
 import Button from "../../components/Button";
 import UserService from "../../services/UserService";
+import GoogleAnalyticsTracker from "../../hooks/GoogleAnalyticsTracker";
 
 export default function SignIn() {
   const { setUser } = useContext(UserContext);
@@ -78,6 +79,8 @@ export default function SignIn() {
         <Link to="/signup">Primeira vez? Crie uma conta!</Link>
         <Link to="/recover-password">Esqueceu sua senha?</Link>
       </FormsContainer>
+          
+      <GoogleAnalyticsTracker />
     </InitialBackground>
   );
 }

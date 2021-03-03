@@ -9,6 +9,7 @@ import CardsSection from "./components/CardsSection";
 import SnippetSection from "./components/SnippetSection";
 import WelcomeBanner from "./components/WelcomeBanner";
 import { Container, MainContent } from "./styles";
+import GoogleAnalyticsTracker from "../../hooks/GoogleAnalyticsTracker";
 
 export default function Home() {
   const history = useHistory();
@@ -81,6 +82,8 @@ export default function Home() {
           </>
         )}
       </MainContent>
+      
+      <GoogleAnalyticsTracker />
     </Container>
   );
 }

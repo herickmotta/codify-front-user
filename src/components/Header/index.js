@@ -35,7 +35,11 @@ export default function Header() {
           <IoIosArrowDown />
         </ArrowDropMenu>
         <DropDownMenu isMenuDown={isMenuDown} />
-        <Avatar name={user.name} size="50px" />
+        {user.imageUrl ? (
+          <img src={user.imageUrl} alt="avatar" />
+        ) : (
+          <Avatar name={user.name} size="50px" />
+        )}
       </AvatarBox>
     </Container>
   );

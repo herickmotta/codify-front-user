@@ -3,11 +3,11 @@ import { Spin } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
 import Colors from "../../config/colors";
 
-export default function Spinner({ color }) {
+export default function Spinner({ color, fontSize }) {
   const antIcon = (
     <LoadingOutlined
       style={{
-        fontSize: 24,
+        fontSize: fontSize || 24,
         color: color || Colors.white,
       }}
       spin
