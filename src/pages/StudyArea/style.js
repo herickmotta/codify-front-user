@@ -21,8 +21,7 @@ export const Content = styled.nav`
 export const Container = styled.section`
   background-color: ${Colors.darkGray};
   min-height: 100vh;
-  font-family: ${tipography.Roboto};
-
+  font-family: ${typography.Roboto};
 `;
 
 export const Menu = styled.ul`
