@@ -65,13 +65,21 @@ export const AvatarBox = styled.div`
   position: relative;
   padding-right: 20px;
   cursor: pointer;
-  img {
-    height: 50px;
-    width: 50px;
+  .imgBox {
+    height: 60px;
+    width: 60px;
     border-radius: 50%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    div {
+      border-radius: 100%;
+    }
   }
-  div {
-    border-radius: 50%;
+  img {
+    height: 100%;
+    width: auto;
   }
 `;
 
