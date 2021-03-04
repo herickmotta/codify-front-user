@@ -12,7 +12,7 @@ import UserProfile from "./pages/UserProfile";
 import StudyArea from "./pages/StudyArea";
 import RecoverPassword from "./pages/RecoverPassword";
 import RedefinePassword from "./pages/RedefinePassword";
-import GA_TRACKING_ID from "./config/googleAnalytics";
+import { GA_TRACKING_ID } from "./config/constants";
 
 const App = () => {
   ReactGA.initialize(GA_TRACKING_ID);
