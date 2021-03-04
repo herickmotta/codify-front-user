@@ -30,6 +30,8 @@ export const AvatarBox = styled.div`
   border-radius: 50%;
   overflow: hidden;
   border: 4px solid ${Colors.white};
+
+  background-color: ${Colors.white};
   box-sizing: border-box;
 
   img {
