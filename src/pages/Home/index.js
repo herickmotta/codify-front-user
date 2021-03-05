@@ -8,8 +8,10 @@ import SignIn from "../SignIn";
 import CardsSection from "./components/CardsSection";
 import SnippetSection from "./components/SnippetSection";
 import WelcomeBanner from "./components/WelcomeBanner";
-import { Container, MainContent } from "./styles";
+import { Container, MainContent, SpinnerBox } from "./styles";
 import GoogleAnalyticsTracker from "../../hooks/GoogleAnalyticsTracker";
+import Spinner from "../../components/Spinner";
+import Colors from "../../config/colors";
 
 export default function Home() {
   const history = useHistory();
@@ -17,6 +19,7 @@ export default function Home() {
   const [coursesStarted, setCoursesStarted] = useState([]);
   const [snippetCourse, setSnippetCourse] = useState({});
   const [courses, setCourses] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   if (!user) {
     history.push("/");
@@ -25,6 +28,7 @@ export default function Home() {
 
   const getAllCoursesStarted = async () => {
     const data = await CoursesService.getAllCoursesStarted(user.token);
+
     if (data) {
       const lastCourseSeen = data.splice(0, 1)[0];
       setSnippetCourse(lastCourseSeen);
@@ -36,7 +40,10 @@ export default function Home() {
   };
 
   const getAllCoursesNotStarted = async () => {
+    setLoading(true);
     const data = await CoursesService.getAllCoursesNotStarted(user.token);
+    setLoading(false);
+
     if (data) {
       setCourses(data);
     } else {
@@ -44,7 +51,7 @@ export default function Home() {
     }
   };
 
-  useEffect(async () => {
+  useEffect(() => {
     getAllCoursesStarted();
     getAllCoursesNotStarted();
   }, []);
@@ -54,35 +61,42 @@ export default function Home() {
       <Header />
       <WelcomeBanner isSomeCourseStarted={coursesStarted.length === 0} />
       <MainContent>
-        {snippetCourse && (
-          <SnippetSection
-            title="Continue seu curso atual"
-            course={snippetCourse}
-          />
-        )}
-
-        {coursesStarted.length === 0 ? (
-          <>
-            <CardsSection
-              title="Experimente nossos outros cursos"
-              courses={courses}
-            />
-          </>
+        {loading ? (
+          <SpinnerBox>
+            <Spinner color={Colors.blueBanner} fontSize="4rem" />
+          </SpinnerBox>
         ) : (
           <>
-            <CardsSection
-              title="Meus cursos em andamento"
-              courses={coursesStarted}
-              coursesStarted
-            />
-            <CardsSection
-              title="Experimente nossos outros cursos"
-              courses={courses}
-            />
+            {snippetCourse && (
+              <SnippetSection
+                title="Continue seu curso atual"
+                course={snippetCourse}
+              />
+            )}
+
+            {coursesStarted.length === 0 ? (
+              <>
+                <CardsSection
+                  title="Experimente nossos outros cursos"
+                  courses={courses}
+                />
+              </>
+            ) : (
+              <>
+                <CardsSection
+                  title="Meus cursos em andamento"
+                  courses={coursesStarted}
+                  coursesStarted
+                />
+                <CardsSection
+                  title="Experimente nossos outros cursos"
+                  courses={courses}
+                />
+              </>
+            )}
           </>
         )}
       </MainContent>
-      
       <GoogleAnalyticsTracker />
     </Container>
   );

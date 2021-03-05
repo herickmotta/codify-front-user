@@ -18,3 +18,12 @@ export const MainContent = styled.main`
   flex-direction: column;
   align-items: flex-start;
 `;
+
+export const SpinnerBox = styled.div`
+  width: 100%;
+  padding-top: 15rem;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;

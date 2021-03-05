@@ -11,9 +11,12 @@ import {
   Container,
   ContainerUserProgress,
   ContainerImgAndProgress,
+  SpinnerBox,
 } from "./styles";
 import CoursesService from "../../../../services/CoursesService";
 import UserContext from "../../../../contexts/UserContext";
+import Colors from "../../../../config/colors";
+import Spinner from "../../../../components/Spinner";
 
 export default function CourseDetails(props) {
   const {
@@ -24,6 +27,7 @@ export default function CourseDetails(props) {
     incompleteCourse,
     chapters,
     isCourseStarted,
+    loading,
   } = props;
   const { user, setLastTaskData } = useContext(UserContext);
   const history = useHistory();
@@ -63,34 +67,47 @@ export default function CourseDetails(props) {
       <Link to="/home" className="back-button">
         <RiArrowLeftSLine />
       </Link>
-      <h1>{courseName}</h1>
-      <p>{courseDescription}</p>
-      {!incompleteCourse && (
-        <ContainerUserProgress>
-          <ContainerImgAndProgress>
-            <Avatar name={user.name} size="50px" />
 
-            <div>
-              <p>
-                {userProgress === 0
-                  ? "Você não iniciou esse curso ainda"
-                  : `Faltam só ${100 - userProgress}% para concluir o curso!`}
-              </p>
-              <ProgressBar
-                now={userProgress}
-                label={`${userProgress}%`}
-                min={30}
-                max={100}
-                variant="success"
-                animated
+      {loading ? (
+        <SpinnerBox>
+          <Spinner color={Colors.blueBanner} fontSize="10rem" />
+        </SpinnerBox>
+      ) : (
+        <>
+          <h1>{courseName}</h1>
+          <p>{courseDescription}</p>
+          {!incompleteCourse && (
+            <ContainerUserProgress>
+              <ContainerImgAndProgress>
+                <Avatar name={user.name} size="50px" />
+
+                <div>
+                  <p>
+                    {userProgress === 0
+                      ? "Você não iniciou esse curso ainda"
+                      : `Faltam só ${
+                          100 - userProgress
+                        }% para concluir o curso!`}
+                  </p>
+                  <ProgressBar
+                    now={userProgress}
+                    label={`${userProgress}%`}
+                    min={30}
+                    max={100}
+                    variant="success"
+                    animated
+                  />
+                </div>
+              </ContainerImgAndProgress>
+              <Button
+                text={
+                  isCourseStarted ? "Continuar curso >>" : "Iniciar curso >>"
+                }
+                onClick={() => openStudyPage()}
               />
-            </div>
-          </ContainerImgAndProgress>
-          <Button
-            text={isCourseStarted ? "Continuar curso >>" : "Iniciar curso >>"}
-            onClick={() => openStudyPage()}
-          />
-        </ContainerUserProgress>
+            </ContainerUserProgress>
+          )}
+        </>
       )}
     </Container>
   );

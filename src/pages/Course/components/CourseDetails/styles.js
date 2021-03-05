@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import tipography from "../../../../config/typography";
 import MEDIA_MAX from "../../../../config/media";
+import Colors from "../../../../config/colors";
 
 export const Container = styled.div`
   width: 100%;
@@ -132,3 +133,12 @@ export const ContainerImgAndProgress = styled.div`
 `;
 
 export const temp = 0;
+
+export const SpinnerBox = styled.div`
+  width: 100%;
+  padding-top: 5rem;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;

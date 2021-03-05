@@ -23,6 +23,7 @@ export default function Course() {
   const { user } = useContext(UserContext);
   const { id } = useParams();
   const history = useHistory();
+  const [loading, setLoading] = useState(true);
 
   if (!user) {
     history.push("/");
@@ -30,8 +31,10 @@ export default function Course() {
   }
 
   useEffect(async () => {
+    setLoading(true);
     const data = await CoursesService.getById(id, user.token);
     const progressData = await CoursesService.getCourseProgress(id, user.token);
+    setLoading(false);
     if (data && progressData.success) {
       setIsCourseStarted(data.isCourseStarted);
       setCourseId(data.id);
@@ -51,6 +54,7 @@ export default function Course() {
       <Header />
       {chapters && (
         <CourseDetails
+          loading={loading}
           courseId={courseId}
           courseName={
             courseName || "Curso em desenvolvimento. Disponível em breve!"
@@ -63,7 +67,7 @@ export default function Course() {
         />
       )}
       {chapters && <AccordionChapters chapters={chapters} courseId={id} />}
-      
+
       <GoogleAnalyticsTracker />
     </Container>
   );
