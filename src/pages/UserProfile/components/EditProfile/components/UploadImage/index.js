@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 
 import { BsPencil } from "react-icons/bs";
 import Spinner from "../../../../../../components/Spinner";
+import Colors from "../../../../../../config/colors";
 import UserContext from "../../../../../../contexts/UserContext";
 import UserService from "../../../../../../services/UserService";
 import { EditLabel, SpinnerBox } from "./styles";
@@ -29,7 +30,7 @@ export default function UploadImage() {
     <div>
       {loading ? (
         <SpinnerBox className="visible edit">
-          <Spinner fontSize="60" />
+          <Spinner fontSize="60" color={Colors.blueBanner} />
         </SpinnerBox>
       ) : (
         <div>

@@ -56,10 +56,9 @@ export default function EditProfile({ email, name, userToken }) {
       const data = await UserService.editProfile(body, userToken);
       if (data.success) {
         setUser({
-          id: user.id,
+          ...user,
           email: data.success.email,
           name: data.success.name,
-          token: user.token,
         });
       } else if (
         data.response.data.error ===
@@ -151,6 +150,7 @@ export default function EditProfile({ email, name, userToken }) {
             disabled={loading}
             text="Salvar"
             type="submit"
+            loading={loading}
           />
         </ButtonContainer>
       </InputsContainer>
